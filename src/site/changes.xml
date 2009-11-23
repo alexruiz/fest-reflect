@@ -6,85 +6,89 @@
   </properties>
   <body>
     <release version="1.2" date="TBD" description="Subsequent release">
-      <action dev="alruiz" type="add" issue="FEST-68" due-to="Francis ANDRE">
+      <action dev="alexruiz" type="add" issue="FEST-68" due-to="Francis ANDRE">
         Method invocation now rethrow the original exception thrown by the method.
       </action>
-      <action dev="alruiz" type="add" issue="FEST-68" due-to="Francis ANDRE">
+      <action dev="alexruiz" type="add" issue="FEST-68" due-to="Francis ANDRE">
         Constructor invocation now rethrow the original exception thrown by the constructor.
+      </action>
+      <action dev="alexruiz" type="add" issue="FEST-235" due-to="Jean-Francois Poilpret">
+        Added static method 'property(String)' to class Reflection. It returns the starting point of the fluent 
+        interface for accessing properties using Bean Instrospection under the hood.
       </action>
     </release>
     <release version="1.1" date="2009-02-10" description="Subsequent release">
-      <action dev="alruiz" type="add" issue="117" due-to="Xavier Dury">
+      <action dev="alexruiz" type="add" issue="117" due-to="Xavier Dury">
         Added class org.fest.reflect.type.TypeRef based on Neal Gafter's TypeReference.
       </action>
-      <action dev="alruiz" type="add" issue="117" due-to="Xavier Dury">
+      <action dev="alexruiz" type="add" issue="117" due-to="Xavier Dury">
         Added support for TypeRef as field type in the fluent interface of the package org.fest.reflect.field.
       </action>
-      <action dev="alruiz" type="add" issue="117" due-to="Xavier Dury">
+      <action dev="alexruiz" type="add" issue="117" due-to="Xavier Dury">
         Added support for TypeRef as method return type in the fluent interface of the package org.fest.reflect.method.
       </action>
-      <action dev="alruiz" type="add" issue="194" due-to="Leo Jay">
+      <action dev="alexruiz" type="add" issue="194" due-to="Leo Jay">
         Added support for accessing static inner classes (code in package org.fest.reflect.innerclass.)
       </action>
-      <action dev="alruiz" type="add" issue="278" due-to="Stephen Colebourne">
+      <action dev="alexruiz" type="add" issue="278" due-to="Stephen Colebourne">
         Added support for loading class objects via the method 'type(String)' in org.fest.reflect.core.Reflection and
         the class(es) in the package org.fest.reflect.type.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class Name to FieldName in package org.fest.reflect.field.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class StaticName to StaticFieldName in package org.fest.reflect.field.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class Type to FieldType in package org.fest.reflect.field.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class StaticType to StaticFieldType in package org.fest.reflect.field.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class Name to MethodName in package org.fest.reflect.method.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class StaticName to StaticMethodName in package org.fest.reflect.method.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class ParameterTypes to MethodParameterTypes in package org.fest.reflect.method.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class StaticParameterTypes to StaticMethodParameterTypes in package org.fest.reflect.method.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class ReturnType to MethodReturnType in package org.fest.reflect.method.
       </action>
-      <action dev="alruiz" type="fix" issue="287">
+      <action dev="alexruiz" type="fix" issue="287">
         Renamed class StaticReturnType to StaticMethodReturnType in package org.fest.reflect.method.
       </action>
-      <action dev="alruiz" type="fix" issue="288">
+      <action dev="alexruiz" type="fix" issue="288">
         All public methods throw NullPointerException if any of their arguments is null.
       </action>
     </release>
     <release version="1.0" date="2009-01-07" description="Subsequent release">
-      <action dev="alruiz" type="fix">
+      <action dev="alexruiz" type="fix">
         Updated documentation.
       </action>
     </release>
     <release version="0.4" date="2008-02-27" description="Subsequent release">
-      <action dev="alruiz" type="add" issue="111">
+      <action dev="alexruiz" type="add" issue="111">
         Added support for calling static fields and static methods.
       </action>
-      <action dev="alruiz" type="fix">
+      <action dev="alexruiz" type="fix">
         Fixed bug in method setAccessible(AccessibleObject, boolean) in org.fest.reflect.util.Accessibles where 'true'
         was used instead of the specified boolean value.
       </action>
     </release>
     <release version="0.3" date="2008-01-31" description="Subsequent release">
-      <action dev="alruiz" type="fix" issue="106">
+      <action dev="alexruiz" type="fix" issue="106">
         Reflection.method now find methods of supertypes.
       </action>
     </release>
     <release version="0.2" date="2008-01-02" description="First public release">
-      <action dev="alruiz" type="fix">
+      <action dev="alexruiz" type="fix">
         Created class Accessibles to call method 'setAccessible' in an AccessibleObject inside a Privileged Block.
       </action>
       <action dev="wanghy" type="fix">

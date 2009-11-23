@@ -31,13 +31,13 @@ abstract class TypeTemplate<T> {
     this.type = type;
   }
 
-  final Invoker<T> fieldInvoker(Object target, Class<?> declaringType) {
+  final Invoker<T> fieldInvoker(Object target) {
     Invoker<T> invoker = new Invoker<T>(name, target);
     invoker.verifyCorrectType(type);
     return invoker;
   }
 
-  final Invoker<T> fieldInvoker(Class<?> target, Class<?> declaringType) {
+  final Invoker<T> fieldInvoker(Class<?> target) {
     Invoker<T> invoker = new Invoker<T>(name, target);
     invoker.verifyCorrectType(type);
     return invoker;

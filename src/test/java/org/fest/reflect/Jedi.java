@@ -55,16 +55,25 @@ public class Jedi extends Person {
   }
 
   public List<String> powers() {
+    return getPowers();
+  }
+
+  public List<String> getPowers() {
     return new ArrayList<String>(powers);
   }
-  
+
+  public void setPowers(List<String> newPowers) {
+    powers.clear();
+    powers.addAll(newPowers);
+  }
+
   public List<String> powersThatStartWith(String prefix) {
     List<String> sub = new ArrayList<String>();
-    for (String power : powers) 
+    for (String power : powers)
       if (power != null && power.startsWith(prefix)) sub.add(power);
     return sub;
   }
-  
+
   public boolean isMaster() { return master; }
 
   public static void addCommonPower(String power) {
@@ -89,7 +98,7 @@ public class Jedi extends Person {
 
   public static List<String> commonPowersThatStartWith(String prefix) {
     List<String> sub = new ArrayList<String>();
-    for (String power : commonPowers) 
+    for (String power : commonPowers)
       if (power != null && power.startsWith(prefix)) sub.add(power);
     return sub;
   }

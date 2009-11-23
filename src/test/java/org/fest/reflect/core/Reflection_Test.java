@@ -17,6 +17,7 @@ package org.fest.reflect.core;
 
 import static org.fest.assertions.Assertions.assertThat;
 
+import org.fest.reflect.beanproperty.PropertyName;
 import org.fest.reflect.constructor.TargetType;
 import org.fest.reflect.field.FieldName;
 import org.fest.reflect.field.StaticFieldName;
@@ -61,5 +62,10 @@ public class Reflection_Test {
   @Test
   public void should_return_type_fluent_interface() {
     assertThat(Reflection.type("type")).isInstanceOf(Type.class);
+  }
+
+  @Test
+  public void should_return_property_fluent_interface() {
+    assertThat(Reflection.property("property")).isInstanceOf(PropertyName.class);
   }
 }
