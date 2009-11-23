@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- 
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License
+is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+or implied. See the License for the specific language governing permissions and limitations under
+the License.
+
+Copyright @2007-2009 the original author or authors.
+ -->
+</head>
+<body bgcolor="white">
+<p>
+Provides a &quot;fluent&quot; API for accessing static inner classes via the Java Reflection API.
+</p>
+<p>
+<strong>Note:</strong> Classes in this package are not intended to be used directly. To use them, you need to use the
+class <code>{@link org.fest.reflect.core.Reflection org.fest.reflect.core.Reflection}</code>.
+</p>
+<p>
+Here are some examples:
+<pre>
+   // import static {@link org.fest.reflect.core.Reflection org.fest.reflect.core.Reflection}.*;
+
+   // Gets the inner class 'Master' in the declaring class 'Jedi':
+   Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#staticInnerClass(String) staticInnerClass}("Master").{@link org.fest.reflect.innerclass.StaticInnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.Invoker#get() get}();
+</pre>
+</p>
+</body>
+</html>

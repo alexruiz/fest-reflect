@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="FEST-Reflect">
+	<skin>
+		<groupId>fest</groupId>
+		<artifactId>fest-site-skin</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</skin>
+	<bannerLeft>
+		<name>FEST-Reflect</name>
+		<src>/images/fest-reflect.png</src>
+		<href>index.php</href>
+	</bannerLeft>
+  <poweredBy>
+    <logo name="Built with Maven 2" href="http://maven.apache.org"
+      img="images/logos/maven-feather.png" />
+  </poweredBy>
+
+	<body>
+		<breadcrumbs>
+			<item name="FEST" href="../index.php" />
+      <item name="Reflection" href="index.php"/>
+    </breadcrumbs>
+		<menu ref="reports"/>		
+	</body>
+</project>

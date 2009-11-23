@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<!-- 
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+in compliance with the License. You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under the License
+is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+or implied. See the License for the specific language governing permissions and limitations under
+the License.
+
+Copyright @2007-2009 the original author or authors.
+ -->
+</head>
+<body bgcolor="white">
+<p>
+Provides a &quot;fluent&quot; API that
+makes usage of the Java Reflection API easier and improves code readability.
+</p>
+<p>
+Here are some examples:
+<pre>
+   // import static {@link org.fest.reflect.core.Reflection org.fest.reflect.core.Reflection}.*;
+
+   // Loads the class 'org.republic.Jedi'
+   Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#load() load}();
+   
+   // Loads the class 'org.republic.Jedi' as 'org.republic.Person' (Jedi extends Person)
+   Class&lt;Person&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#loadAs(Class) loadAs}(Person.class);
+
+   // Loads the class 'org.republic.Jedi' using a custom class loader
+   Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link org.fest.reflect.type.TypeLoader#load() load}();
+
+   // Gets the inner class 'Master' in the declaring class 'Jedi':
+   Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#staticInnerClass(String) staticInnerClass}("Master").{@link org.fest.reflect.innerclass.StaticInnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.Invoker#get() get}();
+
+   // Equivalent to call 'new Person()'
+   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.Invoker#newInstance(Object...) newInstance}();
+   
+   // Equivalent to call 'new Person(&quot;Yoda&quot;)'
+   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.ParameterTypes#in(Class) in}(Person.class).{@link org.fest.reflect.constructor.Invoker#newInstance(Object...) newInstance}("Yoda");
+ 
+   // Retrieves the value of the field &quot;name&quot;
+   String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(person).{@link org.fest.reflect.field.Invoker#get() get}();
+   
+   // Sets the value of the field 'name' to &quot;Yoda&quot;
+   {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(person).{@link org.fest.reflect.field.Invoker#set(Object) set}("Yoda");
+   
+   // Equivalent to call 'jedi.getPowers()'
+   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(org.fest.reflect.reference.TypeRef) withReturnType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
+                                            .{@link org.fest.reflect.method.MethodReturnTypeRef#in(Object) in}(person)
+                                            .{@link org.fest.reflect.method.Invoker#invoke(Object...) invoke}();   
+
+   // Equivalent to call 'person.setName("Luke")'
+   {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
+                    .{@link org.fest.reflect.method.MethodParameterTypes#in(Object) in}(person)
+                    .{@link org.fest.reflect.method.Invoker#invoke(Object...) invoke}("Luke");
+ 
+   // Equivalent to call 'person.concentrate()'
+   {@link org.fest.reflect.core.Reflection#method(String) method}("concentrate").{@link org.fest.reflect.method.MethodName#in(Object) in}(person).{@link org.fest.reflect.method.Invoker#invoke(Object...) invoke}();
+   
+   // Equivalent to call 'person.getName()'
+   String name = {@link org.fest.reflect.core.Reflection#method(String) method}("getName").{@link org.fest.reflect.method.MethodName#withReturnType(Class) withReturnType}(String.class)
+                                  .{@link org.fest.reflect.method.MethodReturnType#in(Object) in}(person)
+                                  .{@link org.fest.reflect.method.Invoker#invoke(Object...) invoke}();   
+                                                  
+   // Equivalent to call 'Jedi.getCommonPowers()'
+   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#staticMethod(String) staticMethod}("getCommonPowers").{@link org.fest.reflect.method.StaticMethodName#withReturnType(org.fest.reflect.reference.TypeRef) withReturnType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
+                                                        .{@link org.fest.reflect.method.StaticMethodReturnTypeRef#in(Class) in}(Jedi.class)
+                                                        .{@link org.fest.reflect.method.Invoker#invoke(Object...) invoke}();   
+</pre>
+</p>
+</body>
+</html>
