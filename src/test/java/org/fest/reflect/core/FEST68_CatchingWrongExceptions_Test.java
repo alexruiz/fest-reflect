@@ -18,7 +18,7 @@ package org.fest.reflect.core;
 import static org.fest.reflect.core.Reflection.constructor;
 import static org.fest.reflect.core.Reflection.method;
 
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * Tests for <a href="http://jira.codehaus.org/browse/FEST-68" target="_blank">FEST-68</a>.
@@ -26,16 +26,16 @@ import org.testng.annotations.Test;
  * @author Francis ANDRE
  * @author Alex Ruiz
  */
-@Test public class FEST68_CatchingWrongExceptions {
+public class FEST68_CatchingWrongExceptions_Test {
 
-  @Test(expectedExceptions = MyRuntimeException.class)
-  public void shouldNotCatchRuntimeExceptionWhenCallingMethod() {
+  @Test(expected = MyRuntimeException.class)
+  public void should_not_catch_RuntimeException_when_calling_method() {
     Main main = new Main();
     method("set").in(main).invoke();
   }
 
-  @Test(expectedExceptions = MyRuntimeException.class)
-  public void shouldNotCatchRuntimeExceptionWhenCallingConstructor() {
+  @Test(expected = MyRuntimeException.class)
+  public void should_not_catch_RuntimeException_when_calling_constructor() {
     constructor().withParameterTypes(String.class).in(Main.class).newInstance("Hello");
   }
 

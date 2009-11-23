@@ -21,7 +21,7 @@ import java.lang.reflect.Constructor;
 
 import org.fest.reflect.Person;
 import org.fest.reflect.exception.ReflectionError;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 /**
  * Tests for the fluent interface for constructors.
@@ -29,21 +29,24 @@ import org.testng.annotations.Test;
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
-@Test public class ConstructorTest {
+public class Constructor_Test {
 
-  public void shouldCreateNewInstanceWithDefaultConstructor() {
+  @Test
+  public void should_create_new_instance_with_default_constructor() {
     Person person = new TargetType().in(Person.class).newInstance();
     assertThat(person).isNotNull();
     assertThat(person.getName()).isNull();
   }
 
-  public void shouldCreateNewInstanceUsingGivenConstructorParameters() {
+  @Test
+  public void should_create_new_instance_using_given_constructor_parameters() {
     Person person = new TargetType().withParameterTypes(String.class).in(Person.class).newInstance("Yoda");
     assertThat(person).isNotNull();
     assertThat(person.getName()).isEqualTo("Yoda");
   }
 
-  public void shouldReturnConstructorInfo() {
+  @Test
+  public void should_return_real_constructor() {
     Constructor<Person> constructor = new TargetType().withParameterTypes(String.class).in(Person.class).info();
     assertThat(constructor).isNotNull();
     Class<?>[] parameterTypes = constructor.getParameterTypes();
@@ -51,14 +54,14 @@ import org.testng.annotations.Test;
     assertThat(parameterTypes[0]).isEqualTo(String.class);
   }
 
-  @Test(expectedExceptions = ReflectionError.class)
-  public void shouldThrowErrorIfConstructorNotFound() {
+  @Test(expected = ReflectionError.class)
+  public void should_throw_error_if_constructor_was_not_found() {
     Class<Integer> illegalType = Integer.class;
     new TargetType().withParameterTypes(illegalType).in(Person.class);
   }
 
-  @Test(expectedExceptions = IllegalArgumentException.class)
-  public void shouldThrowErrorIfInstanceNotCreated() {
+  @Test(expected = IllegalArgumentException.class)
+  public void should_throw_error_if_instance_was_not_created() {
     int illegalArg = 8;
     new TargetType().withParameterTypes(String.class).in(Person.class).newInstance(illegalArg);
   }
