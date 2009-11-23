@@ -23,6 +23,7 @@ import java.util.List;
 import org.fest.reflect.Jedi;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.test.CodeToTest;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -32,6 +33,11 @@ import org.junit.Test;
  * @author Alex Ruiz
  */
 public class Method_staticMethod_Test {
+
+  @Before
+  public void setUp() {
+    Jedi.clearCommonPowers();
+  }
 
   @Test
   public void should_throw_error_if_static_method_name_is_null() {
