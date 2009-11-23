@@ -44,8 +44,8 @@ public class PropertyTypeRef<T> {
   private final TypeRef<T> type;
   private final String name;
 
-  PropertyTypeRef(TypeRef<T> type, PropertyName propertyName) {
-    name = propertyName.name;
+  PropertyTypeRef(TypeRef<T> type, String propertyName) {
+    name = propertyName;
     if (type == null) throw new NullPointerException("The type reference of the property to access should not be null");
     this.type = type;
   }

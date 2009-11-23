@@ -47,7 +47,7 @@ import org.fest.reflect.reference.TypeRef;
  */
 public final class PropertyName {
 
-  final String name;
+  private final String name;
 
   /**
    * Creates a new <code>{@link PropertyName}</code>: the starting point of the fluent interface for accessing
@@ -72,7 +72,7 @@ public final class PropertyName {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> PropertyType<T> ofType(Class<T> type) {
-    return new PropertyType<T>(type, this);
+    return new PropertyType<T>(type, name);
   }
 
   /**
@@ -90,6 +90,6 @@ public final class PropertyName {
    * @throws NullPointerException if the given type reference is <code>null</code>.
    */
   public <T> PropertyTypeRef<T> ofType(TypeRef<T> type) {
-    return new PropertyTypeRef<T>(type, this);
+    return new PropertyTypeRef<T>(type, name);
   }
 }

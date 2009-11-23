@@ -25,8 +25,8 @@ abstract class TypeTemplate<T> {
   private final Class<T> type;
   private final String name;
 
-  TypeTemplate(Class<T> type, NameTemplate fieldName) {
-    name = fieldName.name;
+  TypeTemplate(Class<T> type, String fieldName) {
+    name = fieldName;
     if (type == null) throw new NullPointerException("The type of the field to access should not be null");
     this.type = type;
   }

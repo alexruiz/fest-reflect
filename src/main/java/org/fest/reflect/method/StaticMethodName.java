@@ -34,11 +34,11 @@ import org.fest.reflect.reference.TypeRef;
  *   String name = {@link org.fest.reflect.core.Reflection#staticMethod(String) staticMethod}("commonPowerCount").{@link StaticMethodName#withReturnType(Class) withReturnType}(String.class)
  *                                                 .{@link StaticMethodReturnType#in(Class) in}(Jedi.class)
  *                                                 .{@link Invoker#invoke(Object...) invoke}();
- *                                                 
+ *
  *   // Equivalent to call 'Jedi.getCommonPowers()'
  *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#staticMethod(String) staticMethod}("getCommonPowers").{@link StaticMethodName#withReturnType(TypeRef) withReturnType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
  *                                                        .{@link StaticMethodReturnTypeRef#in(Class) in}(Jedi.class)
- *                                                        .{@link Invoker#invoke(Object...) invoke}();   
+ *                                                        .{@link Invoker#invoke(Object...) invoke}();
  * </pre>
  * </p>
  *
@@ -47,7 +47,7 @@ import org.fest.reflect.reference.TypeRef;
 public class StaticMethodName extends NameTemplate {
 
   /**
-   * Creates a new </code>{@link StaticMethodName}</code>: the starting point of the fluent interface for accessing 
+   * Creates a new </code>{@link StaticMethodName}</code>: the starting point of the fluent interface for accessing
    * static methods using Java Reflection.
    * @param name the name of the method to access using Java Reflection.
    * @throws NullPointerException if the given name is <code>null</code>.
@@ -66,11 +66,11 @@ public class StaticMethodName extends NameTemplate {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> StaticMethodReturnType<T> withReturnType(Class<T> type) {
-    return new StaticMethodReturnType<T>(type, this);
+    return new StaticMethodReturnType<T>(type, name);
   }
 
   /**
-   * Specifies the return type reference of the static method to invoke. This method call is optional if the return type 
+   * Specifies the return type reference of the static method to invoke. This method call is optional if the return type
    * of the method to invoke is <code>void</code>.
    * @param <T> the generic type of the method's return type.
    * @param type the return type reference of the method to invoke.

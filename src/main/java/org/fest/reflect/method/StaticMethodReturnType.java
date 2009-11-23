@@ -34,11 +34,11 @@ import org.fest.reflect.reference.TypeRef;
  *   String name = {@link org.fest.reflect.core.Reflection#staticMethod(String) staticMethod}("commonPowerCount").{@link StaticMethodName#withReturnType(Class) withReturnType}(String.class)
  *                                                 .{@link StaticMethodReturnType#in(Class) in}(Jedi.class)
  *                                                 .{@link Invoker#invoke(Object...) invoke}();
- *                                                 
+ *
  *   // Equivalent to call 'Jedi.getCommonPowers()'
  *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#staticMethod(String) staticMethod}("getCommonPowers").{@link StaticMethodName#withReturnType(TypeRef) withReturnType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
  *                                                        .{@link StaticMethodReturnTypeRef#in(Class) in}(Jedi.class)
- *                                                        .{@link Invoker#invoke(Object...) invoke}();   
+ *                                                        .{@link Invoker#invoke(Object...) invoke}();
  * </pre>
  * </p>
  *
@@ -47,7 +47,8 @@ import org.fest.reflect.reference.TypeRef;
  * @author Alex Ruiz
  */
 public class StaticMethodReturnType<T> extends ReturnTypeTemplate<T> {
-  StaticMethodReturnType(Class<T> type, StaticMethodName methodName) {
+
+  StaticMethodReturnType(Class<T> type, String methodName) {
     super(type, methodName);
   }
 

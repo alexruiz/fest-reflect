@@ -1,15 +1,15 @@
 /*
  * Created on Feb 5, 2008
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- * 
+ *
  * Copyright @2006-2009 the original author or authors.
  */
 package org.fest.reflect.field;
@@ -24,13 +24,13 @@ import org.fest.reflect.reference.TypeRef;
  * <pre>
  *   // Retrieves the value of the static field "count"
  *   int count = {@link org.fest.reflect.core.Reflection#staticField(String) staticField}("count").{@link StaticFieldName#ofType(Class) ofType}(int.class).{@link StaticFieldType#in(Class) in}(Person.class).{@link Invoker#get() get}();
- *   
+ *
  *   // Sets the value of the static field "count" to 3
  *   {@link org.fest.reflect.core.Reflection#staticField(String) staticField}("count").{@link StaticFieldName#ofType(Class) ofType}(int.class).{@link StaticFieldType#in(Class) in}(Person.class).{@link Invoker#set(Object) set}(3);
- *   
+ *
  *   // Retrieves the value of the static field "commonPowers"
  *   List&lt;String&gt; commmonPowers = {@link org.fest.reflect.core.Reflection#staticField(String) staticField}("commonPowers").{@link #ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link StaticFieldTypeRef#in(Class) in}(Jedi.class).{@link Invoker#get() get}();
- *   
+ *
  *   // Sets the value of the static field "commonPowers"
  *   List&lt;String&gt; commonPowers = new ArrayList&lt;String&gt;();
  *   commonPowers.add("jump");
@@ -43,7 +43,7 @@ import org.fest.reflect.reference.TypeRef;
 public final class StaticFieldName extends NameTemplate {
 
   /**
-   * Creates a new <code>{@link StaticFieldName}</code>: the starting point of the fluent interface for accessing 
+   * Creates a new <code>{@link StaticFieldName}</code>: the starting point of the fluent interface for accessing
    * static fields using Java Reflection.
    * @param name the name of the field to access using Java Reflection.
    * @throws NullPointerException if the given name is <code>null</code>.
@@ -61,11 +61,11 @@ public final class StaticFieldName extends NameTemplate {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> StaticFieldType<T> ofType(Class<T> type) {
-    return new StaticFieldType<T>(type, this);
+    return new StaticFieldType<T>(type, name);
   }
 
   /**
-   * Sets the type reference of the field to access. This method reduces casting when the type of the field to access 
+   * Sets the type reference of the field to access. This method reduces casting when the type of the field to access
    * uses generics.
    * <p>
    * For example:

@@ -41,8 +41,8 @@ public class PropertyType<T> {
   private final Class<T> type;
   private final String name;
 
-  PropertyType(Class<T> type, PropertyName propertyName) {
-    name = propertyName.name;
+  PropertyType(Class<T> type, String propertyName) {
+    name = propertyName;
     if (type == null) throw new NullPointerException("The type of the property to access should not be null");
     this.type = type;
   }

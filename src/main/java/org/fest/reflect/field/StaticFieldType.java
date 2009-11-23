@@ -35,7 +35,7 @@ import org.fest.reflect.exception.ReflectionError;
  */
 public class StaticFieldType<T> extends TypeTemplate<T> {
 
-  StaticFieldType(Class<T> type, StaticFieldName fieldName) {
+  StaticFieldType(Class<T> type, String fieldName) {
     super(type, fieldName);
   }
 

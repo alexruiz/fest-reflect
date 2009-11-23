@@ -35,7 +35,7 @@ import org.fest.reflect.exception.ReflectionError;
  */
 public class FieldType<T> extends TypeTemplate<T> {
 
-  FieldType(Class<T> type, FieldName fieldName) {
+  FieldType(Class<T> type, String fieldName) {
     super(type, fieldName);
   }
 
