@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <project name="FEST-Reflect">
 	<skin>
-		<groupId>fest</groupId>
+		<groupId>org.easytesting</groupId>
 		<artifactId>fest-site-skin</artifactId>
-		<version>1.0-SNAPSHOT</version>
+		<version>1.0</version>
 	</skin>
 	<bannerLeft>
 		<name>FEST-Reflect</name>
