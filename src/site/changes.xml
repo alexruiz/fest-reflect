@@ -20,6 +20,9 @@
         Replaced constructor access in fluent interfaces with static factory methods, resulting in code duplication
         removal and improved encapsulation.
       </action>
+      <action dev="alexruiz" type="fix" issue="FEST-257">
+        FEST-Reflect now throws ReflectionError if a static inner class is not found.
+      </action>
     </release>
     <release version="1.1" date="2009-02-10" description="Subsequent release">
       <action dev="alexruiz" type="add" issue="117" due-to="Xavier Dury">

@@ -21,6 +21,7 @@ import org.fest.reflect.beanproperty.PropertyName;
 import org.fest.reflect.constructor.TargetType;
 import org.fest.reflect.field.FieldName;
 import org.fest.reflect.field.StaticFieldName;
+import org.fest.reflect.innerclass.StaticInnerClassName;
 import org.fest.reflect.method.MethodName;
 import org.fest.reflect.method.StaticMethodName;
 import org.fest.reflect.type.Type;
@@ -62,6 +63,11 @@ public class Reflection_Test {
   @Test
   public void should_return_type_fluent_interface() {
     assertThat(Reflection.type("type")).isInstanceOf(Type.class);
+  }
+
+  @Test
+  public void should_return_static_inner_class_fluent_interface() {
+    assertThat(Reflection.staticInnerClass("staticInnerClass")).isInstanceOf(StaticInnerClassName.class);
   }
 
   @Test

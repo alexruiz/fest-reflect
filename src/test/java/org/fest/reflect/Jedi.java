@@ -76,6 +76,14 @@ public class Jedi extends Person {
 
   public boolean isMaster() { return master; }
 
+  public void throwRuntimeException() {
+    throw new IllegalStateException("Somehow I got in an illegal state");
+  }
+
+  public void throwCheckedException() throws Exception {
+    throw new Exception("I don't know what's wrong");
+  }
+
   public static void addCommonPower(String power) {
     commonPowers.add(power);
   }

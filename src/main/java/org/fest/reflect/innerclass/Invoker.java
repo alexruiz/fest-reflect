@@ -17,6 +17,8 @@ package org.fest.reflect.innerclass;
 
 import static org.fest.util.Strings.concat;
 
+import org.fest.reflect.exception.ReflectionError;
+
 /**
  * Understands how to obtain a reference to a static inner class.
  *
@@ -42,12 +44,14 @@ public class Invoker {
   /**
    * Returns a reference to the static inner class with the specified name in the specified declaring class.
    * @return a reference to the static inner class with the specified name in the specified declaring class.
+   * @throws ReflectionError if the static inner class does not exist (since 1.2).
    */
   public Class<?> get() {
     String namespace = declaringClass.getName();
     for (Class<?> innerClass : declaringClass.getDeclaredClasses())
       if (innerClass.getName().equals(expectedInnerClassName(namespace))) return innerClass;
-    return null;
+    throw new ReflectionError(concat(
+        "The static inner class <", innerClassName, "> cannot be found in ", declaringClass.getName()));
   }
 
   private String expectedInnerClassName(String namespace) {

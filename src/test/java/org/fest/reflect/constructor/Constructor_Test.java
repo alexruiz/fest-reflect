@@ -16,6 +16,8 @@
 package org.fest.reflect.constructor;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Fail.fail;
+import static org.fest.reflect.util.ExpectedFailures.expectIllegalArgumentException;
 import static org.fest.reflect.util.ExpectedFailures.expectNullPointerException;
 
 import java.lang.reflect.Constructor;
@@ -77,5 +79,26 @@ public class Constructor_Test {
   public void should_throw_error_if_instance_was_not_created() {
     int illegalArg = 8;
     TargetType.startConstructorAccess().withParameterTypes(String.class).in(Person.class).newInstance(illegalArg);
+  }
+
+  @Test
+  public void should_rethrow_RuntimeException_thrown_by_constructor() {
+    expectIllegalArgumentException("The name of a person cannot be a number").on(new CodeToTest() {
+      public void run() {
+        TargetType.startConstructorAccess().withParameterTypes(int.class).in(Person.class).newInstance(8);
+      }
+    });
+  }
+
+  @Test
+  public void should_wrap_with_a_ReflectionError_the_checked_Exception_thrown_by_constructor() {
+    try {
+      TargetType.startConstructorAccess().withParameterTypes(Person.class).in(Person.class).newInstance(new Person());
+      fail("Expecting an ReflectionError");
+    } catch (ReflectionError e) {
+      Throwable cause = e.getCause();
+      assertThat(cause).isInstanceOf(Exception.class);
+      assertThat(cause.getMessage()).isEqualTo("A person cannot be created from another person");
+    }
   }
 }

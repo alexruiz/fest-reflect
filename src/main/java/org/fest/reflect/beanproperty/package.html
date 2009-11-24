@@ -31,10 +31,10 @@ Here are some examples:
    // import static {@link org.fest.reflect.core.Reflection org.fest.reflect.core.Reflection}.*;
 
    // Retrieves the value of the property "name"
-   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link org.fest.reflect.beanproperty.FieldName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.beanproperty.FieldType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.Invoker#get() get}();
+   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link org.fest.reflect.beanproperty.PropertyName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.beanproperty.PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.Invoker#get() get}();
    
    // Sets the value of the property "name" to "Yoda"
-   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link org.fest.reflect.beanproperty.FieldName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.beanproperty.FieldType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.Invoker#set(Object) set}("Yoda");
+   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link org.fest.reflect.beanproperty.PropertyName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.beanproperty.PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.Invoker#set(Object) set}("Yoda");
 </pre>
 </p>
 </body>

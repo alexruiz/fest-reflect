@@ -17,9 +17,7 @@ package org.fest.reflect.innerclass;
 
 import static org.fest.assertions.Assertions.assertThat;
 import static org.fest.reflect.core.Reflection.*;
-import static org.fest.reflect.util.ExpectedFailures.expectIllegalArgumentException;
-import static org.fest.reflect.util.ExpectedFailures.expectNullPointerException;
-
+import static org.fest.reflect.util.ExpectedFailures.*;
 import org.fest.test.CodeToTest;
 import org.junit.Test;
 
@@ -66,5 +64,15 @@ public class StaticInnerClass_Test {
     Object leia = constructor().withParameterTypes(String.class).in(innerClass).newInstance("Leia");
     assertThat(field("name").ofType(String.class).in(leia).get()).isEqualTo("Leia");
     assertThat(method("name").withReturnType(String.class).in(leia).invoke()).isEqualTo("Leia");
+  }
+
+  @Test
+  public void should_return_null_if_static_inner_class_does_not_exist() {
+    String msg = "The static inner class <SomeInnerClass> cannot be found in org.fest.reflect.innerclass.OuterClass";
+    expectReflectionError(msg).on(new CodeToTest() {
+      public void run() {
+        StaticInnerClassName.startStaticInnerClassAccess("SomeInnerClass").in(OuterClass.class).get();
+      }
+    });
   }
 }

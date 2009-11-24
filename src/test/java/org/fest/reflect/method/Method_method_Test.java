@@ -16,11 +16,13 @@
 package org.fest.reflect.method;
 
 import static org.fest.assertions.Assertions.assertThat;
+import static org.fest.assertions.Fail.fail;
 import static org.fest.reflect.util.ExpectedFailures.*;
 
 import java.util.List;
 
 import org.fest.reflect.Jedi;
+import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.test.CodeToTest;
 import org.junit.Before;
@@ -38,7 +40,6 @@ public class Method_method_Test {
 
   @Before
   public void setUp() {
-    Jedi.clearCommonPowers();
     jedi = new Jedi("Luke");
   }
 
@@ -116,8 +117,7 @@ public class Method_method_Test {
   public void should_call_method_with_args_and_return_value() {
     jedi.addPower("healing");
     String power = MethodName.startMethodAccess("powerAt").withReturnType(String.class)
-                                            .withParameterTypes(int.class)
-                                            .in(jedi).invoke(0);
+                                                          .withParameterTypes(int.class).in(jedi).invoke(0);
     assertThat(power).isEqualTo("healing");
   }
 
@@ -176,5 +176,27 @@ public class Method_method_Test {
         MethodName.startMethodAccess("setName").withParameterTypes(String.class).in(jedi).invoke(invalidArg);
       }
     });
+  }
+
+  @Test
+  public void should_rethrow_RuntimeException_thrown_by_method() {
+    try {
+      MethodName.startMethodAccess("throwRuntimeException").in(jedi).invoke();
+      fail("Expecting an IllegalStateException");
+    } catch (IllegalStateException e) {
+      assertThat(e.getMessage()).isEqualTo("Somehow I got in an illegal state");
+    }
+  }
+
+  @Test
+  public void should_wrap_with_a_ReflectionError_the_checked_Exception_thrown_by_method() {
+    try {
+      MethodName.startMethodAccess("throwCheckedException").in(jedi).invoke();
+      fail("Expecting an ReflectionError");
+    } catch (ReflectionError e) {
+      Throwable cause = e.getCause();
+      assertThat(cause).isInstanceOf(Exception.class);
+      assertThat(cause.getMessage()).isEqualTo("I don't know what's wrong");
+    }
   }
 }
