@@ -14,6 +14,8 @@
  */
 package org.fest.reflect.field;
 
+import static org.fest.reflect.field.Invoker.newInvoker;
+
 import org.fest.reflect.exception.ReflectionError;
 
 /**
@@ -33,10 +35,19 @@ import org.fest.reflect.exception.ReflectionError;
  *
  * @author Alex Ruiz
  */
-public class StaticFieldType<T> extends TypeTemplate<T> {
+public class StaticFieldType<T> {
 
-  StaticFieldType(Class<T> type, String fieldName) {
-    super(type, fieldName);
+  static <T> StaticFieldType<T> newFieldType(String name, Class<T> type) {
+    if (type == null) throw new NullPointerException("The type of the static field to access should not be null");
+    return new StaticFieldType<T>(name, type);
+  }
+
+  private final String name;
+  private final Class<T> type;
+
+  StaticFieldType(String name, Class<T> type) {
+    this.name = name;
+    this.type = type;
   }
 
   /**
@@ -47,6 +58,6 @@ public class StaticFieldType<T> extends TypeTemplate<T> {
    * @throws ReflectionError if a static field with a matching name and type cannot be found.
    */
   public Invoker<T> in(Class<?> target) {
-    return fieldInvoker(target);
+    return newInvoker(name, type, target);
   }
 }

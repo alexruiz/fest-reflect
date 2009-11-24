@@ -50,19 +50,19 @@ import org.fest.reflect.exception.ReflectionError;
  */
 public final class Invoker<T> {
 
-  private final Object target;
-  private final Method method;
-
-  Invoker(String methodName, Class<?> target, Class<?>... parameterTypes) {
-    if (target == null) throw new NullPointerException("Target should not be null");
-    this.target = target;
-    method = lookupInClassHierarchy(methodName, target, parameterTypes);
+  static <T> Invoker<T> newInvoker(String methodName, Object target, Class<?>... parameterTypes) {
+    return createInvoker(methodName, target, parameterTypes);
   }
 
-  Invoker(String methodName, Object target, Class<?>... parameterTypes) {
+  private static <T> Invoker<T> createInvoker(String methodName, Object target, Class<?>... parameterTypes) {
     if (target == null) throw new NullPointerException("Target should not be null");
-    this.target = target;
-    method = lookupInClassHierarchy(methodName, target.getClass(), parameterTypes);
+    Method method = lookupInClassHierarchy(methodName, typeOf(target), parameterTypes);
+    return new Invoker<T>(target, method);
+  }
+
+  private static Class<?> typeOf(Object target) {
+    if (target instanceof Class<?>) return (Class<?>)target;
+    return target.getClass();
   }
 
   private static Method lookupInClassHierarchy(String methodName, Class<?> targetType, Class<?>[] parameterTypes) {
@@ -87,6 +87,14 @@ public final class Invoker<T> {
     } catch (NoSuchMethodException e) {
       return null;
     }
+  }
+
+  private final Object target;
+  private final Method method;
+
+  private Invoker(Object target, Method method) {
+    this.target = target;
+    this.method = method;
   }
 
   /**

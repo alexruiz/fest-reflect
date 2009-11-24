@@ -15,6 +15,9 @@
  */
 package org.fest.reflect.method;
 
+import static org.fest.reflect.method.Invoker.newInvoker;
+import static org.fest.reflect.method.MethodParameterTypes.newParameterTypes;
+
 /**
  * Understands the return type of the method to invoke.
  * <p>
@@ -40,10 +43,17 @@ package org.fest.reflect.method;
  * @author Yvonne Wang
  * @author Alex Ruiz
  */
-public class MethodReturnType<T> extends ReturnTypeTemplate<T> {
+public class MethodReturnType<T> {
 
-  MethodReturnType(Class<T> type, String methodName) {
-    super(type, methodName);
+  static <T> MethodReturnType<T> newReturnType(String name, Class<T> type) {
+    if (type == null) throw new NullPointerException("The return type of the method to access should not be null");
+    return new MethodReturnType<T>(name);
+  }
+
+  private final String name;
+
+  private MethodReturnType(String name) {
+    this.name = name;
   }
 
   /**
@@ -53,7 +63,7 @@ public class MethodReturnType<T> extends ReturnTypeTemplate<T> {
    * @throws NullPointerException if the given target is <code>null</code>.
    */
   public Invoker<T> in(Object target) {
-    return new Invoker<T>(methodName, target);
+    return newInvoker(name, target);
   }
 
   /**
@@ -64,6 +74,6 @@ public class MethodReturnType<T> extends ReturnTypeTemplate<T> {
    * @throws NullPointerException if the array of parameter types is <code>null</code>.
    */
   public MethodParameterTypes<T> withParameterTypes(Class<?>... parameterTypes) {
-    return new MethodParameterTypes<T>(parameterTypes, methodName);
+    return newParameterTypes(name, parameterTypes);
   }
 }

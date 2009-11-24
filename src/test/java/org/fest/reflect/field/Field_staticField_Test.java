@@ -36,27 +36,27 @@ public class Field_staticField_Test {
 
   @Test
   public void should_throw_error_if_static_field_name_is_null() {
-    expectNullPointerException("The name of the field to access should not be null").on(new CodeToTest() {
+    expectNullPointerException("The name of the static field to access should not be null").on(new CodeToTest() {
       public void run() {
-        new StaticFieldName(null);
+        StaticFieldName.beginStaticFieldAccess(null);
       }
     });
   }
 
   @Test
   public void should_throw_error_if_static_field_name_is_empty() {
-    expectIllegalArgumentException("The name of the field to access should not be empty").on(new CodeToTest() {
+    expectIllegalArgumentException("The name of the static field to access should not be empty").on(new CodeToTest() {
       public void run() {
-        new StaticFieldName("");
+        StaticFieldName.beginStaticFieldAccess("");
       }
     });
   }
 
   @Test
   public void should_throw_error_if_static_field_type_is_null() {
-    expectNullPointerException("The type of the field to access should not be null").on(new CodeToTest() {
+    expectNullPointerException("The type of the static field to access should not be null").on(new CodeToTest() {
       public void run() {
-        new StaticFieldName("name").ofType((Class<?>)null);
+        StaticFieldName.beginStaticFieldAccess("name").ofType((Class<?>)null);
       }
     });
   }
@@ -65,7 +65,7 @@ public class Field_staticField_Test {
   public void should_throw_error_if_target_is_null() {
     expectNullPointerException("Target should not be null").on(new CodeToTest() {
       public void run() {
-        new StaticFieldName("age").ofType(int.class).in(null);
+        StaticFieldName.beginStaticFieldAccess("age").ofType(int.class).in(null);
       }
     });
   }
@@ -73,19 +73,20 @@ public class Field_staticField_Test {
   @Test
   public void should_get_static_field_value() {
     Person.setCount(6);
-    int count = new StaticFieldName("count").ofType(int.class).in(Person.class).get();
+    int count = StaticFieldName.beginStaticFieldAccess("count").ofType(int.class).in(Person.class).get();
     assertThat(count).isEqualTo(6);
   }
 
   @Test
   public void should_set_static_field_value() {
-    new StaticFieldName("count").ofType(int.class).in(Person.class).set(8);
+    StaticFieldName.beginStaticFieldAccess("count").ofType(int.class).in(Person.class).set(8);
     assertThat(Person.getCount()).isEqualTo(8);
   }
 
   @Test
   public void should_return_real_static_field() {
-    java.lang.reflect.Field field = new StaticFieldName("count").ofType(int.class).in(Person.class).info();
+    java.lang.reflect.Field field = StaticFieldName.beginStaticFieldAccess("count").ofType(int.class)
+                                                                                   .in(Person.class).info();
     assertThat(field).isNotNull();
     assertThat(field.getName()).isEqualTo("count");
     assertThat(field.getType()).isEqualTo(int.class);
@@ -93,10 +94,10 @@ public class Field_staticField_Test {
 
   @Test
   public void should_throw_error_if_wrong_static_field_type_was_specified() {
-    String message = "The type of the field 'count' in org.fest.reflect.Person should be <java.lang.Float> but was <int>";
-    expectReflectionError(message).on(new CodeToTest() {
+    String msg = "The type of the field 'count' in org.fest.reflect.Person should be <java.lang.Float> but was <int>";
+    expectReflectionError(msg).on(new CodeToTest() {
       public void run()  {
-        new StaticFieldName("count").ofType(Float.class).in(Person.class).get();
+        StaticFieldName.beginStaticFieldAccess("count").ofType(Float.class).in(Person.class).get();
       }
     });
   }
@@ -105,7 +106,7 @@ public class Field_staticField_Test {
   public void should_throw_error_if_static_field_name_is_invalid() {
     expectReflectionError("Unable to find field 'age' in org.fest.reflect.Person").on(new CodeToTest() {
       public void run()  {
-        new StaticFieldName("age").ofType(int.class).in(Person.class);
+        StaticFieldName.beginStaticFieldAccess("age").ofType(int.class).in(Person.class);
       }
     });
   }
@@ -113,15 +114,16 @@ public class Field_staticField_Test {
   @Test
   public void should_get_static_field_in_super_type() {
     Person.setCount(8);
-    int count = new StaticFieldName("count").ofType(int.class).in(Person.class).get();
+    int count = StaticFieldName.beginStaticFieldAccess("count").ofType(int.class).in(Person.class).get();
     assertThat(count).isEqualTo(8);
   }
 
   @Test
   public void should_throw_error_if_TypeRef_is_null() {
-    expectNullPointerException("The type reference of the field to access should not be null").on(new CodeToTest() {
+    String msg = "The type reference of the static field to access should not be null";
+    expectNullPointerException(msg).on(new CodeToTest() {
       public void run() {
-        new StaticFieldName("name").ofType((TypeRef<?>)null);
+        StaticFieldName.beginStaticFieldAccess("name").ofType((TypeRef<?>)null);
       }
     });
   }
@@ -129,14 +131,16 @@ public class Field_staticField_Test {
   @Test
   public void should_use_TypeRef_to_read_static_field() {
     Jedi.addCommonPower("jump");
-    List<String> powers = new StaticFieldName("commonPowers").ofType(new TypeRef<List<String>>() {}).in(Jedi.class).get();
+    List<String> powers = StaticFieldName.beginStaticFieldAccess("commonPowers").ofType(new TypeRef<List<String>>() {})
+                                                                                .in(Jedi.class).get();
     assertThat(powers).containsOnly("jump");
   }
 
   @Test
   public void should_use_TypeRef_to_write_static_field() {
     List<String> powers = list("jump");
-    new StaticFieldName("commonPowers").ofType(new TypeRef<List<String>>() {}).in(Jedi.class).set(powers);
+    StaticFieldName.beginStaticFieldAccess("commonPowers").ofType(new TypeRef<List<String>>() {})
+                                                          .in(Jedi.class).set(powers);
     assertThat(Jedi.commonPowers()).containsOnly("jump");
   }
 }

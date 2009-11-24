@@ -15,6 +15,8 @@
  */
 package org.fest.reflect.beanproperty;
 
+import static org.fest.reflect.beanproperty.Invoker.newInvoker;
+
 import org.fest.reflect.exception.ReflectionError;
 
 /**
@@ -38,12 +40,16 @@ import org.fest.reflect.exception.ReflectionError;
  */
 public class PropertyType<T> {
 
-  private final Class<T> type;
-  private final String name;
-
-  PropertyType(Class<T> type, String propertyName) {
-    name = propertyName;
+  static <T> PropertyType<T> newPropertyType(String name, Class<T> type) {
     if (type == null) throw new NullPointerException("The type of the property to access should not be null");
+    return new PropertyType<T>(name, type);
+  }
+
+  private final String name;
+  private final Class<T> type;
+
+  private PropertyType(String name, Class<T> type) {
+    this.name = name;
     this.type = type;
   }
 
@@ -56,12 +62,6 @@ public class PropertyType<T> {
    */
   public Invoker<T> in(Object target) {
     if (target == null) throw new NullPointerException("Target should not be null");
-    return propertyInvoker(target);
-  }
-
-  private final Invoker<T> propertyInvoker(Object target) {
-    Invoker<T> invoker = new Invoker<T>(name, target);
-    invoker.verifyCorrectType(type);
-    return invoker;
+    return newInvoker(name, type, target);
   }
 }

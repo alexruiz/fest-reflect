@@ -46,7 +46,7 @@ public class Field_field_Test {
   public void should_throw_error_if_field_name_is_null() {
     expectNullPointerException("The name of the field to access should not be null").on(new CodeToTest() {
       public void run() {
-        new FieldName(null);
+        FieldName.beginFieldAccess(null);
       }
     });
   }
@@ -55,7 +55,7 @@ public class Field_field_Test {
   public void should_throw_error_if_field_name_is_empty() {
     expectIllegalArgumentException("The name of the field to access should not be empty").on(new CodeToTest() {
       public void run() {
-        new FieldName("");
+        FieldName.beginFieldAccess("");
       }
     });
   }
@@ -64,7 +64,7 @@ public class Field_field_Test {
   public void should_throw_error_if_field_type_is_null() {
     expectNullPointerException("The type of the field to access should not be null").on(new CodeToTest() {
       public void run() {
-        new FieldName("name").ofType((Class<?>)null);
+        FieldName.beginFieldAccess("name").ofType((Class<?>)null);
       }
     });
   }
@@ -73,26 +73,26 @@ public class Field_field_Test {
   public void should_throw_error_if_target_is_null() {
     expectNullPointerException("Target should not be null").on(new CodeToTest() {
       public void run() {
-        new FieldName("name").ofType(String.class).in(null);
+        FieldName.beginFieldAccess("name").ofType(String.class).in(null);
       }
     });
   }
 
   @Test
   public void should_get_field_value() {
-    String personName = new FieldName("name").ofType(String.class).in(person).get();
+    String personName = FieldName.beginFieldAccess("name").ofType(String.class).in(person).get();
     assertThat(personName).isEqualTo("Luke");
   }
 
   @Test
   public void should_set_field_value() {
-    new FieldName("name").ofType(String.class).in(person).set("Leia");
+    FieldName.beginFieldAccess("name").ofType(String.class).in(person).set("Leia");
     assertThat(person.getName()).isEqualTo("Leia");
   }
 
   @Test
   public void should_return_real_field() {
-    java.lang.reflect.Field field = new FieldName("name").ofType(String.class).in(person).info();
+    java.lang.reflect.Field field = FieldName.beginFieldAccess("name").ofType(String.class).in(person).info();
     assertThat(field).isNotNull();
     assertThat(field.getName()).isEqualTo("name");
     assertThat(field.getType()).isEqualTo(String.class);
@@ -100,11 +100,11 @@ public class Field_field_Test {
 
   @Test
   public void should_throw_error_if_wrong_field_type_was_specified() {
-    String message =
+    String msg =
       "The type of the field 'name' in org.fest.reflect.Person should be <java.lang.Integer> but was <java.lang.String>";
-    expectReflectionError(message).on(new CodeToTest() {
+    expectReflectionError(msg).on(new CodeToTest() {
       public void run()  {
-        new FieldName("name").ofType(Integer.class).in(person).get();
+        FieldName.beginFieldAccess("name").ofType(Integer.class).in(person).get();
       }
     });
   }
@@ -113,7 +113,7 @@ public class Field_field_Test {
   public void should_throw_error_if_field_name_is_invalid() {
     expectReflectionError("Unable to find field 'age' in org.fest.reflect.Person").on(new CodeToTest() {
       public void run()  {
-        new FieldName("age").ofType(Integer.class).in(person);
+        FieldName.beginFieldAccess("age").ofType(Integer.class).in(person);
       }
     });
   }
@@ -121,7 +121,7 @@ public class Field_field_Test {
   @Test
   public void should_get_field_in_super_type() {
     Jedi jedi = new Jedi("Yoda");
-    String jediName = new FieldName("name").ofType(String.class).in(jedi).get();
+    String jediName = FieldName.beginFieldAccess("name").ofType(String.class).in(jedi).get();
     assertThat(jediName).isEqualTo("Yoda");
   }
 
@@ -129,7 +129,7 @@ public class Field_field_Test {
   public void should_throw_error_if_TypeRef_is_null() {
     expectNullPointerException("The type reference of the field to access should not be null").on(new CodeToTest() {
       public void run() {
-        new FieldName("name").ofType((TypeRef<?>)null);
+        FieldName.beginFieldAccess("name").ofType((TypeRef<?>)null);
       }
     });
   }
@@ -138,7 +138,7 @@ public class Field_field_Test {
   public void should_use_TypeRef_to_read_field() {
     Jedi jedi = new Jedi("Yoda");
     jedi.addPower("heal");
-    List<String> powers = new FieldName("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).get();
+    List<String> powers = FieldName.beginFieldAccess("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).get();
     assertThat(powers).containsOnly("heal");
   }
 
@@ -146,7 +146,7 @@ public class Field_field_Test {
   public void should_use_TypeRef_to_write_field() {
     Jedi jedi = new Jedi("Yoda");
     List<String> powers = list("heal");
-    new FieldName("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).set(powers);
+    FieldName.beginFieldAccess("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).set(powers);
     assertThat(jedi.powers()).containsOnly("heal");
   }
 }

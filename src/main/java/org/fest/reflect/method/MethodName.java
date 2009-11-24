@@ -15,6 +15,12 @@
  */
 package org.fest.reflect.method;
 
+import static org.fest.reflect.method.Invoker.newInvoker;
+import static org.fest.reflect.method.MethodParameterTypes.newParameterTypes;
+import static org.fest.reflect.method.MethodReturnType.newReturnType;
+import static org.fest.reflect.method.MethodReturnTypeRef.newReturnTypeRef;
+import static org.fest.util.Strings.isEmpty;
+
 import org.fest.reflect.reference.TypeRef;
 
 
@@ -47,17 +53,32 @@ import org.fest.reflect.reference.TypeRef;
  * @author Yvonne Wang
  * @author Alex Ruiz
  */
-public final class MethodName extends NameTemplate {
+public final class MethodName {
 
   /**
    * Creates a new <code>{@link MethodName}</code>: the starting point of the fluent interface for accessing methods
    * using Java Reflection.
    * @param name the name of the method to invoke using Java Reflection.
+   * @return the created <code>MethodName</code>.
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public MethodName(String name) {
-    super(name);
+  public static MethodName startMethodAccess(String name) {
+    validateIsNotNullOrEmpty(name);
+    return new MethodName(name);
+  }
+
+  private static void validateIsNotNullOrEmpty(String name) {
+    if (name == null)
+      throw new NullPointerException("The name of the method to access should not be null");
+    if (isEmpty(name))
+      throw new IllegalArgumentException("The name of the method to access should not be empty");
+  }
+
+  private final String name;
+
+  private MethodName(String name) {
+    this.name = name;
   }
 
   /**
@@ -69,7 +90,7 @@ public final class MethodName extends NameTemplate {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> MethodReturnType<T> withReturnType(Class<T> type) {
-    return new MethodReturnType<T>(type, name);
+    return newReturnType(name, type);
   }
 
   /**
@@ -82,7 +103,7 @@ public final class MethodName extends NameTemplate {
    * @since 1.1
    */
   public <T> MethodReturnTypeRef<T> withReturnType(TypeRef<T> type) {
-    return new MethodReturnTypeRef<T>(type, this);
+    return newReturnTypeRef(name, type);
   }
 
   /**
@@ -93,7 +114,7 @@ public final class MethodName extends NameTemplate {
    * @throws NullPointerException if the array of parameter types is <code>null</code>.
    */
   public MethodParameterTypes<Void> withParameterTypes(Class<?>... parameterTypes) {
-    return new MethodParameterTypes<Void>(parameterTypes, name);
+    return newParameterTypes(name, parameterTypes);
   }
 
   /**
@@ -103,6 +124,6 @@ public final class MethodName extends NameTemplate {
    * @throws NullPointerException if the given target is <code>null</code>.
    */
   public Invoker<Void> in(Object target) {
-    return new Invoker<Void>(name, target);
+    return newInvoker(name, target);
   }
 }

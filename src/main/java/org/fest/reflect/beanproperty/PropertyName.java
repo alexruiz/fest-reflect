@@ -15,6 +15,8 @@
  */
 package org.fest.reflect.beanproperty;
 
+import static org.fest.reflect.beanproperty.PropertyType.newPropertyType;
+import static org.fest.reflect.beanproperty.PropertyTypeRef.newPropertyTypeRef;
 import static org.fest.util.Strings.isEmpty;
 
 import org.fest.reflect.reference.TypeRef;
@@ -47,20 +49,29 @@ import org.fest.reflect.reference.TypeRef;
  */
 public final class PropertyName {
 
-  private final String name;
-
   /**
    * Creates a new <code>{@link PropertyName}</code>: the starting point of the fluent interface for accessing
    * properties using Bean Introspection.
    * @param name the name of the property to access using Bean Introspection.
+   * @return the created <code>PropertyName</code>.
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public PropertyName(String name) {
+  public static PropertyName startPropertyAccess(String name) {
+    validateIsNotNullOrEmpty(name);
+    return new PropertyName(name);
+  }
+
+  private static void validateIsNotNullOrEmpty(String name) {
     if (name == null)
       throw new NullPointerException("The name of the property to access should not be null");
     if (isEmpty(name))
       throw new IllegalArgumentException("The name of the property to access should not be empty");
+  }
+
+  private final String name;
+
+  private PropertyName(String name) {
     this.name = name;
   }
 
@@ -72,7 +83,7 @@ public final class PropertyName {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> PropertyType<T> ofType(Class<T> type) {
-    return new PropertyType<T>(type, name);
+    return newPropertyType(name, type);
   }
 
   /**
@@ -90,6 +101,6 @@ public final class PropertyName {
    * @throws NullPointerException if the given type reference is <code>null</code>.
    */
   public <T> PropertyTypeRef<T> ofType(TypeRef<T> type) {
-    return new PropertyTypeRef<T>(type, name);
+    return newPropertyTypeRef(name, type);
   }
 }

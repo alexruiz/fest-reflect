@@ -6,15 +6,19 @@
   </properties>
   <body>
     <release version="1.2" date="TBD" description="Subsequent release">
-      <action dev="alexruiz" type="add" issue="FEST-68" due-to="Francis ANDRE">
+      <action dev="alexruiz" type="fix" issue="FEST-68" due-to="Francis ANDRE">
         Method invocation now rethrow the original exception thrown by the method.
       </action>
-      <action dev="alexruiz" type="add" issue="FEST-68" due-to="Francis ANDRE">
+      <action dev="alexruiz" type="fix" issue="FEST-68" due-to="Francis ANDRE">
         Constructor invocation now rethrow the original exception thrown by the constructor.
       </action>
       <action dev="alexruiz" type="add" issue="FEST-235" due-to="Jean-Francois Poilpret">
         Added static method 'property(String)' to class Reflection. It returns the starting point of the fluent 
         interface for accessing properties using Bean Instrospection under the hood.
+      </action>
+      <action dev="alexruiz" type="fix" issue="FEST-256">
+        Replaced constructor access in fluent interfaces with static factory methods, resulting in code duplication
+        removal and improved encapsulation.
       </action>
     </release>
     <release version="1.1" date="2009-02-10" description="Subsequent release">

@@ -41,47 +41,49 @@ public class Method_staticMethod_Test {
 
   @Test
   public void should_throw_error_if_static_method_name_is_null() {
-    expectNullPointerException("The name of the method to access should not be null").on(new CodeToTest() {
+    expectNullPointerException("The name of the static method to access should not be null").on(new CodeToTest() {
       public void run() {
-        new StaticMethodName(null);
+        StaticMethodName.startStaticMethodAccess(null);
       }
     });
   }
 
   @Test
   public void should_throw_error_if_static_method_name_is_empty() {
-    expectIllegalArgumentException("The name of the method to access should not be empty").on(new CodeToTest() {
+    expectIllegalArgumentException("The name of the static method to access should not be empty").on(new CodeToTest() {
       public void run() {
-        new StaticMethodName("");
+        StaticMethodName.startStaticMethodAccess("");
       }
     });
   }
 
   @Test
   public void should_throw_error_if_static_method_return_type_is_null() {
-    expectNullPointerException("The return type of the method to access should not be null").on(new CodeToTest() {
+    String msg = "The return type of the static method to access should not be null";
+    expectNullPointerException(msg).on(new CodeToTest() {
       public void run() {
-        new StaticMethodName("commonPowerCount").withReturnType((Class<?>)null);
+        StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType((Class<?>)null);
       }
     });
   }
 
   @Test
   public void should_throw_error_if_static_method_return_TypeRef_is_null() {
-    expectNullPointerException("The return type reference of the method to access should not be null").on(
-      new CodeToTest() {
-        public void run() {
-          new StaticMethodName("commonPowerCount").withReturnType((TypeRef<?>)null);
-        }
-      });
+    String msg = "The return type reference of the static method to access should not be null";
+    expectNullPointerException(msg).on(new CodeToTest() {
+      public void run() {
+        StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType((TypeRef<?>) null);
+      }
+    });
   }
 
   @Test
   public void should_throw_error_if_static_method_parameter_array_is_null() {
-    expectNullPointerException("The array of parameter types should not be null").on(new CodeToTest() {
+    String msg = "The array of parameter types for the static method to access should not be null";
+    expectNullPointerException(msg).on(new CodeToTest() {
       public void run() {
         Class<?>[] parameterTypes = null;
-        new StaticMethodName("commonPowerCount").withParameterTypes(parameterTypes);
+        StaticMethodName.startStaticMethodAccess("commonPowerCount").withParameterTypes(parameterTypes);
       }
     });
   }
@@ -90,7 +92,7 @@ public class Method_staticMethod_Test {
   public void should_throw_error_if_static_method_target_is_null() {
     expectNullPointerException("Target should not be null").on(new CodeToTest() {
       public void run() {
-        new StaticMethodName("commonPowerCount").in(null);
+        StaticMethodName.startStaticMethodAccess("commonPowerCount").in(null);
       }
     });
   }
@@ -98,7 +100,8 @@ public class Method_staticMethod_Test {
   @Test
   public void should_call_static_method_with_no_args_and_return_value() {
     Jedi.addCommonPower("Jump");
-    int count = new StaticMethodName("commonPowerCount").withReturnType(int.class).in(Jedi.class).invoke();
+    int count = StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType(int.class)
+                                                                            .in(Jedi.class).invoke();
     assertThat(count).isEqualTo(Jedi.commonPowerCount());
   }
 
@@ -106,7 +109,7 @@ public class Method_staticMethod_Test {
   public void should_call_static_method_with_args_and_return_value() {
     Jedi.addCommonPower("Jump");
     String power =
-      new StaticMethodName("commonPowerAt").withReturnType(String.class)
+      StaticMethodName.startStaticMethodAccess("commonPowerAt").withReturnType(String.class)
                                            .withParameterTypes(int.class).in(Jedi.class).invoke(0);
     assertThat(power).isEqualTo("Jump");
   }
@@ -114,23 +117,26 @@ public class Method_staticMethod_Test {
   @Test
   public void should_call_static_method_with_no_args_and_return_TypeRef() {
     Jedi.addCommonPower("jump");
-    List<String> powers = new StaticMethodName("commonPowers").withReturnType(new TypeRef<List<String>>() {})
-                                                              .in(Jedi.class).invoke();
+    String method = "commonPowers";
+    List<String> powers = StaticMethodName.startStaticMethodAccess(method).withReturnType(new TypeRef<List<String>>() {})
+                                                                          .in(Jedi.class).invoke();
     assertThat(powers).containsOnly("jump");
   }
 
   @Test
   public void should_call_static_method_with_args_and_return_TypeRef() {
     Jedi.addCommonPower("jump");
+    String method = "commonPowersThatStartWith";
     List<String> powers =
-      new StaticMethodName("commonPowersThatStartWith").withReturnType(new TypeRef<List<String>>() {})
-                                                       .withParameterTypes(String.class).in(Jedi.class).invoke("ju");
+      StaticMethodName.startStaticMethodAccess(method).withReturnType(new TypeRef<List<String>>() {})
+                                                      .withParameterTypes(String.class).in(Jedi.class).invoke("ju");
     assertThat(powers).containsOnly("jump");
   }
 
   @Test
   public void should_call_static_method_with_args_and_no_return_value() {
-    new StaticMethodName("addCommonPower").withParameterTypes(String.class).in(Jedi.class).invoke("Jump");
+    StaticMethodName.startStaticMethodAccess("addCommonPower").withParameterTypes(String.class)
+                                                              .in(Jedi.class).invoke("Jump");
     assertThat(Jedi.commonPowerAt(0)).isEqualTo("Jump");
   }
 
@@ -139,7 +145,7 @@ public class Method_staticMethod_Test {
     Jedi.addCommonPower("Jump");
     assertThat(Jedi.commonPowerCount()).isEqualTo(1);
     assertThat(Jedi.commonPowerAt(0)).isEqualTo("Jump");
-    new StaticMethodName("clearCommonPowers").in(Jedi.class).invoke();
+    StaticMethodName.startStaticMethodAccess("clearCommonPowers").in(Jedi.class).invoke();
     assertThat(Jedi.commonPowerCount()).isEqualTo(0);
   }
 
@@ -149,7 +155,7 @@ public class Method_staticMethod_Test {
     expectReflectionError(message).on(new CodeToTest() {
       public void run() {
         String invalidName = "powerSize";
-        new StaticMethodName(invalidName).in(Jedi.class);
+        StaticMethodName.startStaticMethodAccess(invalidName).in(Jedi.class);
       }
     });
   }
@@ -159,7 +165,7 @@ public class Method_staticMethod_Test {
     expectIllegalArgumentException("argument type mismatch").on(new CodeToTest() {
       public void run() {
         int invalidArg = 8;
-        new StaticMethodName("addCommonPower").withParameterTypes(String.class).in(Jedi.class).invoke(invalidArg);
+        StaticMethodName.startStaticMethodAccess("addCommonPower").withParameterTypes(String.class).in(Jedi.class).invoke(invalidArg);
       }
     });
   }

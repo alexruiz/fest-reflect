@@ -15,6 +15,8 @@
  */
 package org.fest.reflect.method;
 
+import static org.fest.reflect.method.Invoker.newInvoker;
+
 import org.fest.reflect.reference.TypeRef;
 
 /**
@@ -34,11 +36,11 @@ import org.fest.reflect.reference.TypeRef;
  *   String name = {@link org.fest.reflect.core.Reflection#staticMethod(String) staticMethod}("commonPowerCount").{@link StaticMethodName#withReturnType(Class) withReturnType}(String.class)
  *                                                 .{@link StaticMethodReturnType#in(Class) in}(Jedi.class)
  *                                                 .{@link Invoker#invoke(Object...) invoke}();
- *                                                 
+ *
  *   // Equivalent to call 'Jedi.getCommonPowers()'
  *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#staticMethod(String) staticMethod}("getCommonPowers").{@link StaticMethodName#withReturnType(TypeRef) withReturnType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
  *                                                        .{@link StaticMethodReturnTypeRef#in(Class) in}(Jedi.class)
- *                                                        .{@link Invoker#invoke(Object...) invoke}();   
+ *                                                        .{@link Invoker#invoke(Object...) invoke}();
  * </pre>
  * </p>
  *
@@ -46,10 +48,20 @@ import org.fest.reflect.reference.TypeRef;
  *
  * @author Alex Ruiz
  */
-public final class StaticMethodParameterTypes<T> extends ParameterTypesTemplate<T> {
+public final class StaticMethodParameterTypes<T> {
 
-  StaticMethodParameterTypes(Class<?>[] parameterTypes, String methodName) {
-    super(parameterTypes, methodName);
+  static <T> StaticMethodParameterTypes<T> newParameterTypes(String name, Class<?>[] parameterTypes) {
+    if (parameterTypes == null)
+      throw new NullPointerException("The array of parameter types for the static method to access should not be null");
+    return new StaticMethodParameterTypes<T>(name, parameterTypes);
+  }
+
+  private final String name;
+  private final Class<?>[] parameterTypes;
+
+  private StaticMethodParameterTypes(String name, Class<?>[] parameterTypes) {
+    this.name = name;
+    this.parameterTypes = parameterTypes;
   }
 
   /**
@@ -59,6 +71,6 @@ public final class StaticMethodParameterTypes<T> extends ParameterTypesTemplate<
    * @throws NullPointerException if the given target is <code>null</code>.
    */
   public Invoker<T> in(Class<?> target) {
-    return new Invoker<T>(methodName, target, parameterTypes);
+    return newInvoker(name, target, parameterTypes);
   }
 }

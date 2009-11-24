@@ -14,6 +14,15 @@
  */
 package org.fest.reflect.core;
 
+import static org.fest.reflect.beanproperty.PropertyName.startPropertyAccess;
+import static org.fest.reflect.constructor.TargetType.startConstructorAccess;
+import static org.fest.reflect.field.FieldName.beginFieldAccess;
+import static org.fest.reflect.field.StaticFieldName.beginStaticFieldAccess;
+import static org.fest.reflect.innerclass.StaticInnerClassName.startStaticInnerClassAccess;
+import static org.fest.reflect.method.MethodName.startMethodAccess;
+import static org.fest.reflect.method.StaticMethodName.startStaticMethodAccess;
+import static org.fest.reflect.type.Type.newType;
+
 import org.fest.reflect.beanproperty.PropertyName;
 import org.fest.reflect.constructor.TargetType;
 import org.fest.reflect.field.*;
@@ -115,7 +124,7 @@ public final class Reflection {
    * @throws IllegalArgumentException if the given name is empty.
    * @since 1.1
    */
-  public static Type type(String name) { return new Type(name); }
+  public static Type type(String name) { return newType(name); }
 
   /**
    * Starting point of the fluent interface for accessing static inner class via reflection.
@@ -125,7 +134,7 @@ public final class Reflection {
    * @throws IllegalArgumentException if the given name is empty.
    * @since 1.1
    */
-  public static StaticInnerClassName staticInnerClass(String name) { return new StaticInnerClassName(name); }
+  public static StaticInnerClassName staticInnerClass(String name) { return startStaticInnerClassAccess(name); }
 
   /**
    * Starting point of the fluent interface for accessing fields via reflection.
@@ -134,7 +143,7 @@ public final class Reflection {
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static FieldName field(String name) { return new FieldName(name); }
+  public static FieldName field(String name) { return beginFieldAccess(name); }
 
   /**
    * Starting point of the fluent interface for accessing static fields via reflection.
@@ -143,7 +152,7 @@ public final class Reflection {
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static StaticFieldName staticField(String name) { return new StaticFieldName(name); }
+  public static StaticFieldName staticField(String name) { return beginStaticFieldAccess(name); }
 
   /**
    * Starting point of the fluent interface for invoking methods via reflection.
@@ -152,7 +161,7 @@ public final class Reflection {
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static MethodName method(String name) { return new MethodName(name); }
+  public static MethodName method(String name) { return startMethodAccess(name); }
 
   /**
    * Starting point of the fluent interface for invoking static methods via reflection.
@@ -161,15 +170,13 @@ public final class Reflection {
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static StaticMethodName staticMethod(String name) { return new StaticMethodName(name); }
+  public static StaticMethodName staticMethod(String name) { return startStaticMethodAccess(name); }
 
   /**
    * Starting point of the fluent interface for invoking constructors via reflection.
    * @return the starting point of the method chain.
    */
-  public static TargetType constructor() { return new TargetType(); }
-
-  private Reflection() {}
+  public static TargetType constructor() { return startConstructorAccess(); }
 
   /**
    * Starting point of the fluent interface for accessing properties via Bean Instrospection.
@@ -177,8 +184,9 @@ public final class Reflection {
    * @return the starting point of the method chain.
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
+   * @since 1.2
    */
-  public static PropertyName property(String name) {
-    return new PropertyName(name);
-  }
+  public static PropertyName property(String name) { return startPropertyAccess(name); }
+
+  private Reflection() {}
 }

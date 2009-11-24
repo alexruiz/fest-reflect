@@ -15,6 +15,12 @@
  */
 package org.fest.reflect.method;
 
+import static org.fest.reflect.method.Invoker.newInvoker;
+import static org.fest.reflect.method.StaticMethodParameterTypes.newParameterTypes;
+import static org.fest.reflect.method.StaticMethodReturnType.newReturnType;
+import static org.fest.reflect.method.StaticMethodReturnTypeRef.newReturnTypeRef;
+import static org.fest.util.Strings.isEmpty;
+
 import org.fest.reflect.reference.TypeRef;
 
 /**
@@ -44,17 +50,32 @@ import org.fest.reflect.reference.TypeRef;
  *
  * @author Alex Ruiz
  */
-public class StaticMethodName extends NameTemplate {
+public final class StaticMethodName {
 
   /**
    * Creates a new </code>{@link StaticMethodName}</code>: the starting point of the fluent interface for accessing
    * static methods using Java Reflection.
    * @param name the name of the method to access using Java Reflection.
+   * @return the created <code>StaticMethodName</code>.
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public StaticMethodName(String name) {
-    super(name);
+  public static StaticMethodName startStaticMethodAccess(String name) {
+    validateIsNotNullOrEmpty(name);
+    return new StaticMethodName(name);
+  }
+
+  private static void validateIsNotNullOrEmpty(String name) {
+    if (name == null)
+      throw new NullPointerException("The name of the static method to access should not be null");
+    if (isEmpty(name))
+      throw new IllegalArgumentException("The name of the static method to access should not be empty");
+  }
+
+  private final String name;
+
+  private StaticMethodName(String name) {
+    this.name = name;
   }
 
   /**
@@ -66,7 +87,7 @@ public class StaticMethodName extends NameTemplate {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> StaticMethodReturnType<T> withReturnType(Class<T> type) {
-    return new StaticMethodReturnType<T>(type, name);
+    return newReturnType(name, type);
   }
 
   /**
@@ -78,7 +99,7 @@ public class StaticMethodName extends NameTemplate {
    * @throws NullPointerException if the given type reference is <code>null</code>.
    */
   public <T> StaticMethodReturnTypeRef<T> withReturnType(TypeRef<T> type) {
-    return new StaticMethodReturnTypeRef<T>(type, this);
+    return newReturnTypeRef(name, type);
   }
 
   /**
@@ -89,7 +110,7 @@ public class StaticMethodName extends NameTemplate {
    * @throws NullPointerException if the array of parameter types is <code>null</code>.
    */
   public StaticMethodParameterTypes<Void> withParameterTypes(Class<?>... parameterTypes) {
-    return new StaticMethodParameterTypes<Void>(parameterTypes, name);
+    return newParameterTypes(name, parameterTypes);
   }
 
   /**
@@ -99,6 +120,6 @@ public class StaticMethodName extends NameTemplate {
    * @throws NullPointerException if the given target is <code>null</code>.
    */
   public Invoker<Void> in(Class<?> target) {
-    return new Invoker<Void>(name, target);
+    return newInvoker(name, target);
   }
 }

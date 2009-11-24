@@ -14,6 +14,10 @@
  */
 package org.fest.reflect.field;
 
+import static org.fest.reflect.field.StaticFieldType.newFieldType;
+import static org.fest.reflect.field.StaticFieldTypeRef.newFieldTypeRef;
+import static org.fest.util.Strings.isEmpty;
+
 import org.fest.reflect.reference.TypeRef;
 
 
@@ -40,17 +44,32 @@ import org.fest.reflect.reference.TypeRef;
  *
  * @author Alex Ruiz
  */
-public final class StaticFieldName extends NameTemplate {
+public final class StaticFieldName {
 
   /**
    * Creates a new <code>{@link StaticFieldName}</code>: the starting point of the fluent interface for accessing
    * static fields using Java Reflection.
    * @param name the name of the field to access using Java Reflection.
+   * @return the created <code>StaticFieldName</code>.
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public StaticFieldName(String name) {
-    super(name);
+  public static StaticFieldName beginStaticFieldAccess(String name) {
+    validateIsNotNullOrEmpty(name);
+    return new StaticFieldName(name);
+  }
+
+  private static void validateIsNotNullOrEmpty(String name) {
+    if (name == null)
+      throw new NullPointerException("The name of the static field to access should not be null");
+    if (isEmpty(name))
+      throw new IllegalArgumentException("The name of the static field to access should not be empty");
+  }
+
+  private final String name;
+
+  private StaticFieldName(String name) {
+    this.name = name;
   }
 
   /**
@@ -61,7 +80,7 @@ public final class StaticFieldName extends NameTemplate {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> StaticFieldType<T> ofType(Class<T> type) {
-    return new StaticFieldType<T>(type, name);
+    return newFieldType(name, type);
   }
 
   /**
@@ -79,6 +98,6 @@ public final class StaticFieldName extends NameTemplate {
    * @throws NullPointerException if the given type reference is <code>null</code>.
    */
   public <T> StaticFieldTypeRef<T> ofType(TypeRef<T> type) {
-    return new StaticFieldTypeRef<T>(type, this);
+    return newFieldTypeRef(name, type);
   }
 }

@@ -51,22 +51,28 @@ public final class Invoker<T> {
   private final Field field;
   private final boolean accessible;
 
-  Invoker(String fieldName, Class<?> target) {
-    if (target == null) throw new NullPointerException("Target should not be null");
-    this.target = target;
-    field = lookupInClassHierarchy(fieldName, target);
-    accessible = field.isAccessible();
+  static <T> Invoker<T> newInvoker(String fieldName, TypeRef<T> expectedType, Object target) {
+    return createInvoker(fieldName, expectedType.rawType(), target);
   }
 
-  Invoker(String fieldName, Object target) {
-    this.target = target;
-    Class<?> type = target.getClass();
-    field = lookupInClassHierarchy(fieldName, type);
-    accessible = field.isAccessible();
+  static <T> Invoker<T> newInvoker(String fieldName, Class<T> expectedType, Object target) {
+    return createInvoker(fieldName, expectedType, target);
+  }
+
+  private static <T> Invoker<T> createInvoker(String fieldName, Class<?> expectedType, Object target) {
+    if (target == null) throw new NullPointerException("Target should not be null");
+    Field field = lookupInClassHierarchy(fieldName, typeOf(target));
+    verifyCorrectType(field, expectedType);
+    return new Invoker<T>(target, field);
+  }
+
+  private static Class<?> typeOf(Object target) {
+    if (target instanceof Class<?>) return (Class<?>)target;
+    return target.getClass();
   }
 
   private static Field lookupInClassHierarchy(String fieldName, Class<?> declaringType) {
-    java.lang.reflect.Field field = null;
+    Field field = null;
     Class<?> target = declaringType;
     while (target != null) {
       field = field(fieldName, target);
@@ -77,19 +83,7 @@ public final class Invoker<T> {
     throw new ReflectionError(concat("Unable to find field ", quote(fieldName), " in ", declaringType.getName()));
   }
 
-  private static Field field(String fieldName, Class<?> declaringType) {
-    try {
-      return declaringType.getDeclaredField(fieldName);
-    } catch (NoSuchFieldException e) {
-      return null;
-    }
-  }
-  
-  void verifyCorrectType(TypeRef<?> expectedType) {
-    verifyCorrectType(expectedType.rawType());
-  }
-
-  void verifyCorrectType(Class<?> expectedType) {
+  private static void verifyCorrectType(Field field, Class<?> expectedType) {
     boolean isAccessible = field.isAccessible();
     try {
       makeAccessible(field);
@@ -100,10 +94,24 @@ public final class Invoker<T> {
     }
   }
 
-  private static ReflectionError incorrectFieldType(Field field, Class<?> actualType, Class<?> expectedType) {
+  private Invoker(Object target, Field field) {
+    this.target = target;
+    this.field = field;
+    accessible = field.isAccessible();
+  }
+
+  private static Field field(String fieldName, Class<?> declaringType) {
+    try {
+      return declaringType.getDeclaredField(fieldName);
+    } catch (NoSuchFieldException e) {
+      return null;
+    }
+  }
+
+  private static ReflectionError incorrectFieldType(Field field, Class<?> actual, Class<?> expected) {
     String fieldTypeName = field.getDeclaringClass().getName();
     String message = concat("The type of the field ", quote(field.getName()), " in ", fieldTypeName, " should be <",
-        expectedType.getName(), "> but was <", actualType.getName(), ">");
+        expected.getName(), "> but was <", actual.getName(), ">");
     throw new ReflectionError(message);
   }
 
@@ -128,7 +136,8 @@ public final class Invoker<T> {
    * @return the value of the field managed by this class.
    * @throws ReflectionError if the value of the field cannot be retrieved.
    */
-  @SuppressWarnings("unchecked") public T get() {
+  @SuppressWarnings("unchecked")
+  public T get() {
     try {
       setAccessible(field, true);
       return (T) field.get(target);

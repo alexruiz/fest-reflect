@@ -46,7 +46,7 @@ public class Method_method_Test {
   public void should_throw_error_if_method_name_is_null() {
     expectNullPointerException("The name of the method to access should not be null").on(new CodeToTest() {
       public void run() {
-        new MethodName(null);
+        MethodName.startMethodAccess(null);
       }
     });
   }
@@ -55,36 +55,38 @@ public class Method_method_Test {
   public void should_throw_error_if_method_name_is_empty() {
     expectIllegalArgumentException("The name of the method to access should not be empty").on(new CodeToTest() {
       public void run() {
-        new MethodName("");
+        MethodName.startMethodAccess("");
       }
     });
   }
 
   @Test
   public void should_throw_error_if_method_return_type_is_null() {
-    expectNullPointerException("The return type of the method to access should not be null").on(new CodeToTest() {
+    String msg = "The return type of the method to access should not be null";
+    expectNullPointerException(msg).on(new CodeToTest() {
       public void run() {
-        new MethodName("setName").withReturnType((Class<?>)null);
+        MethodName.startMethodAccess("setName").withReturnType((Class<?>)null);
       }
     });
   }
 
   @Test
   public void should_throw_error_if_method_return_TypeRef_is_null() {
-    expectNullPointerException("The return type reference of the method to access should not be null").on(
-      new CodeToTest() {
-        public void run() {
-          new MethodName("setName").withReturnType((TypeRef<?>)null);
-        }
-      });
+    String msg = "The return type reference of the method to access should not be null";
+    expectNullPointerException(msg).on(new CodeToTest() {
+      public void run() {
+        MethodName.startMethodAccess("setName").withReturnType((TypeRef<?>) null);
+      }
+    });
   }
 
   @Test
   public void should_throw_error_if_method_parameter_array_is_null() {
-    expectNullPointerException("The array of parameter types should not be null").on(new CodeToTest() {
+    String msg = "The array of parameter types for the method to access should not be null";
+    expectNullPointerException(msg).on(new CodeToTest() {
       public void run() {
         Class<?>[] parameterTypes = null;
-        new MethodName("setName").withParameterTypes(parameterTypes);
+        MethodName.startMethodAccess("setName").withParameterTypes(parameterTypes);
       }
     });
   }
@@ -93,27 +95,27 @@ public class Method_method_Test {
   public void should_throw_error_if_method_target_is_null() {
     expectNullPointerException("Target should not be null").on(new CodeToTest() {
       public void run() {
-        new MethodName("setName").in(null);
+        MethodName.startMethodAccess("setName").in(null);
       }
     });
   }
 
   @Test
   public void should_call_method_with_args_and_no_return_value() {
-    new MethodName("setName").withParameterTypes(String.class).in(jedi).invoke("Leia");
+    MethodName.startMethodAccess("setName").withParameterTypes(String.class).in(jedi).invoke("Leia");
     assertThat(jedi.getName()).isEqualTo("Leia");
   }
 
   @Test
   public void should_call_method_with_no_args_and_return_value() {
-    String personName = new MethodName("getName").withReturnType(String.class).in(jedi).invoke();
+    String personName = MethodName.startMethodAccess("getName").withReturnType(String.class).in(jedi).invoke();
     assertThat(personName).isEqualTo("Luke");
   }
 
   @Test
   public void should_call_method_with_args_and_return_value() {
     jedi.addPower("healing");
-    String power = new MethodName("powerAt").withReturnType(String.class)
+    String power = MethodName.startMethodAccess("powerAt").withReturnType(String.class)
                                             .withParameterTypes(int.class)
                                             .in(jedi).invoke(0);
     assertThat(power).isEqualTo("healing");
@@ -122,7 +124,8 @@ public class Method_method_Test {
   @Test
   public void should_call_method_with_no_args_and_return_TypeRef() {
     jedi.addPower("jump");
-    List<String> powers = new MethodName("powers").withReturnType(new TypeRef<List<String>>() {}).in(jedi).invoke();
+    List<String> powers = MethodName.startMethodAccess("powers").withReturnType(new TypeRef<List<String>>() {})
+                                                                .in(jedi).invoke();
     assertThat(powers).containsOnly("jump");
   }
 
@@ -130,21 +133,23 @@ public class Method_method_Test {
   public void should_call_method_with_args_and_return_TypeRef() {
     jedi.addPower("healing");
     jedi.addPower("jump");
-    List<String> powers =  new MethodName("powersThatStartWith").withReturnType(new TypeRef<List<String>>() {})
-                                                                .withParameterTypes(String.class).in(jedi).invoke("ju");
+    String method = "powersThatStartWith";
+    List<String> powers =  MethodName.startMethodAccess(method).withReturnType(new TypeRef<List<String>>() {})
+                                                               .withParameterTypes(String.class).in(jedi).invoke("ju");
     assertThat(powers).containsOnly("jump");
   }
 
   @Test
   public void should_call_method_with_no_args_and_no_return_value() {
     assertThat(jedi.isMaster()).isFalse();
-    new MethodName("makeMaster").in(jedi).invoke();
+    MethodName.startMethodAccess("makeMaster").in(jedi).invoke();
     assertThat(jedi.isMaster()).isTrue();
   }
 
   @Test
   public void should_return_real_method() {
-    java.lang.reflect.Method method = new MethodName("setName").withParameterTypes(String.class).in(jedi).info();
+    java.lang.reflect.Method method = MethodName.startMethodAccess("setName").withParameterTypes(String.class)
+                                                                             .in(jedi).info();
     assertThat(method).isNotNull();
     assertThat(method.getName()).isEqualTo("setName");
     Class<?>[] parameterTypes = method.getParameterTypes();
@@ -158,7 +163,7 @@ public class Method_method_Test {
     expectReflectionError(message).on(new CodeToTest() {
       public void run() {
         String invalidName = "getAge";
-        new MethodName(invalidName).withReturnType(Integer.class).in(jedi);
+        MethodName.startMethodAccess(invalidName).withReturnType(Integer.class).in(jedi);
       }
     });
   }
@@ -168,7 +173,7 @@ public class Method_method_Test {
     expectIllegalArgumentException("argument type mismatch").on(new CodeToTest() {
       public void run() {
         int invalidArg = 8;
-        new MethodName("setName").withParameterTypes(String.class).in(jedi).invoke(invalidArg);
+        MethodName.startMethodAccess("setName").withParameterTypes(String.class).in(jedi).invoke(invalidArg);
       }
     });
   }

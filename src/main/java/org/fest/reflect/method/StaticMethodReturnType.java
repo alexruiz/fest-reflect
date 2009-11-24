@@ -15,6 +15,9 @@
  */
 package org.fest.reflect.method;
 
+import static org.fest.reflect.method.Invoker.newInvoker;
+import static org.fest.reflect.method.StaticMethodParameterTypes.newParameterTypes;
+
 import org.fest.reflect.reference.TypeRef;
 
 /**
@@ -46,10 +49,18 @@ import org.fest.reflect.reference.TypeRef;
  *
  * @author Alex Ruiz
  */
-public class StaticMethodReturnType<T> extends ReturnTypeTemplate<T> {
+public class StaticMethodReturnType<T> {
 
-  StaticMethodReturnType(Class<T> type, String methodName) {
-    super(type, methodName);
+  static <T> StaticMethodReturnType<T> newReturnType(String name, Class<T> type) {
+    if (type == null)
+      throw new NullPointerException("The return type of the static method to access should not be null");
+    return new StaticMethodReturnType<T>(name);
+  }
+
+  private final String name;
+
+  private StaticMethodReturnType(String name) {
+    this.name = name;
   }
 
   /**
@@ -59,7 +70,7 @@ public class StaticMethodReturnType<T> extends ReturnTypeTemplate<T> {
    * @throws NullPointerException if the given target is <code>null</code>.
    */
   public Invoker<T> in(Class<?> target) {
-    return new Invoker<T>(methodName, target);
+    return newInvoker(name, target);
   }
 
   /**
@@ -70,6 +81,6 @@ public class StaticMethodReturnType<T> extends ReturnTypeTemplate<T> {
    * @throws NullPointerException if the array of parameter types is <code>null</code>.
    */
   public StaticMethodParameterTypes<T> withParameterTypes(Class<?>... parameterTypes) {
-    return new StaticMethodParameterTypes<T>(parameterTypes, methodName);
+    return newParameterTypes(name, parameterTypes);
   }
 }

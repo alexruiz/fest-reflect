@@ -15,6 +15,8 @@
  */
 package org.fest.reflect.beanproperty;
 
+import static org.fest.reflect.beanproperty.Invoker.newInvoker;
+
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
 
@@ -41,12 +43,16 @@ import org.fest.reflect.reference.TypeRef;
  */
 public class PropertyTypeRef<T> {
 
+  static <T> PropertyTypeRef<T> newPropertyTypeRef(String name, TypeRef<T> type) {
+    if (type == null) throw new NullPointerException("The type reference of the property to access should not be null");
+    return new PropertyTypeRef<T>(name, type);
+  }
+
   private final TypeRef<T> type;
   private final String name;
 
-  PropertyTypeRef(TypeRef<T> type, String propertyName) {
-    name = propertyName;
-    if (type == null) throw new NullPointerException("The type reference of the property to access should not be null");
+  private PropertyTypeRef(String name, TypeRef<T> type) {
+    this.name = name;
     this.type = type;
   }
 
@@ -58,12 +64,6 @@ public class PropertyTypeRef<T> {
    * @throws ReflectionError if a property with a matching name and type cannot be found.
    */
   public Invoker<T> in(Object target) {
-    return propertyInvoker(target, target.getClass());
-  }
-
-  private Invoker<T> propertyInvoker(Object target, Class<?> declaringType) {
-    Invoker<T> invoker = new Invoker<T>(name, target);
-    invoker.verifyCorrectType(type);
-    return invoker;
+    return newInvoker(name, type, target);
   }
 }

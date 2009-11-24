@@ -14,6 +14,8 @@
  */
 package org.fest.reflect.field;
 
+import static org.fest.reflect.field.Invoker.newInvoker;
+
 import org.fest.reflect.exception.ReflectionError;
 
 /**
@@ -33,21 +35,29 @@ import org.fest.reflect.exception.ReflectionError;
  *
  * @author Alex Ruiz
  */
-public class FieldType<T> extends TypeTemplate<T> {
+public class FieldType<T> {
 
-  FieldType(Class<T> type, String fieldName) {
-    super(type, fieldName);
+  static <T> FieldType<T> newFieldType(String name, Class<T> type) {
+    if (type == null) throw new NullPointerException("The type of the field to access should not be null");
+    return new FieldType<T>(name, type);
+  }
+
+  private final String name;
+  private final Class<T> type;
+
+  private FieldType(String name, Class<T> type) {
+    this.name = name;
+    this.type = type;
   }
 
   /**
-   * Returns a new field invoker. A field invoker is capable of accessing (read/write) the underlying field.
+   * Returns a new field access invoker, capable of accessing (read/write) the underlying field.
    * @param target the object containing the field of interest.
-   * @return the created field invoker.
+   * @return the created field access invoker.
    * @throws NullPointerException if the given target is <code>null</code>.
    * @throws ReflectionError if a field with a matching name and type cannot be found.
    */
   public Invoker<T> in(Object target) {
-    if (target == null) throw new NullPointerException("Target should not be null");
-    return fieldInvoker(target);
+    return newInvoker(name, type, target);
   }
 }

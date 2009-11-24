@@ -19,6 +19,7 @@ import static org.fest.reflect.util.Accessibles.setAccessibleIgnoringExceptions;
 import static org.fest.reflect.util.Throwables.targetOf;
 import static org.fest.util.Strings.concat;
 
+import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
 import org.fest.reflect.exception.ReflectionError;
@@ -42,19 +43,24 @@ import org.fest.reflect.exception.ReflectionError;
  */
 public final class Invoker<T> {
 
-  private final java.lang.reflect.Constructor<T> constructor;
-
-  Invoker(Class<T> target, Class<?>... parameterTypes) {
-    this.constructor = constructor(target, parameterTypes);
+  public static <T> Invoker<T> newInvoker(Class<T> target, Class<?>... parameterTypes) {
+    Constructor<T> constructor = constructor(target, parameterTypes);
+    return new Invoker<T>(constructor);
   }
 
-  private java.lang.reflect.Constructor<T> constructor(Class<T> target, Class<?>... parameterTypes) {
+  private static <T> Constructor<T> constructor(Class<T> target, Class<?>... parameterTypes) {
     try {
       return target.getDeclaredConstructor(parameterTypes);
     } catch (Exception e) {
       throw new ReflectionError(concat("Unable to find constructor in type ", target.getName(),
           " with parameter types ", Arrays.toString(parameterTypes)), e);
     }
+  }
+
+  private final Constructor<T> constructor;
+
+  private Invoker(Constructor<T> constructor) {
+    this.constructor = constructor;
   }
 
   /**
@@ -82,7 +88,7 @@ public final class Invoker<T> {
    * Returns the "real" constructor managed by this class.
    * @return the "real" constructor managed by this class.
    */
-  public java.lang.reflect.Constructor<T> info() {
+  public Constructor<T> info() {
     return constructor;
   }
 }

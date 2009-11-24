@@ -47,7 +47,7 @@ public class Property_Test {
   public void should_throw_error_if_property_name_is_null() {
     expectNullPointerException("The name of the property to access should not be null").on(new CodeToTest() {
       public void run() {
-        new PropertyName(null);
+        PropertyName.startPropertyAccess(null);
       }
     });
   }
@@ -56,7 +56,7 @@ public class Property_Test {
   public void should_throw_error_if_property_name_is_empty() {
     expectIllegalArgumentException("The name of the property to access should not be empty").on(new CodeToTest() {
       public void run() {
-        new PropertyName("");
+        PropertyName.startPropertyAccess("");
       }
     });
   }
@@ -65,7 +65,7 @@ public class Property_Test {
   public void should_throw_error_if_property_type_is_null() {
     expectNullPointerException("The type of the property to access should not be null").on(new CodeToTest() {
       public void run() {
-        new PropertyName("name").ofType((Class<?>)null);
+        PropertyName.startPropertyAccess("name").ofType((Class<?>)null);
       }
     });
   }
@@ -74,26 +74,26 @@ public class Property_Test {
   public void should_throw_error_if_target_is_null() {
     expectNullPointerException("Target should not be null").on(new CodeToTest() {
       public void run() {
-        new PropertyName("name").ofType(String.class).in(null);
+        PropertyName.startPropertyAccess("name").ofType(String.class).in(null);
       }
     });
   }
 
   @Test
   public void should_get_property_value() {
-    String personName = new PropertyName("name").ofType(String.class).in(person).get();
+    String personName = PropertyName.startPropertyAccess("name").ofType(String.class).in(person).get();
     assertThat(personName).isEqualTo("Luke");
   }
 
   @Test
   public void should_set_property_value() {
-    new PropertyName("name").ofType(String.class).in(person).set("Leia");
+    PropertyName.startPropertyAccess("name").ofType(String.class).in(person).set("Leia");
     assertThat(person.getName()).isEqualTo("Leia");
   }
 
   @Test
   public void should_return_real_property() {
-    PropertyDescriptor property = new PropertyName("name").ofType(String.class).in(person).info();
+    PropertyDescriptor property = PropertyName.startPropertyAccess("name").ofType(String.class).in(person).info();
     assertThat(property).isNotNull();
     assertThat(property.getName()).isEqualTo("name");
     assertThat(property.getPropertyType()).isEqualTo(String.class);
@@ -105,7 +105,7 @@ public class Property_Test {
       "The type of the property 'name' in org.fest.reflect.Person should be <java.lang.Integer> but was <java.lang.String>";
     expectReflectionError(message).on(new CodeToTest() {
       public void run()  {
-        new PropertyName("name").ofType(Integer.class).in(person).get();
+        PropertyName.startPropertyAccess("name").ofType(Integer.class).in(person).get();
       }
     });
   }
@@ -114,7 +114,7 @@ public class Property_Test {
   public void should_throw_error_if_property_name_is_invalid() {
     expectReflectionError("Unable to find property 'age' in org.fest.reflect.Person").on(new CodeToTest() {
       public void run()  {
-        new PropertyName("age").ofType(Integer.class).in(person);
+        PropertyName.startPropertyAccess("age").ofType(Integer.class).in(person);
       }
     });
   }
@@ -122,7 +122,7 @@ public class Property_Test {
   @Test
   public void should_get_property_in_super_type() {
     Jedi jedi = new Jedi("Yoda");
-    String jediName = new PropertyName("name").ofType(String.class).in(jedi).get();
+    String jediName = PropertyName.startPropertyAccess("name").ofType(String.class).in(jedi).get();
     assertThat(jediName).isEqualTo("Yoda");
   }
 
@@ -130,7 +130,7 @@ public class Property_Test {
   public void should_throw_error_if_TypeRef_is_null() {
     expectNullPointerException("The type reference of the property to access should not be null").on(new CodeToTest() {
       public void run() {
-        new PropertyName("name").ofType((TypeRef<?>)null);
+        PropertyName.startPropertyAccess("name").ofType((TypeRef<?>)null);
       }
     });
   }
@@ -139,7 +139,7 @@ public class Property_Test {
   public void should_use_TypeRef_to_read_property() {
     Jedi jedi = new Jedi("Yoda");
     jedi.addPower("heal");
-    List<String> powers = new PropertyName("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).get();
+    List<String> powers = PropertyName.startPropertyAccess("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).get();
     assertThat(powers).containsOnly("heal");
   }
 
@@ -147,7 +147,7 @@ public class Property_Test {
   public void should_use_TypeRef_to_write_property() {
     Jedi jedi = new Jedi("Yoda");
     List<String> powers = list("heal");
-    new PropertyName("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).set(powers);
+    PropertyName.startPropertyAccess("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).set(powers);
     assertThat(jedi.powers()).containsOnly("heal");
   }
 }

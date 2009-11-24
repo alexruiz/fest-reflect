@@ -34,7 +34,7 @@ public class StaticInnerClass_Test {
   public void should_throw_error_if_static_inner_class_name_is_null() {
     expectNullPointerException("The name of the static inner class to access should not be null").on(new CodeToTest() {
       public void run() {
-        new StaticInnerClassName(null);
+        StaticInnerClassName.startStaticInnerClassAccess(null);
       }
     });
   }
@@ -43,7 +43,7 @@ public class StaticInnerClass_Test {
   public void should_throw_error_if_static_inner_class_name_is_empty() {
     expectIllegalArgumentException("The name of the static inner class to access should not be empty").on(new CodeToTest() {
       public void run() {
-        new StaticInnerClassName("");
+        StaticInnerClassName.startStaticInnerClassAccess("");
       }
     });
   }
@@ -52,14 +52,15 @@ public class StaticInnerClass_Test {
   public void should_throw_error_if_declaring_class_is_null() {
     expectNullPointerException("The declaring class should not be null").on(new CodeToTest() {
       public void run() {
-        new StaticInnerClassName("Hello").in(null);
+        StaticInnerClassName.startStaticInnerClassAccess("Hello").in(null);
       }
     });
   }
 
   @Test
   public void should_see_static_inner_class() {
-    Class<?> innerClass = new StaticInnerClassName("PrivateInnerClass").in(OuterClass.class).get();
+    Class<?> innerClass = StaticInnerClassName.startStaticInnerClassAccess("PrivateInnerClass").in(OuterClass.class)
+                                                                                               .get();
     assertThat(innerClass.getName()).contains("PrivateInnerClass");
     // make sure we really got the inner classes by creating a new instance and accessing its fields and methods.
     Object leia = constructor().withParameterTypes(String.class).in(innerClass).newInstance("Leia");

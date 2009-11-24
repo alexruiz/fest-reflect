@@ -14,6 +14,10 @@
  */
 package org.fest.reflect.field;
 
+import static org.fest.reflect.field.FieldType.newFieldType;
+import static org.fest.reflect.field.FieldTypeRef.newFieldTypeRef;
+import static org.fest.util.Strings.isEmpty;
+
 import org.fest.reflect.reference.TypeRef;
 
 
@@ -40,17 +44,32 @@ import org.fest.reflect.reference.TypeRef;
  *
  * @author Alex Ruiz
  */
-public final class FieldName extends NameTemplate {
+public final class FieldName {
+
+  private final String name;
 
   /**
    * Creates a new <code>{@link FieldName}</code>: the starting point of the fluent interface for accessing fields
    * using Java Reflection.
    * @param name the name of the field to access using Java Reflection.
+   * @return the created <code>FieldName</code>.
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public FieldName(String name) {
-    super(name);
+  public static FieldName beginFieldAccess(String name) {
+    validateIsNotNullOrEmpty(name);
+    return new FieldName(name);
+  }
+
+  private static void validateIsNotNullOrEmpty(String name) {
+    if (name == null)
+      throw new NullPointerException("The name of the field to access should not be null");
+    if (isEmpty(name))
+      throw new IllegalArgumentException("The name of the field to access should not be empty");
+  }
+
+  private FieldName(String name) {
+    this.name = name;
   }
 
   /**
@@ -61,7 +80,7 @@ public final class FieldName extends NameTemplate {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> FieldType<T> ofType(Class<T> type) {
-    return new FieldType<T>(type, name);
+    return newFieldType(name, type);
   }
 
   /**
@@ -80,6 +99,6 @@ public final class FieldName extends NameTemplate {
    * @since 1.1
    */
   public <T> FieldTypeRef<T> ofType(TypeRef<T> type) {
-    return new FieldTypeRef<T>(type, this);
+    return newFieldTypeRef(name, type);
   }
 }
