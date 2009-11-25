@@ -5,7 +5,7 @@
     <author email="alex.ruiz.05@gmail.com">Alex Ruiz</author>
   </properties>
   <body>
-    <release version="1.2" date="TBD" description="Subsequent release">
+    <release version="1.2" date="2009-11-30" description="Subsequent release">
       <action dev="alexruiz" type="fix" issue="FEST-68" due-to="Francis ANDRE">
         Method invocation now rethrow the original exception thrown by the method.
       </action>
