@@ -66,18 +66,6 @@ public final class Invoker<T> {
     return new Invoker<T>(name, target, descriptor);
   }
 
-  static void verifyCorrectType(String name, Object target, Class<?> expectedType, PropertyDescriptor descriptor) {
-    Class<?> actualType = descriptor.getPropertyType();
-    if (!expectedType.isAssignableFrom(actualType)) throw incorrectPropertyType(name, target, actualType, expectedType);
-  }
-
-  private static ReflectionError incorrectPropertyType(String name, Object target, Class<?> actual, Class<?> expected) {
-    String typeName = target.getClass().getName();
-    String msg = concat("The type of the property ", quote(name), " in ", typeName, " should be <",
-        expected.getName(), "> but was <", actual.getName(), ">");
-    throw new ReflectionError(msg);
-  }
-
   private static PropertyDescriptor descriptorForProperty(String propertyName, Object target) {
     BeanInfo beanInfo = null;
     Class<?> type = target.getClass();
@@ -89,6 +77,18 @@ public final class Invoker<T> {
     for (PropertyDescriptor d : beanInfo.getPropertyDescriptors())
       if (propertyName.equals(d.getName())) return d;
     throw new ReflectionError(concat("Unable to find property ", quote(propertyName), " in " , type.getName()));
+  }
+
+  static void verifyCorrectType(String name, Object target, Class<?> expectedType, PropertyDescriptor descriptor) {
+    Class<?> actualType = descriptor.getPropertyType();
+    if (!expectedType.isAssignableFrom(actualType)) throw incorrectPropertyType(name, target, actualType, expectedType);
+  }
+
+  private static ReflectionError incorrectPropertyType(String name, Object target, Class<?> actual, Class<?> expected) {
+    String typeName = target.getClass().getName();
+    String msg = concat("The type of the property ", quote(name), " in ", typeName, " should be <",
+        expected.getName(), "> but was <", actual.getName(), ">");
+    throw new ReflectionError(msg);
   }
 
   private final String propertyName;

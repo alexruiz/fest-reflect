@@ -24,6 +24,7 @@ import static org.fest.reflect.method.StaticMethodName.startStaticMethodAccess;
 import static org.fest.reflect.type.Type.newType;
 
 import org.fest.reflect.beanproperty.PropertyName;
+import org.fest.reflect.beanproperty.PropertyType;
 import org.fest.reflect.constructor.TargetType;
 import org.fest.reflect.field.*;
 import org.fest.reflect.innerclass.StaticInnerClassName;
@@ -108,6 +109,11 @@ import org.fest.reflect.type.Type;
  *                                                        .{@link StaticMethodReturnTypeRef#in(Class) in}(Jedi.class)
  *                                                        .{@link Invoker#invoke(Object...) invoke}();
  *
+ *   // Retrieves the value of the property "name"
+ *   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.Invoker#get() get}();
+ *
+ *   // Sets the value of the property "name" to "Yoda"
+ *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.Invoker#set(Object) set}("Yoda");
  * </pre>
  * </p>
  *
