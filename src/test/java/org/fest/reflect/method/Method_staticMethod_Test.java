@@ -1,34 +1,37 @@
 /*
  * Created on Nov 23, 2009
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ * 
  * Copyright @2009 the original author or authors.
  */
 package org.fest.reflect.method;
 
-import static org.fest.assertions.Assertions.assertThat;
-import static org.fest.reflect.util.ExpectedFailures.*;
+import static org.fest.reflect.util.ExpectedFailures.expectIllegalArgumentException;
+import static org.fest.reflect.util.ExpectedFailures.expectNullPointerException;
+import static org.fest.reflect.util.ExpectedFailures.expectReflectionError;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import org.fest.reflect.Jedi;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.test.CodeToTest;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Tests for the fluent interface for accessing static methods.
- *
+ * 
  * @author Yvonne Wang
  * @author Alex Ruiz
  */
@@ -62,7 +65,7 @@ public class Method_staticMethod_Test {
     String msg = "The return type of the static method to access should not be null";
     expectNullPointerException(msg).on(new CodeToTest() {
       public void run() {
-        StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType((Class<?>)null);
+        StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType((Class<?>) null);
       }
     });
   }
@@ -100,53 +103,53 @@ public class Method_staticMethod_Test {
   @Test
   public void should_call_static_method_with_no_args_and_return_value() {
     Jedi.addCommonPower("Jump");
-    int count = StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType(int.class)
-                                                                            .in(Jedi.class).invoke();
-    assertThat(count).isEqualTo(Jedi.commonPowerCount());
+    int count = StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType(int.class).in(Jedi.class)
+        .invoke();
+    assertEquals(Jedi.commonPowerCount(), count);
   }
 
   @Test
   public void should_call_static_method_with_args_and_return_value() {
     Jedi.addCommonPower("Jump");
-    String power =
-      StaticMethodName.startStaticMethodAccess("commonPowerAt").withReturnType(String.class)
-                                           .withParameterTypes(int.class).in(Jedi.class).invoke(0);
-    assertThat(power).isEqualTo("Jump");
+    String power = StaticMethodName.startStaticMethodAccess("commonPowerAt").withReturnType(String.class)
+        .withParameterTypes(int.class).in(Jedi.class).invoke(0);
+    assertEquals("Jump", power);
   }
 
   @Test
   public void should_call_static_method_with_no_args_and_return_TypeRef() {
     Jedi.addCommonPower("jump");
     String method = "commonPowers";
-    List<String> powers = StaticMethodName.startStaticMethodAccess(method).withReturnType(new TypeRef<List<String>>() {})
-                                                                          .in(Jedi.class).invoke();
-    assertThat(powers).containsOnly("jump");
+    List<String> powers = StaticMethodName.startStaticMethodAccess(method).withReturnType(
+        new TypeRef<List<String>>() {}).in(Jedi.class).invoke();
+    assertEquals(1, powers.size());
+    assertEquals("jump", powers.get(0));
   }
 
   @Test
   public void should_call_static_method_with_args_and_return_TypeRef() {
     Jedi.addCommonPower("jump");
     String method = "commonPowersThatStartWith";
-    List<String> powers =
-      StaticMethodName.startStaticMethodAccess(method).withReturnType(new TypeRef<List<String>>() {})
-                                                      .withParameterTypes(String.class).in(Jedi.class).invoke("ju");
-    assertThat(powers).containsOnly("jump");
+    List<String> powers = StaticMethodName.startStaticMethodAccess(method).withReturnType(
+        new TypeRef<List<String>>() {}).withParameterTypes(String.class).in(Jedi.class).invoke("ju");
+    assertEquals(1, powers.size());
+    assertEquals("jump", powers.get(0));
   }
 
   @Test
   public void should_call_static_method_with_args_and_no_return_value() {
-    StaticMethodName.startStaticMethodAccess("addCommonPower").withParameterTypes(String.class)
-                                                              .in(Jedi.class).invoke("Jump");
-    assertThat(Jedi.commonPowerAt(0)).isEqualTo("Jump");
+    StaticMethodName.startStaticMethodAccess("addCommonPower").withParameterTypes(String.class).in(Jedi.class).invoke(
+        "Jump");
+    assertEquals("Jump", Jedi.commonPowerAt(0));
   }
 
   @Test
   public void should_call_static_method_with_no_args_and_no_return_value() {
     Jedi.addCommonPower("Jump");
-    assertThat(Jedi.commonPowerCount()).isEqualTo(1);
-    assertThat(Jedi.commonPowerAt(0)).isEqualTo("Jump");
+    assertEquals(1, Jedi.commonPowerCount());
+    assertEquals("Jump", Jedi.commonPowerAt(0));
     StaticMethodName.startStaticMethodAccess("clearCommonPowers").in(Jedi.class).invoke();
-    assertThat(Jedi.commonPowerCount()).isEqualTo(0);
+    assertEquals(0, Jedi.commonPowerCount());
   }
 
   @Test
@@ -165,7 +168,8 @@ public class Method_staticMethod_Test {
     expectIllegalArgumentException("argument type mismatch").on(new CodeToTest() {
       public void run() {
         int invalidArg = 8;
-        StaticMethodName.startStaticMethodAccess("addCommonPower").withParameterTypes(String.class).in(Jedi.class).invoke(invalidArg);
+        StaticMethodName.startStaticMethodAccess("addCommonPower").withParameterTypes(String.class).in(Jedi.class)
+            .invoke(invalidArg);
       }
     });
   }
