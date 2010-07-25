@@ -90,6 +90,12 @@ public class Property_Test {
   }
 
   @Test
+  public void should_get_property_value_defined_in_object_class() {
+    Class<?> personClass = PropertyName.startPropertyAccess("class").ofType(Class.class).in(person).get();
+    assertEquals(Person.class, personClass);
+  }
+
+  @Test
   public void should_set_property_value() {
     PropertyName.startPropertyAccess("name").ofType(String.class).in(person).set("Leia");
     assertEquals("Leia", person.getName());
