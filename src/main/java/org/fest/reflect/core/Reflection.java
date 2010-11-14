@@ -26,10 +26,17 @@ import static org.fest.reflect.type.Type.newType;
 import org.fest.reflect.beanproperty.PropertyName;
 import org.fest.reflect.beanproperty.PropertyType;
 import org.fest.reflect.constructor.TargetType;
-import org.fest.reflect.field.*;
+import org.fest.reflect.field.FieldName;
+import org.fest.reflect.field.FieldTypeRef;
+import org.fest.reflect.field.StaticFieldName;
+import org.fest.reflect.field.StaticFieldType;
+import org.fest.reflect.field.StaticFieldTypeRef;
 import org.fest.reflect.innerclass.StaticInnerClassName;
-import org.fest.reflect.method.*;
 import org.fest.reflect.method.Invoker;
+import org.fest.reflect.method.MethodName;
+import org.fest.reflect.method.MethodReturnTypeRef;
+import org.fest.reflect.method.StaticMethodName;
+import org.fest.reflect.method.StaticMethodReturnTypeRef;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.reflect.type.Type;
 
@@ -185,7 +192,7 @@ public final class Reflection {
   public static TargetType constructor() { return startConstructorAccess(); }
 
   /**
-   * Starting point of the fluent interface for accessing properties via Bean Instrospection.
+   * Starting point of the fluent interface for accessing properties via Bean Introspection.
    * @param name the name of the property to access.
    * @return the starting point of the method chain.
    * @throws NullPointerException if the given name is <code>null</code>.
