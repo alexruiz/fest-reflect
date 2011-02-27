@@ -15,6 +15,7 @@
 package org.fest.reflect.method;
 
 import static org.fest.reflect.util.Accessibles.*;
+import static org.fest.reflect.util.Casting.cast;
 import static org.fest.reflect.util.Throwables.targetOf;
 import static org.fest.util.Arrays.copyOf;
 import static org.fest.util.ToString.toStringOf;
@@ -119,7 +120,7 @@ class FluentMethod<T> implements Name<T>, ParameterTypes<T>, Target<T>, Invoker<
     boolean accessible = method.isAccessible();
     try {
       makeAccessible(method);
-      return returnType.cast(method.invoke(target, args));
+      return cast(method.invoke(target, args), returnType);
     } catch (Throwable t) {
       Throwable cause = targetOf(t);
       if (cause instanceof RuntimeException) throw (RuntimeException)cause;

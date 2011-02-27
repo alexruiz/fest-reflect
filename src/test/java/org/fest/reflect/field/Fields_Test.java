@@ -125,7 +125,6 @@ public class Fields_Test {
   @Test
   public void should_get_static_field_value() {
     Person.setCount(6);
-    Fields.fieldOfType(int.class).withName("count").in(Person.class).get();
     int count = Fields.fieldOfType(int.class).withName("count").in(Person.class).get();
     assertEquals(6, count);
   }

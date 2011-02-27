@@ -14,6 +14,8 @@
  */
 package org.fest.reflect.javabean;
 
+import static org.fest.reflect.util.Casting.cast;
+
 import java.beans.*;
 
 import org.fest.reflect.exception.ReflectionError;
@@ -93,7 +95,7 @@ class FluentProperty<T> implements Name<T>, Target<T>, Invoker<T> {
   /** {@inheritDoc} */
   public T get() {
     try {
-      return type.cast(descriptor.getReadMethod().invoke(target));
+      return cast(descriptor.getReadMethod().invoke(target), type);
     } catch (Exception e) {
       String message = String.format("Unable to obtain the value in property '%s'", name);
       throw new ReflectionError(message, e);

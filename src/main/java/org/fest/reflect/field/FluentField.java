@@ -15,6 +15,7 @@
 package org.fest.reflect.field;
 
 import static org.fest.reflect.util.Accessibles.*;
+import static org.fest.reflect.util.Casting.cast;
 import static org.fest.util.Strings.*;
 
 import java.lang.reflect.Field;
@@ -126,9 +127,9 @@ class FluentField<T> implements Name<T>, Target<T>, Invoker<T> {
     boolean accessible = field.isAccessible();
     try {
       setAccessible(field, true);
-      return type.cast(field.get(target));
+      return cast(field.get(target), type);
     } catch (Exception e) {
-      throw new ReflectionError(String.format("Unable to obtain the value in field '%s'" + field.getName()), e);
+      throw new ReflectionError(String.format("Unable to obtain the value in field '%s'", field.getName()), e);
     } finally {
       setAccessibleIgnoringExceptions(field, accessible);
     }
