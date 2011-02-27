@@ -14,17 +14,25 @@
  */
 package org.fest.reflect.method;
 
+import org.fest.reflect.exception.ReflectionError;
 
 /**
- * TODO.
+ * Holds the object containing the method to invoke.
+ * @param <T> the return type of the method to invoke.
  *
- * @author
+ * @author Alex Ruiz
+ * @author Yvonne Wang
  */
 public interface Target<T> {
 
   /**
-   * @param target
-   * @return
+   * Sets the object containing the method to invoke.
+   * @param target the object containing the method to invoke.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given target is {@code null}.
+   * @throws ReflectionError if a matching method cannot be found on the given object.
    */
   Invoker<T> in(Object target);
+
+   // TODO add support for static
 }

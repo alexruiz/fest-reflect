@@ -17,35 +17,48 @@ package org.fest.reflect.method;
 import org.fest.reflect.reference.TypeRef;
 
 /**
- * TODO.
+ * Fluent interface for invoking methods.
  *
- * @author
+ * @author Alex Ruiz
+ * @author Yvonne Wang
  */
 public class Methods {
 
-  private static final Class<?>[] NO_PARAMETERS = new Class<?>[0];
-
   /**
-   * @param type
-   * @return
+   * Sets the return type of the method to invoke.
+   * @param <T> the generic type of the method to invoke.
+   * @param type the type of the method to invoke.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given type is {@code null}.
    */
   public static <T> Name<T> methodWithReturnType(Class<T> type) {
     return new FluentMethod<T>(type);
   }
 
   /**
-   * @param typeRef
-   * @return
+   * Sets the return type of the method to invoke.
+   * @param <T> the generic type of the method to invoke.
+   * @param typeRef a reference to the type of the property to access. Used to overcome type erasure in generics.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given type reference is {@code null}.
    */
   public static <T> Name<T> methodWithReturnType(TypeRef<T> typeRef) {
     return new FluentMethod<T>(typeRef);
   }
 
   /**
-   *
+   * Sets the name of the method to invoke, indicating that the return type of such method is {@code void}. This is a
+   * shortcut for:
+   * <pre>
+   * methodWithReturnType(Void.class).withName("setAge")
+   * </pre>
+   * @param name the name of the method to invoke.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given name is {@code null}.
+   * @throws IllegalArgumentException if the given name is empty.
    */
-  public static Name<Void> methodWithReturnTypeVoid() {
-    return new FluentMethod<Void>(Void.class);
+  public static ParameterTypes<Void> methodWithName(String name) {
+    return new FluentMethod<Void>(Void.class).withName(name);
   }
 
   private Methods() {}

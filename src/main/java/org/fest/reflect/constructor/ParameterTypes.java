@@ -25,14 +25,14 @@ public interface ParameterTypes<T> {
 
   /**
    * Sets the parameter types of the constructor to invoke.
-   * @param parameterTypes the parameter types.
+   * @param types the parameter types.
    * @return the next object in the fluent interface.
    * @throws NullPointerException if the given array is {@code null}.
    */
-  Invoker<T> withParameterTypes(Class<?>...parameterTypes);
+  Invoker<T> withParameterTypes(Class<?>...types);
 
   /**
-   * Indicates that the constructor to invoke does not have parameters (the default constructor.)
+   * Indicates that the constructor to invoke does not take any parameters.
    * @return the next object in the fluent interface.
    */
   Invoker<T> withNoParameters();

@@ -74,7 +74,7 @@ public class Methods_Test {
   }
 
   @Test public void should_call_method_with_args_and_no_return_value() {
-    Methods.methodWithReturnTypeVoid().withName("setName").withParameterTypes(String.class).in(jedi).invoke("Leia");
+    Methods.methodWithName("setName").withParameterTypes(String.class).in(jedi).invoke("Leia");
     assertEquals("Leia", jedi.getName());
   }
 
@@ -109,12 +109,12 @@ public class Methods_Test {
 
   @Test public void should_call_method_with_no_args_and_no_return_value() {
     assertFalse(jedi.isMaster());
-    Methods.methodWithReturnTypeVoid().withName("makeMaster").withNoParameters().in(jedi).invoke();
+    Methods.methodWithName("makeMaster").withNoParameters().in(jedi).invoke();
     assertTrue(jedi.isMaster());
   }
 
   @Test public void should_return_real_method() {
-    Method method = Methods.methodWithReturnTypeVoid().withName("setName").withParameterTypes(String.class).in(jedi).info();
+    Method method = Methods.methodWithName("setName").withParameterTypes(String.class).in(jedi).info();
     assertNotNull(method);
     assertEquals("setName", method.getName());
     Class<?>[] parameterTypes = method.getParameterTypes();
@@ -129,12 +129,12 @@ public class Methods_Test {
 
   @Test public void should_throw_error_if_args_for_method_are_invalid() {
     thrown.expectIllegalArgumentException("argument type mismatch");
-    Methods.methodWithReturnTypeVoid().withName("setName").withParameterTypes(String.class).in(jedi).invoke(8);
+    Methods.methodWithName("setName").withParameterTypes(String.class).in(jedi).invoke(8);
   }
 
   @Test public void should_rethrow_RuntimeException_thrown_by_method() {
     try {
-      Methods.methodWithReturnTypeVoid().withName("throwRuntimeException").withNoParameters().in(jedi).invoke();
+      Methods.methodWithName("throwRuntimeException").withNoParameters().in(jedi).invoke();
       fail("Expecting an IllegalStateException");
     } catch (IllegalStateException e) {
       assertEquals("Somehow I got in an illegal state", e.getMessage());
@@ -143,7 +143,7 @@ public class Methods_Test {
 
   @Test public void should_wrap_with_a_ReflectionError_the_checked_Exception_thrown_by_method() {
     try {
-      Methods.methodWithReturnTypeVoid().withName("throwCheckedException").withNoParameters().in(jedi).invoke();
+      Methods.methodWithName("throwCheckedException").withNoParameters().in(jedi).invoke();
       fail("Expecting an ReflectionError");
     } catch (ReflectionError e) {
       Throwable cause = e.getCause();

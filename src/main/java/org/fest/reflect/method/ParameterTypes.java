@@ -15,20 +15,25 @@
 package org.fest.reflect.method;
 
 /**
- * TODO.
+ * Holds the parameter types of the method to invoke.
+ * @param <T> the return type of the method to invoke.
  *
- * @author
+ * @author Alex Ruiz
+ * @author Yvonne Wang
  */
 public interface ParameterTypes<T> {
 
   /**
-   * @param types
-   * @return
+   * Sets the parameter types of the method to invoke.
+   * @param types the parameter types.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given array is {@code null}.
    */
   Target<T> withParameterTypes(Class<?>...types);
 
   /**
-   * @return
+   * Indicates that the method to invoke does not take any parameters.
+   * @return the next object in the fluent interface.
    */
   Target<T> withNoParameters();
 

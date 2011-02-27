@@ -68,9 +68,9 @@ class FluentProperty<T> implements Name<T>, Target<T>, Invoker<T> {
         descriptor = checkRightType(d);
         break;
       }
-    } catch (IntrospectionException e) {
+    } catch (Throwable t) {
       String message = String.format("Unable to get BeanInfo for type %s", target.getClass().getName());
-      throw new ReflectionError(message, e);
+      throw new ReflectionError(message, t);
     }
     if (descriptor == null) throw cannotFindProperty();
   }

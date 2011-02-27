@@ -16,7 +16,6 @@ package org.fest.reflect.field;
 
 import static org.fest.reflect.util.Accessibles.*;
 import static org.fest.reflect.util.Casting.cast;
-import static org.fest.util.Strings.*;
 
 import java.lang.reflect.Field;
 
@@ -128,8 +127,8 @@ class FluentField<T> implements Name<T>, Target<T>, Invoker<T> {
     try {
       setAccessible(field, true);
       return cast(field.get(target), type);
-    } catch (Exception e) {
-      throw new ReflectionError(String.format("Unable to obtain the value in field '%s'", field.getName()), e);
+    } catch (Throwable t) {
+      throw new ReflectionError(String.format("Unable to obtain the value in field '%s'", field.getName()), t);
     } finally {
       setAccessibleIgnoringExceptions(field, accessible);
     }
@@ -141,8 +140,9 @@ class FluentField<T> implements Name<T>, Target<T>, Invoker<T> {
     try {
       setAccessible(field, true);
       field.set(target, value);
-    } catch (Exception e) {
-      throw new ReflectionError(concat("Unable to update the value in field ", quote(field.getName())), e);
+    } catch (Throwable t) {
+      String message = String.format("Unable to update the value in field '%s'", name);
+      throw new ReflectionError(message, t);
     } finally {
       setAccessibleIgnoringExceptions(field, accessible);
     }

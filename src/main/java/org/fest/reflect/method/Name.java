@@ -15,16 +15,20 @@
 package org.fest.reflect.method;
 
 /**
- * TODO.
+ * Holds the name of the method to invoke.
+ * @param <T> the return type of the method to invoke.
  *
- * @author
+ * @author Alex Ruiz
+ * @author Yvonne Wang
  */
 public interface Name<T> {
 
   /**
-   * @param name
-   * @return
+   * Sets the name of the method to invoke.
+   * @param name the name of the method.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given name is {@code null}.
+   * @throws IllegalArgumentException if the given name is empty.
    */
   ParameterTypes<T> withName(String name);
-
 }

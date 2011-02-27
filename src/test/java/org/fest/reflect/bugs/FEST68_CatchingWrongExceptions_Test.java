@@ -16,7 +16,7 @@
 package org.fest.reflect.bugs;
 
 import static org.fest.reflect.constructor.Constructors.constructorIn;
-import static org.fest.reflect.method.Methods.methodWithReturnTypeVoid;
+import static org.fest.reflect.method.Methods.methodWithName;
 
 import org.junit.Test;
 
@@ -31,7 +31,7 @@ public class FEST68_CatchingWrongExceptions_Test {
   @Test(expected = MyRuntimeException.class)
   public void should_not_catch_RuntimeException_when_calling_method() {
     Main main = new Main();
-    methodWithReturnTypeVoid().withName("set").withNoParameters().in(main).invoke();
+    methodWithName("set").withNoParameters().in(main).invoke();
   }
 
   @Test(expected = MyRuntimeException.class)

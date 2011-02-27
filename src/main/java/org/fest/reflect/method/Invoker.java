@@ -16,21 +16,28 @@ package org.fest.reflect.method;
 
 import java.lang.reflect.Method;
 
+import org.fest.reflect.exception.ReflectionError;
+
 /**
- * TODO.
+ * Invokes a method.
+ * @param <T> the return type of the method to invoke.
  *
- * @author
+ * @author Alex Ruiz
+ * @author Yvonne Wang
  */
 public interface Invoker<T> {
 
   /**
-   * @param args
-   * @return
+   * Invokes the method.
+   * @param args the arguments to pass.
+   * @return the value returned by the invoked method.
+   * @throws ReflectionError if the method could not be invoked.
    */
   T invoke(Object...args);
 
   /**
-   * @return
+   * Returns the underlying <code>{@link Method}</code>.
+   * @return the underlying method.
    */
   Method info();
 }

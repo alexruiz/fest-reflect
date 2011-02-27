@@ -59,10 +59,10 @@ class FluentConstructor<T> implements ParameterTypes<T>, Invoker<T> {
   private void findConstructor() {
     try {
       constructor = target.getDeclaredConstructor(parameterTypes);
-    } catch (Exception e) {
+    } catch (Throwable t) {
       String format = "Unable to find constructor in type %s with parameter types %s";
       String message = String.format(format, target.getName(), toStringOf(parameterTypes));
-      throw new ReflectionError(message, e);
+      throw new ReflectionError(message, t);
     }
   }
 
