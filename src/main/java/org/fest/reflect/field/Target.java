@@ -14,36 +14,33 @@
  */
 package org.fest.reflect.field;
 
-import java.lang.reflect.Field;
-
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Reads and writes to a field.
+ * Holds the object containing the field to access.
  * @param <T> the type of the field to access.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
-public interface Invoker<T> {
+public interface Target<T> {
 
   /**
-   * Reads the value of the field.
-   * @return the value of the field.
-   * @throws ReflectionError if the value of the field cannot be read.
+   * Sets the object containing the field to access.
+   * @param target the object containing the field to access.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given target is {@code null}.
+   * @throws ReflectionError if a matching field cannot be found on the given object.
    */
-  T get();
+  Invoker<T> in(Object target);
+
 
   /**
-   * Writes a value to the field.
-   * @param value the value to set.
-   * @throws ReflectionError if the value cannot be set on the field.
+   * Sets the type containing the static field to access.
+   * @param target the type containing the static field to access.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given target is {@code null}.
+   * @throws ReflectionError if a matching static field cannot be found on the given type.
    */
-  void set(T value);
-
-  /**
-   * Returns the underlying <code>{@link Field}</code>.
-   * @return the underlying field.
-   */
-  Field info();
+  Invoker<T> in(Class<?> target);
 }

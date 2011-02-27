@@ -12,38 +12,24 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.field;
-
-import java.lang.reflect.Field;
+package org.fest.reflect.innerclass;
 
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Reads and writes to a field.
- * @param <T> the type of the field to access.
+ * Finds a static inner class by name.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
-public interface Invoker<T> {
+public interface Finder {
 
   /**
-   * Reads the value of the field.
-   * @return the value of the field.
-   * @throws ReflectionError if the value of the field cannot be read.
+   * Finds the static inner class.
+   * @param declaringType the class declaring the static inner class to find.
+   * @return the found inner class.
+   * @throws NullPointerException if the given type is {@code null}.
+   * @throws ReflectionError if a static inner class with the specified name cannot be found in the given type.
    */
-  T get();
-
-  /**
-   * Writes a value to the field.
-   * @param value the value to set.
-   * @throws ReflectionError if the value cannot be set on the field.
-   */
-  void set(T value);
-
-  /**
-   * Returns the underlying <code>{@link Field}</code>.
-   * @return the underlying field.
-   */
-  Field info();
+  Class<?> in(Class<?> declaringType);
 }

@@ -12,28 +12,25 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.constructor;
+package org.fest.reflect.beanproperty;
+
+import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Holds the parameter types of the constructor to invoke.
- * @param <T> the class in which the constructor is declared.
+ * Holds the object containing the property to access.
+ * @param <T> the type of the property to access.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
-public interface ParameterTypes<T> {
+public interface Target<T> {
 
   /**
-   * Sets the parameter types of the constructor to invoke.
-   * @param parameterTypes the parameter types.
+   * Sets the object containing the property to access.
+   * @param target the object containing the property to access.
    * @return the next object in the fluent interface.
-   * @throws NullPointerException if the given array is {@code null}.
+   * @throws NullPointerException if the given target is {@code null}.
+   * @throws ReflectionError if a matching property cannot be found on the given object.
    */
-  Invoker<T> withParameterTypes(Class<?>...parameterTypes);
-
-  /**
-   * Indicates that the constructor to invoke does not have parameters (the default constructor.)
-   * @return the next object in the fluent interface.
-   */
-  Invoker<T> withNoParameters();
+  Invoker<T> in(Object target);
 }

@@ -14,8 +14,7 @@
  */
 package org.fest.reflect.reference;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import java.lang.reflect.*;
 
 import org.fest.reflect.exception.ReflectionError;
 
@@ -48,7 +47,8 @@ public abstract class TypeRef<T> {
    * Returns the raw type of the generic type in this reference.
    * @return the raw type of the generic type in this reference.
    */
-  public final Class<?> rawType() {
-    return rawType;
+  @SuppressWarnings("unchecked")
+  public final Class<T> rawType() {
+    return (Class<T>) rawType;
   }
 }

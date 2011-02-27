@@ -13,10 +13,10 @@
  *
  * Copyright @2009 the original author or authors.
  */
-package org.fest.reflect.core;
+package org.fest.reflect.bugs;
 
-import static org.fest.reflect.core.Reflection.constructor;
-import static org.fest.reflect.core.Reflection.method;
+import static org.fest.reflect.constructor.Constructors.constructorIn;
+import static org.fest.reflect.method.Methods.methodWithReturnTypeVoid;
 
 import org.junit.Test;
 
@@ -31,12 +31,12 @@ public class FEST68_CatchingWrongExceptions_Test {
   @Test(expected = MyRuntimeException.class)
   public void should_not_catch_RuntimeException_when_calling_method() {
     Main main = new Main();
-    method("set").in(main).invoke();
+    methodWithReturnTypeVoid().withName("set").withNoParameters().in(main).invoke();
   }
 
   @Test(expected = MyRuntimeException.class)
   public void should_not_catch_RuntimeException_when_calling_constructor() {
-    constructor().withParameterTypes(String.class).in(Main.class).newInstance("Hello");
+    constructorIn(Main.class).withParameterTypes(String.class).newInstance("Hello");
   }
 
   static class MyRuntimeException extends RuntimeException {
@@ -50,7 +50,7 @@ public class FEST68_CatchingWrongExceptions_Test {
     public Main() {}
 
     public Main(String hello) {
-      throw new MyRuntimeException("set");
+      throw new MyRuntimeException("Main");
     }
 
     public void set()  {

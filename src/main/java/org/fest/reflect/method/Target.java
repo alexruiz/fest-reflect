@@ -14,23 +14,17 @@
  */
 package org.fest.reflect.method;
 
-import java.lang.reflect.Method;
 
 /**
  * TODO.
  *
  * @author
  */
-public interface Invoker<T> {
+public interface Target<T> {
 
   /**
-   * @param args
+   * @param target
    * @return
    */
-  T invoke(Object...args);
-
-  /**
-   * @return
-   */
-  Method info();
+  Invoker<T> in(Object target);
 }

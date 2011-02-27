@@ -1,5 +1,5 @@
 /*
- * Created on Feb 25, 2011
+ * Created on Feb 26, 2011
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,28 +12,23 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.constructor;
+package org.fest.reflect.field;
 
 /**
- * Holds the parameter types of the constructor to invoke.
- * @param <T> the class in which the constructor is declared.
+ * Holds the name of the field to access.
+ * @param <T> the type of the field to access.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
-public interface ParameterTypes<T> {
+public interface Name<T> {
 
   /**
-   * Sets the parameter types of the constructor to invoke.
-   * @param parameterTypes the parameter types.
+   * Sets the name of the field to access.
+   * @param name the name of the field.
    * @return the next object in the fluent interface.
-   * @throws NullPointerException if the given array is {@code null}.
+   * @throws NullPointerException if the given name is {@code null}.
+   * @throws IllegalArgumentException if the given name is empty.
    */
-  Invoker<T> withParameterTypes(Class<?>...parameterTypes);
-
-  /**
-   * Indicates that the constructor to invoke does not have parameters (the default constructor.)
-   * @return the next object in the fluent interface.
-   */
-  Invoker<T> withNoParameters();
+  Target<T> withName(String name);
 }
