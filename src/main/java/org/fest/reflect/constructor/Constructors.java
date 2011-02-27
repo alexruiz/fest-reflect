@@ -15,7 +15,7 @@
 package org.fest.reflect.constructor;
 
 /**
- * Implements a fluent interface for invoking constructors.
+ * Fluent interface for invoking constructors.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang

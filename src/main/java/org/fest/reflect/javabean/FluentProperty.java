@@ -12,7 +12,7 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.beanproperty;
+package org.fest.reflect.javabean;
 
 import java.beans.*;
 

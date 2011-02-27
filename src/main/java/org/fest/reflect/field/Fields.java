@@ -17,7 +17,7 @@ package org.fest.reflect.field;
 import org.fest.reflect.reference.TypeRef;
 
 /**
- * Implements a fluent interface for accessing fields.
+ * Fluent interface for accessing fields.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang

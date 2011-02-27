@@ -17,7 +17,7 @@ package org.fest.reflect.innerclass;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Implements a fluent interface for finding static inner classes.
+ * Fluent interface for finding static inner classes.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang

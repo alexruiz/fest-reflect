@@ -12,12 +12,12 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.beanproperty;
+package org.fest.reflect.javabean;
 
 import org.fest.reflect.reference.TypeRef;
 
 /**
- * Implements a fluent interface for accessing JavaBeans properties.
+ * Fluent interface for accessing JavaBeans properties.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang

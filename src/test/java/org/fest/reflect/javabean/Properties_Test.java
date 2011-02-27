@@ -12,7 +12,7 @@
  *
  * Copyright @2009 the original author or authors.
  */
-package org.fest.reflect.beanproperty;
+package org.fest.reflect.javabean;
 
 import static org.fest.reflect.test.ExpectedException.none;
 import static org.fest.util.Collections.list;
@@ -22,6 +22,7 @@ import java.beans.PropertyDescriptor;
 import java.util.List;
 
 import org.fest.reflect.*;
+import org.fest.reflect.javabean.Properties;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.reflect.test.ExpectedException;
 import org.junit.*;

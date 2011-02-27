@@ -12,23 +12,38 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.beanproperty;
+package org.fest.reflect.javabean;
+
+import java.beans.PropertyDescriptor;
+
+import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Holds the name of the property to access.
+ * Invokes "getters" and "setters".
  * @param <T> the type of the property to access.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
-public interface Name<T> {
+public interface Invoker<T> {
 
   /**
-   * Sets the name of the property to access.
-   * @param name the name of the property.
-   * @return the next object in the fluent interface.
-   * @throws NullPointerException if the given name is {@code null}.
-   * @throws IllegalArgumentException if the given name is empty.
+   * Invokes the "getter."
+   * @return the value returned by the "getter."
+   * @throws ReflectionError if the value of the property cannot be retrieved.
    */
-  Target<T> withName(String name);
+  T get();
+
+  /**
+   * Invokes the "setter," passing the value to set.
+   * @param value the value to set.
+   * @throws ReflectionError if the given value cannot be set.
+   */
+  void set(T value);
+
+  /**
+   * Returns the underlying <code>{@link PropertyDescriptor}</code>.
+   * @return the underlying property descriptor.
+   */
+  PropertyDescriptor info();
 }
