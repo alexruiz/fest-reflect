@@ -102,7 +102,7 @@ public class Properties_Test {
   }
 
   @Test public void should_throw_error_if_TypeRef_is_null() {
-    thrown.expectNullPointerException("The type reference of the property to access should not be null");
+    thrown.expectNullPointerException("The reference to the type of the property to access should not be null");
     Properties.propertyOfType((TypeRef<?>) null);
   }
 

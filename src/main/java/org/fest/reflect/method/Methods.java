@@ -14,14 +14,6 @@
  */
 package org.fest.reflect.method;
 
-import static org.fest.reflect.util.Accessibles.*;
-import static org.fest.reflect.util.Throwables.targetOf;
-import static org.fest.util.Arrays.copyOf;
-import static org.fest.util.ToString.toStringOf;
-
-import java.lang.reflect.Method;
-
-import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
 
 /**
@@ -29,7 +21,7 @@ import org.fest.reflect.reference.TypeRef;
  *
  * @author
  */
-public class Methods<T> implements Name<T>, ParameterTypes<T>, Target<T>, Invoker<T> {
+public class Methods {
 
   private static final Class<?>[] NO_PARAMETERS = new Class<?>[0];
 
@@ -38,8 +30,7 @@ public class Methods<T> implements Name<T>, ParameterTypes<T>, Target<T>, Invoke
    * @return
    */
   public static <T> Name<T> methodWithReturnType(Class<T> type) {
-    if (type == null) throw new NullPointerException("The return type of the method to access should not be null");
-    return new Methods<T>(type);
+    return new FluentMethod<T>(type);
   }
 
   /**
@@ -47,119 +38,15 @@ public class Methods<T> implements Name<T>, ParameterTypes<T>, Target<T>, Invoke
    * @return
    */
   public static <T> Name<T> methodWithReturnType(TypeRef<T> typeRef) {
-    if (typeRef == null)
-      throw new NullPointerException("The reference to the return type of the method to access should not be null");
-    return new Methods<T>(typeRef.rawType());
+    return new FluentMethod<T>(typeRef);
   }
 
   /**
    *
    */
   public static Name<Void> methodWithReturnTypeVoid() {
-    return new Methods<Void>(Void.class);
+    return new FluentMethod<Void>(Void.class);
   }
 
-  private final Class<T> returnType;
-  private String name;
-  private Object target;
-  private Class<?>[] parameterTypes;
-  private Method method;
-
-  /**
-   * Creates a new </code>{@link Methods}</code>.
-   * @param returnType
-   */
-  private Methods(Class<T> returnType) {
-    this.returnType = returnType;
-  }
-
-  /** {@inheritDoc} */
-  public ParameterTypes<T> withName(String name) {
-    if (name == null) throw new NullPointerException("The name of the method to access should not be null");
-    if (name.length() == 0)
-      throw new IllegalArgumentException("The name of the method to access should not be empty");
-    this.name = name;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  public Target<T> withParameterTypes(Class<?>... types) {
-    if (types == null) throw new NullPointerException("The array of parameter types should not be null");
-    return updateParameterTypes(copyOf(types, types.length));
-  }
-
-  /** {@inheritDoc} */
-  public Target<T> withNoParameters() {
-    return updateParameterTypes(NO_PARAMETERS);
-  }
-
-  private Target<T> updateParameterTypes(Class<?>[] types) {
-    parameterTypes = types;
-    return this;
-  }
-
-  /** {@inheritDoc} */
-  public Invoker<T> in(Object target) {
-    if (target == null) throw new NullPointerException("The target object should not be null");
-    this.target = target;
-    findMethodInTypeHierarchy(targetType());
-    return this;
-  }
-
-  private Class<?> targetType() {
-    if (target instanceof Class<?>) return (Class<?>)target;
-    return target.getClass();
-  }
-
-  private void findMethodInTypeHierarchy(Class<?> targetType) {
-    Class<?> current = targetType;
-    while (current != null) {
-      method = findMethodIn(current);
-      if (method != null) return;
-      current = current.getSuperclass();
-    }
-    throw cannotFindMethod(targetType);
-  }
-
-  private Method findMethodIn(Class<?> targetType) {
-    try {
-      return targetType.getDeclaredMethod(name, parameterTypes);
-    } catch (SecurityException e) {
-      return null;
-    } catch (NoSuchMethodException e) {
-      return null;
-    }
-  }
-
-  private ReflectionError cannotFindMethod(Class<?> targetType) {
-    String format = "Unable to find method '%s' in %s with parameter type(s) %s";
-    String message = String.format(format, name, targetType.getName(), toStringOf(parameterTypes));
-    return new ReflectionError(message);
-  }
-
-  /** {@inheritDoc} */
-  public T invoke(Object... args) {
-    boolean accessible = method.isAccessible();
-    try {
-      makeAccessible(method);
-      return returnType.cast(method.invoke(target, args));
-    } catch (Throwable t) {
-      Throwable cause = targetOf(t);
-      if (cause instanceof RuntimeException) throw (RuntimeException)cause;
-      throw cannotInvokeMethod(cause, args);
-    } finally {
-      setAccessibleIgnoringExceptions(method, accessible);
-    }
-  }
-
-  private ReflectionError cannotInvokeMethod(Throwable cause, Object... args) {
-    String message = String.format("Unable to invoke method '%s' with arguments %s", name, toStringOf(args));
-    throw new ReflectionError(message, cause);
-  }
-
-
-  /** {@inheritDoc} */
-  public Method info() {
-    return method;
-  }
+  private Methods() {}
 }
