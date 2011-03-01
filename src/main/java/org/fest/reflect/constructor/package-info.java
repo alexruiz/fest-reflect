@@ -1,5 +1,5 @@
 /*
- * Created on Feb 25, 2011
+ * Created on Feb 27, 2011
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,10 +12,11 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.constructor;
 
 /**
- * Fluent interface for invoking constructors.
+ * <p>
+ * Provides a &quot;fluent&quot; API for invoking constructors via Java Reflection.
+ * </p>
  * <p>
  * Examples:
  * <pre>
@@ -27,22 +28,6 @@ package org.fest.reflect.constructor;
  *    // Equivalent to call 'new Person("Yoda")'
  *    Person p = {@link org.fest.reflect.constructor.Constructors#constructorIn(Class) constructorIn}(Person.class).{@link org.fest.reflect.constructor.ParameterTypes#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.Invoker#newInstance(Object...) newInstance}("Yoda");
  * </pre>
- *
- * @author Alex Ruiz
- * @author Yvonne Wang
+ * </p>
  */
-public class Constructors {
-
-  /**
-   * Sets the class declaring the constructor.
-   * @param <T> the generic type of the given class.
-   * @param target the class declaring the constructor.
-   * @return the next object in the fluent interface.
-   */
-  public static <T> ParameterTypes<T> constructorIn(Class<T> target) {
-    // TODO check for null
-    return new FluentConstructor<T>(target);
-  }
-
-  private Constructors() {}
-}
+package org.fest.reflect.constructor;

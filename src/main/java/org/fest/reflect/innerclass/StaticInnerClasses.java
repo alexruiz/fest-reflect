@@ -18,6 +18,15 @@ import org.fest.reflect.exception.ReflectionError;
 
 /**
  * Fluent interface for finding static inner classes.
+ * <p>
+ * Examples:
+ * <pre>
+ * // import static {@link org.fest.reflect.innerclass.StaticInnerClasses#staticInnerClass(String) org.fest.reflect.innerclass.StaticInnerClasses.staticInnerClass};
+ *
+ * // Gets the inner class 'Master' in the declaring class 'Jedi':
+ * Class&lt;?&gt; masterClass = {@link org.fest.reflect.innerclass.StaticInnerClasses#staticInnerClass(String) staticInnerClass}("Master").{@link org.fest.reflect.innerclass.Finder#in(Class) in}(Jedi.class);
+ * </pre>
+ * </p>
  *
  * @author Alex Ruiz
  * @author Yvonne Wang

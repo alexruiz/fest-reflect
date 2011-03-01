@@ -1,5 +1,5 @@
 /*
- * Created on Feb 25, 2011
+ * Created on Feb 27, 2011
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,12 +12,11 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.javabean;
-
-import org.fest.reflect.reference.TypeRef;
 
 /**
- * Fluent interface for accessing JavaBeans properties.
+ * <p>
+ * Provides a &quot;fluent&quot; API for property access via the Bean Instrospection API.
+ * </p>
  * <p>
  * Examples:
  * <pre>
@@ -30,33 +29,6 @@ import org.fest.reflect.reference.TypeRef;
  * {@link org.fest.reflect.javabean.Properties#propertyOfType(Class) propertyOfType}(String.class).{@link org.fest.reflect.javabean.Name#withName(String) withName}("name").{@link org.fest.reflect.javabean.Target#in(Object) in}(person).{@link org.fest.reflect.javabean.Invoker#set(Object) set}("Yoda");
  * </pre>
  * </p>
- *
- * @author Alex Ruiz
- * @author Yvonne Wang
  */
-public class Properties {
+package org.fest.reflect.javabean;
 
-  /**
-   * Sets the type of the property to access.
-   * @param <T> the generic type of the property to access.
-   * @param type the type of the property to access.
-   * @return the next object in the fluent interface.
-   * @throws NullPointerException if the given type is {@code null}.
-   */
-  public static <T> Name<T> propertyOfType(Class<T> type) {
-    return new FluentProperty<T>(type);
-  }
-
-  /**
-   * Sets the type of the property to access.
-   * @param <T> the generic type of the property to access.
-   * @param typeRef a reference to the type of the property to access. Used to overcome type erasure in generics.
-   * @return the next object in the fluent interface.
-   * @throws NullPointerException if the given type reference is {@code null}.
-   */
-  public static <T> Name<T> propertyOfType(TypeRef<T> typeRef) {
-    return new FluentProperty<T>(typeRef);
-  }
-
-  private Properties() {}
-}

@@ -1,5 +1,5 @@
 /*
- * Created on Feb 26, 2011
+ * Created on Feb 27, 2011
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,12 +12,11 @@
  *
  * Copyright @2011 the original author or authors.
  */
-package org.fest.reflect.field;
-
-import org.fest.reflect.reference.TypeRef;
 
 /**
- * Fluent interface for accessing fields.
+ * <p>
+ * Provides a &quot;fluent&quot; API for field access via Java Reflection.
+ * </p>
  * <p>
  * Examples:
  * <pre>
@@ -36,33 +35,5 @@ import org.fest.reflect.reference.TypeRef;
  * {@link org.fest.reflect.field.Fields#fieldOfType(Class) fieldOfType}(int.class).{@link org.fest.reflect.field.Name#withName(String) withName}("count").{@link org.fest.reflect.field.Target#in(Class) in}(Person.class).{@link org.fest.reflect.field.Invoker#set(Object) set}(3);
  * </pre>
  * </p>
- *
- * @author Alex Ruiz
- * @author Yvonne Wang
  */
-public class Fields {
-
-  /**
-   * Sets the type of the field to access.
-   * @param <T> the generic type of the field to access.
-   * @param type the type of the field to access.
-   * @return the next object in the fluent interface.
-   * @throws NullPointerException if the given type is {@code null}.
-   */
-  public static <T> Name<T> fieldOfType(Class<T> type) {
-    return new FluentField<T>(type);
-  }
-
-  /**
-   * Sets the type of the field to access.
-   * @param <T> the generic type of the field to access.
-   * @param typeRef a reference to the type of the property to access. Used to overcome type erasure in generics.
-   * @return the next object in the fluent interface.
-   * @throws NullPointerException if the given type reference is {@code null}.
-   */
-  public static <T> Name<T> fieldOfType(TypeRef<T> typeRef) {
-    return new FluentField<T>(typeRef);
-  }
-
-  private Fields() {}
-}
+package org.fest.reflect.field;
