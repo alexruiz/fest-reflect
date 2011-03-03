@@ -38,9 +38,9 @@ public class Constructors {
    * @param <T> the generic type of the given class.
    * @param target the class declaring the constructor.
    * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given type is {@code null}.
    */
   public static <T> ParameterTypes<T> constructorIn(Class<T> target) {
-    // TODO check for null
     return new FluentConstructor<T>(target);
   }
 

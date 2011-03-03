@@ -16,8 +16,7 @@
 package org.fest.reflect.util;
 
 import java.lang.reflect.AccessibleObject;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
+import java.security.*;
 
 /**
  * Understands utility methods related to <code>{@link AccessibleObject}</code>s.

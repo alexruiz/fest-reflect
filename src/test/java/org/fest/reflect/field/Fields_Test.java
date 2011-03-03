@@ -21,9 +21,8 @@ import static org.junit.Assert.*;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import org.fest.reflect.*;
 import org.fest.reflect.reference.TypeRef;
-import org.fest.reflect.test.ExpectedException;
+import org.fest.reflect.test.*;
 import org.junit.*;
 
 /**
@@ -80,13 +79,13 @@ public class Fields_Test {
   }
 
   @Test public void should_throw_error_if_wrong_field_type_was_specified() {
-    String msg = "The type of the field 'name' in org.fest.reflect.Person should be <java.lang.Integer> but was <java.lang.String>";
+    String msg = "The type of the field 'name' in org.fest.reflect.test.Person should be <java.lang.Integer> but was <java.lang.String>";
     thrown.expectReflectionError(msg);
     Fields.fieldOfType(Integer.class).withName("name").in(person).get();
   }
 
   @Test public void should_throw_error_if_field_name_is_invalid() {
-    thrown.expectReflectionError("Unable to find field 'age' in org.fest.reflect.Person");
+    thrown.expectReflectionError("Unable to find field 'age' in org.fest.reflect.test.Person");
     Fields.fieldOfType(Integer.class).withName("age").in(person);
   }
 

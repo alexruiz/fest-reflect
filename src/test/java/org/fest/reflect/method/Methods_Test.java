@@ -20,10 +20,9 @@ import static org.junit.Assert.*;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.fest.reflect.Jedi;
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
-import org.fest.reflect.test.ExpectedException;
+import org.fest.reflect.test.*;
 import org.junit.*;
 
 /**
@@ -68,9 +67,9 @@ public class Methods_Test {
     Methods.methodWithReturnType(String.class).withName("powerAt").withParameterTypes(parameterTypes);
   }
 
-  @Test public void should_throw_error_if_method_target_is_null() {
+  @Test public void should_throw_error_if_target_is_null() {
     thrown.expectNullPointerException("The target object should not be null");
-    Methods.methodWithReturnType(String.class).withName("powerAt").withParameterTypes(int.class).in(null);
+    Methods.methodWithReturnType(String.class).withName("powerAt").withParameterTypes(int.class).in((Object)null);
   }
 
   @Test public void should_call_method_with_args_and_no_return_value() {
@@ -123,7 +122,7 @@ public class Methods_Test {
   }
 
   @Test public void should_throw_error_if_method_name_is_invalid() {
-    thrown.expectReflectionError("Unable to find method 'getAge' in org.fest.reflect.Jedi with parameter type(s) []");
+    thrown.expectReflectionError("Unable to find method 'getAge' in org.fest.reflect.test.Jedi with parameter type(s) []");
     Methods.methodWithReturnType(Integer.class).withName("getAge").withNoParameters().in(jedi);
   }
 
@@ -151,8 +150,12 @@ public class Methods_Test {
     }
   }
 
-  @Test
-  public void should_call_static_method() {
+  @Test public void should_throw_error_if_target_type_is_null() {
+    thrown.expectNullPointerException("The target type should not be null");
+    Methods.methodWithReturnType(String.class).withName("powerAt").withParameterTypes(int.class).in((Class<?>)null);
+  }
+
+  @Test public void should_call_static_method() {
     Jedi.addCommonPower("Jump");
     String power = Methods.methodWithReturnType(String.class).withName("commonPowerAt").withParameterTypes(int.class).in(Jedi.class).invoke(0);
     assertEquals("Jump", power);

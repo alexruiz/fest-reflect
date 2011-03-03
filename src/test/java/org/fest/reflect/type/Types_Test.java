@@ -17,9 +17,8 @@ package org.fest.reflect.type;
 import static org.fest.reflect.test.ExpectedException.none;
 import static org.junit.Assert.*;
 
-import org.fest.reflect.*;
 import org.fest.reflect.exception.ReflectionError;
-import org.fest.reflect.test.ExpectedException;
+import org.fest.reflect.test.*;
 import org.junit.*;
 
 /**
@@ -90,7 +89,7 @@ public class Types_Test {
       Types.type("org.fest.reflect.NonExistingType").withDefaultClassLoader().loadAs(Jedi.class);
     } catch (ReflectionError expected) {
       assertTrue(expected.getMessage().contains(
-          "Unable to load class 'org.fest.reflect.NonExistingType' as org.fest.reflect.Jedi using class loader "));
+          "Unable to load class 'org.fest.reflect.NonExistingType' as org.fest.reflect.test.Jedi using class loader "));
       assertTrue(expected.getCause() instanceof ClassNotFoundException);
     }
   }

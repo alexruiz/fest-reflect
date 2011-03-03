@@ -13,7 +13,7 @@
  *
  * Copyright @2007-2009 the original author or authors.
  */
-package org.fest.reflect;
+package org.fest.reflect.test;
 
 /**
  * Understands a person.

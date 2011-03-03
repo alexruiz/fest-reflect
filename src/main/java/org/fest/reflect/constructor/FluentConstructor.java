@@ -36,6 +36,7 @@ class FluentConstructor<T> implements ParameterTypes<T>, Invoker<T> {
   private Constructor<T> constructor;
 
   FluentConstructor(Class<T> target) {
+    if (target == null) throw new NullPointerException("The given type should not be null");
     this.target = target;
   }
 

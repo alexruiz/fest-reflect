@@ -83,7 +83,6 @@ class FluentMethod<T> implements Name<T>, ParameterTypes<T>, Target<T>, Invoker<
 
   /** {@inheritDoc} */
   public Invoker<T> in(Class<?> target) {
-    // TODO test
     if (target == null) throw new NullPointerException("The target type should not be null");
     return updateTarget(target);
   }

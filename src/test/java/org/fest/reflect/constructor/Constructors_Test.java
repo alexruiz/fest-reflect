@@ -19,9 +19,8 @@ import static org.junit.Assert.*;
 
 import java.lang.reflect.Constructor;
 
-import org.fest.reflect.Person;
 import org.fest.reflect.exception.ReflectionError;
-import org.fest.reflect.test.ExpectedException;
+import org.fest.reflect.test.*;
 import org.junit.*;
 
 /**
@@ -33,6 +32,11 @@ import org.junit.*;
 public class Constructors_Test {
 
   @Rule public ExpectedException thrown = none();
+
+  @Test public void should_throw_error_if_type_is_null() {
+    thrown.expectNullPointerException("The given type should not be null");
+    Constructors.constructorIn(null);
+  }
 
   @Test public void should_create_new_instance_with_default_constructor() {
     Person person = Constructors.constructorIn(Person.class).withNoParameters().newInstance();

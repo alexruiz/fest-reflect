@@ -13,10 +13,9 @@
  *
  * Copyright @2007-2009 the original author or authors.
  */
-package org.fest.reflect;
+package org.fest.reflect.test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Understands a Jedi.

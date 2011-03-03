@@ -21,10 +21,8 @@ import static org.junit.Assert.*;
 import java.beans.PropertyDescriptor;
 import java.util.List;
 
-import org.fest.reflect.*;
-import org.fest.reflect.javabean.Properties;
 import org.fest.reflect.reference.TypeRef;
-import org.fest.reflect.test.ExpectedException;
+import org.fest.reflect.test.*;
 import org.junit.*;
 
 /**
@@ -86,13 +84,13 @@ public class Properties_Test {
   }
 
   @Test public void should_throw_error_if_wrong_property_type_was_specified() {
-    String message = "The type of the property 'name' in org.fest.reflect.Person should be <java.lang.Integer> but was <java.lang.String>";
+    String message = "The type of the property 'name' in org.fest.reflect.test.Person should be <java.lang.Integer> but was <java.lang.String>";
     thrown.expectReflectionError(message);
     Properties.propertyOfType(Integer.class).withName("name").in(person).get();
   }
 
   @Test public void should_throw_error_if_property_name_is_invalid() {
-    thrown.expectReflectionError("Unable to find property 'age' in org.fest.reflect.Person");
+    thrown.expectReflectionError("Unable to find property 'age' in org.fest.reflect.test.Person");
     Properties.propertyOfType(String.class).withName("age").in(person);
   }
 

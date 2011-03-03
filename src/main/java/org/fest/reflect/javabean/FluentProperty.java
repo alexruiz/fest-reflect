@@ -65,7 +65,7 @@ class FluentProperty<T> implements Name<T>, Target<T>, Invoker<T> {
       BeanInfo beanInfo = Introspector.getBeanInfo(target.getClass());
       for (PropertyDescriptor d : beanInfo.getPropertyDescriptors()) {
         if (!name.equals(d.getName())) continue;
-        descriptor = checkRightType(d);
+        descriptor = d;
         break;
       }
     } catch (Throwable t) {
@@ -73,12 +73,12 @@ class FluentProperty<T> implements Name<T>, Target<T>, Invoker<T> {
       throw new ReflectionError(message, t);
     }
     if (descriptor == null) throw cannotFindProperty();
+    checkRightType();
   }
 
-  private PropertyDescriptor checkRightType(PropertyDescriptor d) {
-    Class<?> actualType = d.getPropertyType();
+  private void checkRightType() {
+    Class<?> actualType = descriptor.getPropertyType();
     if (!type.isAssignableFrom(actualType)) throw wrongType(actualType);
-    return d;
   }
 
   private ReflectionError wrongType(Class<?> actual) {
