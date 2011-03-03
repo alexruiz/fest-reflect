@@ -23,50 +23,50 @@ import org.fest.reflect.test.ExpectedException;
 import org.junit.*;
 
 /**
- * Tests for <code>{@link Type}</code>.
+ * Tests for <code>{@link Types}</code>.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
-public class Type_Test {
+public class Types_Test {
 
   @Rule public ExpectedException thrown = none();
 
   @Test public void should_throw_error_if__type_name_is_null() {
     thrown.expectNullPointerException("The name of the class to load should not be null");
-    Type.newType(null);
+    Types.type(null);
   }
 
   @Test public void should_throw_error_if__type_name_is_empty() {
     thrown.expectIllegalArgumentException("The name of the class to load should not be empty");
-    Type.newType("");
+    Types.type("");
   }
 
-  @Test public void should_throw_error_if_subtype_is_mull() {
-    thrown.expectNullPointerException("The given type should not be null");
-    Type.newType("hello").loadAs(null);
+  @Test public void should_throw_error_if_subtype_is_null() {
+    thrown.expectNullPointerException("The type to load as should not be null");
+    Types.type("hello").withDefaultClassLoader().loadAs(null);
   }
 
   @Test public void should_load_class() {
     Class<Jedi> expected = Jedi.class;
-    Class<?> type = Type.newType(expected.getName()).load();
+    Class<?> type = Types.type(expected.getName()).withDefaultClassLoader().load();
     assertEquals(expected, type);
   }
 
   @Test public void should_load_class_with_given_ClassLoader() {
     Class<Jedi> expected = Jedi.class;
-    Class<?> type = Type.newType(expected.getName()).withClassLoader(getClass().getClassLoader()).load();
+    Class<?> type = Types.type(expected.getName()).withClassLoader(getClass().getClassLoader()).load();
     assertEquals(expected, type);
   }
 
   @Test public void should_throw_error_if_Classloader_is_null() {
-    thrown.expectNullPointerException("The given class loader should not be null");
-    Type.newType("hello").withClassLoader(null);
+    thrown.expectNullPointerException("The given ClassLoader should not be null");
+    Types.type("hello").withClassLoader(null);
   }
 
   @Test public void should_wrap_any_Exception_thrown_when_loading_class() {
     try {
-      Type.newType("org.fest.reflect.NonExistingType").load();
+      Types.type("org.fest.reflect.NonExistingType").withDefaultClassLoader().load();
     } catch (ReflectionError expected) {
       assertTrue(expected.getMessage().contains(
           "Unable to load class 'org.fest.reflect.NonExistingType' using class loader "));
@@ -75,19 +75,19 @@ public class Type_Test {
   }
 
   @Test public void should_load_class_as_given_type() {
-    Class<? extends Person> type = Type.newType(Jedi.class.getName()).loadAs(Person.class);
+    Class<? extends Person> type = Types.type(Jedi.class.getName()).withDefaultClassLoader().loadAs(Person.class);
     assertEquals(Jedi.class, type);
   }
 
   @Test public void should_load_class_as_given_type_with_given_ClassLoader() {
-    Class<? extends Person> type = Type.newType(Jedi.class.getName()).withClassLoader(getClass().getClassLoader())
-        .loadAs(Person.class);
+    Class<? extends Person> type = Types.type(Jedi.class.getName()).withClassLoader(getClass().getClassLoader())
+                                        .loadAs(Person.class);
     assertEquals(Jedi.class, type);
   }
 
   @Test public void should_wrap_any_Exception_thrown_when_loading_class_as_given_type() {
     try {
-      Type.newType("org.fest.reflect.NonExistingType").loadAs(Jedi.class);
+      Types.type("org.fest.reflect.NonExistingType").withDefaultClassLoader().loadAs(Jedi.class);
     } catch (ReflectionError expected) {
       assertTrue(expected.getMessage().contains(
           "Unable to load class 'org.fest.reflect.NonExistingType' as org.fest.reflect.Jedi using class loader "));

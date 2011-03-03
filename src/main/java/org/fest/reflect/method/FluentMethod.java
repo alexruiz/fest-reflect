@@ -26,9 +26,8 @@ import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
 
 /**
- * TODO.
- *
- * @author
+ * @author Alex Ruiz
+ * @author Yvonne Wang
  */
 class FluentMethod<T> implements Name<T>, ParameterTypes<T>, Target<T>, Invoker<T> {
 
@@ -79,6 +78,17 @@ class FluentMethod<T> implements Name<T>, ParameterTypes<T>, Target<T>, Invoker<
   /** {@inheritDoc} */
   public Invoker<T> in(Object target) {
     if (target == null) throw new NullPointerException("The target object should not be null");
+    return updateTarget(target);
+  }
+
+  /** {@inheritDoc} */
+  public Invoker<T> in(Class<?> target) {
+    // TODO test
+    if (target == null) throw new NullPointerException("The target type should not be null");
+    return updateTarget(target);
+  }
+
+  private Invoker<T> updateTarget(Object target) {
     this.target = target;
     findMethodInTypeHierarchy(targetType());
     return this;

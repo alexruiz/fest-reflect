@@ -15,7 +15,7 @@
 
 /**
  * <p>
- * Provides a &quot;fluent&quot; API for property access via the Bean Instrospection API.
+ * Provides a &quot;fluent&quot; API for property access via Bean Introspection.
  * </p>
  * <p>
  * Examples:

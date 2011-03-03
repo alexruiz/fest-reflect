@@ -14,30 +14,26 @@
  */
 package org.fest.reflect.type;
 
-import org.fest.reflect.exception.ReflectionError;
-
 /**
- * Loads a type.
+ * Holds the <code>{@link ClassLoader}</code> to use to load a type.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
-public interface TypeLoader {
+public interface ClassLoaderRef {
 
   /**
-   * Loads the type.
-   * @return the loaded type.
-   * @throws ReflectionError wrapping any error that occurred during class loading.
+   * Sets the <code>{@link ClassLoader}</code> to use.
+   * @param classLoader the {@code ClassLoader} to use.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given {@code ClassLoader} is {@code null}.
    */
-  Class<?> load();
+  TypeLoader withClassLoader(ClassLoader classLoader);
 
   /**
-   * Loads the type, as the given sub-type.
-   * @param <T> the generic type of the sub-type.
-   * @param subType the sub-type.
-   * @return the loaded type.
-   * @throws NullPointerException if the given sub-type is {@code null}.
-   * @throws ReflectionError wrapping any error that occurred during class loading.
+   * Specifies that this class' <code>{@link ClassLoader}</code> will be used.
+   * @return the next object in the fluent interface.
    */
-  <T> Class<? extends T> loadAs(Class<T> subType);
+  TypeLoader withDefaultClassLoader();
+
 }

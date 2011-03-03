@@ -34,5 +34,12 @@ public interface Target<T> {
    */
   Invoker<T> in(Object target);
 
-   // TODO add support for static
+  /**
+   * Sets the type containing the static method to invoke.
+   * @param target the type containing the method to invoke.
+   * @return the next object in the fluent interface.
+   * @throws NullPointerException if the given target is {@code null}.
+   * @throws ReflectionError if a matching static method cannot be found on the given type.
+   */
+  Invoker<T> in(Class<?> target);
 }

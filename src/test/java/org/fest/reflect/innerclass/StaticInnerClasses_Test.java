@@ -16,6 +16,7 @@ package org.fest.reflect.innerclass;
 
 import static org.fest.reflect.constructor.Constructors.constructorIn;
 import static org.fest.reflect.field.Fields.fieldOfType;
+import static org.fest.reflect.method.Methods.methodWithReturnType;
 import static org.fest.reflect.test.ExpectedException.none;
 import static org.junit.Assert.*;
 
@@ -53,7 +54,7 @@ public class StaticInnerClasses_Test {
     // make sure we really got the inner classes by creating a new instance and accessing its fields and methods.
     Object leia = constructorIn(innerClass).withParameterTypes(String.class).newInstance("Leia");
     assertEquals("Leia", fieldOfType(String.class).withName("name").in(leia).get());
-    // TODO assertEquals("Leia", method("name").withReturnType(String.class).constructorIn(leia).invoke());
+    assertEquals("Leia", methodWithReturnType(String.class).withName("name").withNoParameters().in(leia).invoke());
   }
 
   @Test public void should_return_null_if_static_inner_class_does_not_exist() {
