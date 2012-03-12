@@ -14,6 +14,12 @@
  */
 package org.fest.reflect.field;
 
+import static org.fest.reflect.util.Accessibles.makeAccessible;
+import static org.fest.reflect.util.Accessibles.setAccessible;
+import static org.fest.reflect.util.Accessibles.setAccessibleIgnoringExceptions;
+import static org.fest.util.Strings.concat;
+import static org.fest.util.Strings.quote;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -21,9 +27,6 @@ import java.lang.reflect.Proxy;
 
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
-
-import static org.fest.reflect.util.Accessibles.*;
-import static org.fest.util.Strings.*;
 
 /**
  * Understands the use of reflection to access a field from an object.
@@ -59,18 +62,15 @@ public final class Invoker<T> {
 	private final boolean accessible;
 	private final Class<?> expectedType;
 
-	static <T> Invoker<T> newInvoker(String fieldName, TypeRef<T> expectedType,
-			Object target) {
+	static <T> Invoker<T> newInvoker(String fieldName, TypeRef<T> expectedType, Object target) {
 		return createInvoker(fieldName, expectedType.rawType(), target);
 	}
 
-	static <T> Invoker<T> newInvoker(String fieldName, Class<T> expectedType,
-			Object target) {
+	static <T> Invoker<T> newInvoker(String fieldName, Class<T> expectedType, Object target) {
 		return createInvoker(fieldName, expectedType, target);
 	}
 
-	private static <T> Invoker<T> createInvoker(String fieldName,
-			Class<?> expectedType, Object target) {
+	private static <T> Invoker<T> createInvoker(String fieldName, Class<?> expectedType, Object target) {
 		if (target == null) {
 			throw new NullPointerException("Target should not be null");
 		}
@@ -85,8 +85,7 @@ public final class Invoker<T> {
 		return target.getClass();
 	}
 
-	private static Field lookupInClassHierarchy(String fieldName,
-			Class<?> declaringType) {
+	private static Field lookupInClassHierarchy(String fieldName, Class<?> declaringType) {
 		Field field = null;
 		Class<?> target = declaringType;
 		while (target != null) {
@@ -97,8 +96,7 @@ public final class Invoker<T> {
 		}
 		if (field != null)
 			return field;
-		throw new ReflectionError(concat("Unable to find field ",
-				quote(fieldName), " in ", declaringType.getName()));
+		throw new ReflectionError(concat("Unable to find field ", quote(fieldName), " in ", declaringType.getName()));
 	}
 
 	private static void verifyCorrectType(Field field, Class<?> expectedType) {
@@ -128,12 +126,9 @@ public final class Invoker<T> {
 		}
 	}
 
-	private static ReflectionError incorrectFieldType(Field field,
-			Class<?> actual, Class<?> expected) {
+	private static ReflectionError incorrectFieldType(Field field, Class<?> actual, Class<?> expected) {
 		String fieldTypeName = field.getDeclaringClass().getName();
-		String message = concat("The type of the field ",
-				quote(field.getName()), " in ", fieldTypeName, " should be <",
-				expected.getName(), "> but was <", actual.getName(), ">");
+		String message = concat("The type of the field ", quote(field.getName()), " in ", fieldTypeName, " should be <", expected.getName(), "> but was <", actual.getName(), ">");
 		throw new ReflectionError(message);
 	}
 
@@ -150,34 +145,31 @@ public final class Invoker<T> {
 			setAccessible(field, true);
 			field.set(target, value);
 		} catch (Exception e) {
-			throw new ReflectionError(concat(
-					"Unable to update the value in field ",
-					quote(field.getName())), e);
+			throw new ReflectionError(concat("Unable to update the value in field ", quote(field.getName())), e);
 		} finally {
 			setAccessibleIgnoringExceptions(field, accessible);
 		}
 	}
 
 	/**
-	 * Decorates a targeted object by adding an execution of the same method to
-	 * the {@code decorator} object; Each method execution on the targeted
-	 * object will be first performed on the same method of the
+	 * Decorates a targeted object's methods; Each execution of a targeted
+	 * object's method will be first performed on the same method of the
 	 * {@code decorator} object. The result (if any) from the invocation of the
 	 * targeted object's method will be returned. Note that the type of a
 	 * targeted object should be an interface for this functionality to work.
 	 * 
 	 * <pre>
 	 * Example: 
-	 * 	I.) Assuming we have the following service architecture:
+	 * 	I.) Assuming we have the following scenario:
 	 * 
 	 * interface IUploadFileService { 
-	 * 		boolean upload(String file, URI destination); 
+	 * 		boolean upload(String file, String destination); 
 	 * }
 	 * 
 	 * public class FileManager {
 	 * 		
 	 * 		private IUploadFileService uploadFileService;
-	 * 		private static final URI DEFAULT_DESTINATION = "http://example.org/default/destination/"
+	 * 		private static final String DEFAULT_DESTINATION = "http://example.org/default/destination/";
 	 * 
 	 * 		public void manage(String fileName) {
 	 * 			if( uploadFileService.upload(fileName, DEFAULT_DESTINATION) ) {
@@ -187,15 +179,20 @@ public final class Invoker<T> {
 	 * 			} 
 	 * 		}
 	 * }
-	 * 		II.) Say we want to decorate the uploadFileService.upload(...) part, so that an additional functionality is executed in a 
-	 * noninvasive manner <i>before</i> the actual uploadFileService.upload(...) logic. 
-	 * 		
-	 * 		
+	 * 		II.) Say we want to decorate the uploadFileService.upload(...) part, so that additional functionality is executed
+	 * <i>before</i> the actual uploadFileService.upload(...) logic. The following code will do the job:
+	 *
+	 *  IUploadFileService uploadFileServiceDecorator = ...; 
+	 *  
+	 * 	FileManager fileManager = new FileManager();
+	 *	
+	 *	field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).addBefore(uploadFileServiceDecorator); 
 	 * 
 	 * </pre>
 	 * 
 	 * @param decorator
-	 *            which methods be called before the same targeted object methods
+	 *            which methods be called before the same targeted object
+	 *            methods
 	 */
 	public Invoker<T> addBefore(T decorator) {
 		InvocationHandler handler = new BeforeHandler<T>(get(), decorator);
@@ -205,30 +202,29 @@ public final class Invoker<T> {
 				new Class[] { expectedType }, handler);
 
 		set(f);
-		
+
 		return this;
 	}
 
 	/**
-	 * Decorates a targeted object by adding an execution of the same method to
-	 * the {@code decorator} object; Each method execution on the targeted
-	 * object will be first performed on the same method of the
+	 * Decorates a targeted object's methods; After each execution of a
+	 * targeted object's method the same method will be executed on the
 	 * {@code decorator} object. The result (if any) from the invocation of the
 	 * targeted object's method will be returned. Note that the type of a
 	 * targeted object should be an interface for this functionality to work.
 	 * 
 	 * <pre>
 	 * Example: 
-	 * 	I.) Assuming we have the following service architecture:
+	 * 	I.) Assuming we have the following scenario:
 	 * 
 	 * interface IUploadFileService { 
-	 * 		boolean upload(String file, URI destination); 
+	 * 		boolean upload(String file, String destination); 
 	 * }
 	 * 
 	 * public class FileManager {
 	 * 		
 	 * 		private IUploadFileService uploadFileService;
-	 * 		private static final URI DEFAULT_DESTINATION = "http://example.org/default/destination/"
+	 * 		private static final String DEFAULT_DESTINATION = "http://example.org/default/destination/"
 	 * 
 	 * 		public void manage(String fileName) {
 	 * 			if( uploadFileService.upload(fileName, DEFAULT_DESTINATION) ) {
@@ -238,15 +234,20 @@ public final class Invoker<T> {
 	 * 			} 
 	 * 		}
 	 * }
-	 * 		II.) Say we want to decorate the uploadFileService.upload(...) part, so that an additional functionality is executed in a 
-	 * noninvasive manner <i>after</i> the actual uploadFileService.upload(...) logic. 
-	 * 		
-	 * 		
+	 * 		II.) Say we want to decorate the uploadFileService.upload(...) part, so that an additional functionality is executed 
+	 * <i>after</i> the actual uploadFileService.upload(...) logic. The following code will do the job:
+	 * 
+	 *  IUploadFileService uploadFileServiceDecorator = ...; 
+	 *  
+	 * 	FileManager fileManager = new FileManager();
+	 *	
+	 *	field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).addAfter(uploadFileServiceDecorator); 
 	 * 
 	 * </pre>
 	 * 
 	 * @param decorator
-	 *            which methods be called before the same targeted object methods
+	 *            which methods be called after the same targeted object
+	 *            methods
 	 */
 	public Invoker<T> addAfter(T decorator) {
 		InvocationHandler handler = new AfterHandler<T>(get(), decorator);
@@ -256,10 +257,10 @@ public final class Invoker<T> {
 				new Class[] { expectedType }, handler);
 
 		set(f);
-		
+
 		return this;
 	}
-	
+
 	private static final class BeforeHandler<T> implements InvocationHandler {
 
 		private final T target;
@@ -270,8 +271,7 @@ public final class Invoker<T> {
 			this.decorator = decorator;
 		}
 
-		public Object invoke(Object proxy, Method method, Object[] args)
-				throws Throwable {
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
 			method.invoke(decorator, args);
 
@@ -289,8 +289,7 @@ public final class Invoker<T> {
 			this.decorator = decorator;
 		}
 
-		public Object invoke(Object proxy, Method method, Object[] args)
-				throws Throwable {
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
 			Object result = method.invoke(target, args);
 
@@ -313,9 +312,7 @@ public final class Invoker<T> {
 			setAccessible(field, true);
 			return (T) field.get(target);
 		} catch (Exception e) {
-			throw new ReflectionError(
-					concat("Unable to obtain the value in field "
-							+ quote(field.getName())), e);
+			throw new ReflectionError(concat("Unable to obtain the value in field " + quote(field.getName())), e);
 		} finally {
 			setAccessibleIgnoringExceptions(field, accessible);
 		}
