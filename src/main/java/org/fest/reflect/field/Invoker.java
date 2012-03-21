@@ -21,11 +21,11 @@ import static org.fest.util.Strings.concat;
 import static org.fest.util.Strings.quote;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationHandler;
-import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 import org.fest.reflect.exception.ReflectionError;
+import org.fest.reflect.field.decorator.PostDecorator;
+import org.fest.reflect.field.decorator.PreDecorator;
 import org.fest.reflect.reference.TypeRef;
 
 /**
@@ -146,8 +146,15 @@ public final class Invoker<T> {
   /**
    * Decorates a targeted object's methods; Each execution of a targeted object's method will be first performed on the
    * same method of the {@code decorator} object. The result (if any) from the invocation of the targeted object's
-   * method will be returned. Note that the type of a targeted object should be an interface for this functionality to
-   * work.
+   * method will be returned.
+   * 
+   * <pre>
+   * Be aware:
+   *  <li> The type of a targeted object should be an interface for this functionality to work
+   *  <li> Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the default program's flow 
+   * </pre>
+   * 
+   * *
    * 
    * <pre>
 	 * Example: 
@@ -177,27 +184,37 @@ public final class Invoker<T> {
 	 *  
 	 * 	FileManager fileManager = new FileManager();
 	 *	
-	 *	field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).addBefore(uploadFileServiceDecorator); 
+	 *	field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).preDecoratedWith(uploadFileServiceDecorator);
+	 * 
+	 *   However, if there is an exception when calling uploadFileServiceDecorator.upload(fileName, DEFAULT_DESTINATION) the default 
+	 * program's flow will be interrupted and the uploadFileService.upload(fileName, DEFAULT_DESTINATION) will not be executed.
 	 * 
 	 * </pre>
    * 
    * @param decorator which methods be called before the same targeted object methods
    */
-  public Invoker<T> addBefore(T decorator) {
-    InvocationHandler handler = new BeforeHandler<T>(get(), decorator);
+  public DecoratedInvoker<T> preDecoratedWith(T decorator) {
+    T target = get();
+    DecoratorInvocationHandler<T> handler = new PreDecorator<T>(target, decorator);
 
     @SuppressWarnings("unchecked") T f = (T) Proxy.newProxyInstance(decorator.getClass().getClassLoader(),//
         new Class[] { expectedType }, handler);
 
     set(f);
 
-    return this;
+    return DecoratedInvoker.newInvoker(target, decorator, expectedType, this, handler);
   }
 
   /**
    * Decorates a targeted object's methods; After each execution of a targeted object's method the same method will be
    * executed on the {@code decorator} object. The result (if any) from the invocation of the targeted object's method
-   * will be returned. Note that the type of a targeted object should be an interface for this functionality to work.
+   * will be returned.
+   * 
+   * <pre>
+   * Be aware:
+   *  <li> The type of a targeted object should be an interface for this functionality to work
+   *  <li> Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the default program's flow 
+   * </pre>
    * 
    * <pre>
 	 * Example: 
@@ -227,59 +244,22 @@ public final class Invoker<T> {
 	 *  
 	 * 	FileManager fileManager = new FileManager();
 	 *	
-	 *	field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).addAfter(uploadFileServiceDecorator); 
+	 *	field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).postDecoratedWith(uploadFileServiceDecorator); 
 	 * 
 	 * </pre>
    * 
    * @param decorator which methods be called after the same targeted object methods
    */
-  public Invoker<T> addAfter(T decorator) {
-    InvocationHandler handler = new AfterHandler<T>(get(), decorator);
+  public DecoratedInvoker<T> postDecoratedWith(T decorator) {
+    T target = get();
+    DecoratorInvocationHandler<T> handler = new PostDecorator<T>(target, decorator);
 
     @SuppressWarnings("unchecked") T f = (T) Proxy.newProxyInstance(decorator.getClass().getClassLoader(),//
         new Class[] { expectedType }, handler);
 
     set(f);
 
-    return this;
-  }
-
-  private static final class BeforeHandler<T> implements InvocationHandler {
-
-    private final T target;
-    private final T decorator;
-
-    public BeforeHandler(T target, T decorator) {
-      this.target = target;
-      this.decorator = decorator;
-    }
-
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-      method.invoke(decorator, args);
-
-      return method.invoke(target, args);
-    }
-  }
-
-  private static final class AfterHandler<T> implements InvocationHandler {
-
-    private final T target;
-    private final T decorator;
-
-    public AfterHandler(T target, T decorator) {
-      this.target = target;
-      this.decorator = decorator;
-    }
-
-    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-
-      Object result = method.invoke(target, args);
-
-      method.invoke(decorator, args);
-
-      return result;
-    }
+    return DecoratedInvoker.newInvoker(target, decorator, expectedType, this, handler);
   }
 
   /**
