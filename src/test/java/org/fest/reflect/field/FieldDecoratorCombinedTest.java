@@ -15,12 +15,9 @@
 package org.fest.reflect.field;
 
 import static org.fest.reflect.core.Reflection.field;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
@@ -37,6 +34,13 @@ public class FieldDecoratorCombinedTest {
 
   public interface INotificationService {
     void notify(String msg);
+  }
+
+  @SuppressWarnings("serial")
+  public class CustomeException extends RuntimeException {
+    public CustomeException() {
+      super("This is a test exception");
+    }
   }
 
   private class FileManager {
@@ -60,13 +64,8 @@ public class FieldDecoratorCombinedTest {
     }
   }
 
-  public class CustomeException extends RuntimeException {
-    public CustomeException() {
-      super("This is a test excetpion");
-    }
-  }
-
-  @Test public void shouldPreDecorateFieldReturningDecoratorResultShieldingFromDecoratorExceptions() {
+  @Test
+  public void should_pre_decorate_field_returning_decorator_result_ignoring_custom_exception_in_decorator() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
@@ -91,7 +90,8 @@ public class FieldDecoratorCombinedTest {
     verify(notificationServiceMock, times(1)).notify(eq("Upload successful? : null"));
   }
 
-  @Test public void shouldPostDecorateFieldReturningDecoratorResultShieldingFromDecoratorExceptions() {
+  @Test
+  public void should_post_decorate_field_returning_decorator_result_ignoring_decorator_exceptions() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
@@ -116,7 +116,8 @@ public class FieldDecoratorCombinedTest {
     verify(notificationServiceMock, times(1)).notify(eq("Upload successful? : null"));
   }
 
-  @Test public void shouldPreDecoratorAndPostDecorateFieldReturningDecoratorResultShieldingFromDecoratorExceptions() {
+  @Test
+  public void should_pre_and_post_decorate_field_returning_decorator_result_ignoring_decorator_exceptions() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
@@ -126,15 +127,11 @@ public class FieldDecoratorCombinedTest {
 
     FileManager fileManager = new FileManager();
 
-    field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)
-        //
-        .preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions().returningDecoratorResult()
-        //
-        .postDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptionsOfType(CustomeException.class)
-        .returningDecoratorResult();
+    field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).preDecoratedWith(uploadFileServiceMock)
+        .ignoringDecoratorExceptions().returningDecoratorResult().postDecoratedWith(uploadFileServiceMock)
+        .ignoringDecoratorExceptionsOfType(CustomeException.class).returningDecoratorResult();
 
-    field("notificationService").ofType(INotificationService.class)//
-        .in(fileManager).set(notificationServiceMock);
+    field("notificationService").ofType(INotificationService.class).in(fileManager).set(notificationServiceMock);
 
     // WHEN
     String fileName = "testFileName";

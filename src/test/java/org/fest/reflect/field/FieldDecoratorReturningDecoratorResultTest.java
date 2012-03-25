@@ -15,12 +15,9 @@
 package org.fest.reflect.field;
 
 import static org.fest.reflect.core.Reflection.field;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
@@ -60,7 +57,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     }
   }
 
-  @Test public void shouldPreDecorateFieldAndReturnDecoratorResult() {
+  @Test public void should_pre_decorate_field_and_return_decorator_result() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
@@ -84,7 +81,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     verify(notificationServiceMock, times(1)).notify(eq(expectedResult));
   }
 
-  @Test public void shouldPostDecorateFieldAndReturnDecoratorResult() {
+    @Test public void should_post_decorate_field_and_return_decorator_result() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
@@ -108,7 +105,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     verify(notificationServiceMock, times(1)).notify(eq(expectedResult));
   }
 
-  @Test public void shouldPreDecorateAndPostDecorateFieldAndReturnPreDecoratorResult() {
+    @Test public void should_pre_and_post_decorate_field_and_return_pre_decorator_result() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
@@ -133,7 +130,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     verify(notificationServiceMock, times(1)).notify(eq(expectedResult));
   }
 
-  @Test public void shouldPreDecorateAndPostDecorateFieldAndReturnPostDecoratorResult() {
+  @Test public void should_pre_and_post_decorate_field_and_return_post_decorator_result() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
@@ -158,7 +155,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     verify(notificationServiceMock, times(1)).notify(eq(expectedResult));
   }
 
-  @Test public void shouldPreDecorateAndPostDecorateFieldAndBothReturningResultAndReturnPostDecoratorResult() {
+    @Test public void should_pre_and_post_decorate_field_both_returning_results_but_return_post_decorator_result() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
@@ -184,7 +181,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     verify(notificationServiceMock, times(1)).notify(eq(expectedResult));
   }
 
-  @Test public void shouldPreDecorateAndPostDecorateFieldAndBothReturningResultAndReturnPreDecoratorResult() {
+  @Test public void should_pre_and_post_decorate_field_both_returning_results_but_return_pre_decorator_result() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotificationService notificationServiceMock = mock(INotificationService.class);
