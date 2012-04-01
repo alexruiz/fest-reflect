@@ -16,11 +16,11 @@ package org.fest.reflect.field;
 
 import java.lang.reflect.Proxy;
 
+import org.fest.reflect.field.decorator.DecoratorInvocationHandler;
 import org.fest.reflect.field.decorator.RuntimeExceptionShield;
 
 /**
- * This is the root of the decorated invokers, all others ( {@link DecoratedResultInvoker} ,
- * {@link IgnoringDecoratedExceptionInvoker} ) are created from the methods within this invoker
+ * A decorated invoker allowing to ignore some exceptions or returning decorator result instead of field result.
  * @author Ivan Hristov
  */
 public final class DecoratedInvoker<T> {
@@ -33,11 +33,6 @@ public final class DecoratedInvoker<T> {
 
   static <T> DecoratedInvoker<T> newInvoker(T target, T decorator, Class<?> expectedType, Invoker<T> invoker,
       DecoratorInvocationHandler<T> decoratorInvocationHandler) {
-    return createInvoker(target, decorator, expectedType, invoker, decoratorInvocationHandler);
-  }
-
-  private static <T> DecoratedInvoker<T> createInvoker(T target, T decorator, Class<?> expectedType,
-      Invoker<T> invoker, DecoratorInvocationHandler<T> decoratorInvocationHandler) {
     return new DecoratedInvoker<T>(target, decorator, expectedType, invoker, decoratorInvocationHandler);
   }
 
@@ -54,16 +49,16 @@ public final class DecoratedInvoker<T> {
    * Ignores any {@link RuntimeException} which comes from the preceding decorator.
    * @return the DecoratedResultInvoker ignoring exceptions.
    */
-  public DecoratedResultInvoker<T> ignoringDecoratorExceptions() {
+  public DecoratedInvoker<T> ignoringDecoratorExceptions() {
     return ignoringDecoratorExceptionsOfType(RuntimeException.class);
   }
 
   /**
    * Ignores any exception of the {@code exceptionClass} type which comes from the preceding decorator.
    * @param exceptionClass the exception to ignore - usually a checked exception of decorator method
-   * @return the DecoratedResultInvoker ignoring given exception ty^e.
+   * @return the DecoratedResultInvoker ignoring given exception type.
    */
-  public DecoratedResultInvoker<T> ignoringDecoratorExceptionsOfType(Class<?> exceptionClass) {
+  public DecoratedInvoker<T> ignoringDecoratorExceptionsOfType(Class<?> exceptionClass) {
     RuntimeExceptionShield runtimeExceptionShield = new RuntimeExceptionShield(decorator, exceptionClass);
     @SuppressWarnings("unchecked")
     T exceptionSafeDecorator = (T) Proxy.newProxyInstance(decorator.getClass().getClassLoader(),//
@@ -71,8 +66,7 @@ public final class DecoratedInvoker<T> {
 
     decoratorInvocationHandler.setDecorator(exceptionSafeDecorator);
 
-    return DecoratedResultInvoker.newInvoker(target, exceptionSafeDecorator, expectedType, invoker,
-        decoratorInvocationHandler);
+    return newInvoker(target, exceptionSafeDecorator, expectedType, invoker, decoratorInvocationHandler);
   }
 
   /**
@@ -121,10 +115,9 @@ public final class DecoratedInvoker<T> {
    *                   .returningDecoratorResult();
    * </pre>
    */
-  public IgnoringDecoratedExceptionInvoker<T> returningDecoratorResult() {
+  public DecoratedInvoker<T> returningDecoratorResult() {
     decoratorInvocationHandler.setReturnDecoratorResult(true);
-    return IgnoringDecoratedExceptionInvoker.newInvoker(target, decorator, expectedType, invoker,
-        decoratorInvocationHandler);
+    return newInvoker(target, decorator, expectedType, invoker, decoratorInvocationHandler);
   }
 
   /**
@@ -132,8 +125,8 @@ public final class DecoratedInvoker<T> {
    * <p>
    * Note that if there are more than one pre-decorators assigned to a field they will be executed starting from the
    * last attached decorator.
-   * @param decorator
-   * @return the {@link DecoratedInvoker} decorating the target field interface with given decorator.
+   * @param decorator which methods be called before the same targeted object methods
+   * @return the {@link DecoratedInvoker} pre decorating the target field interface with given decorator.
    */
   public DecoratedInvoker<T> preDecorateWith(T decorator) {
     return invoker.preDecorateWith(decorator);
@@ -144,8 +137,8 @@ public final class DecoratedInvoker<T> {
    * <p>
    * Note that if there are more than one post-decorators assigned to a field they will be executed starting from the
    * first attached decorator.
-   * @param decorator
-   * @return
+   * @param decorator which methods be called after the same targeted object methods
+   * @return the {@link DecoratedInvoker} post decorating the target field interface with given decorator.
    */
   public DecoratedInvoker<T> postDecorateWith(T decorator) {
     return invoker.postDecorateWith(decorator);

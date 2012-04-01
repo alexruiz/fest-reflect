@@ -22,6 +22,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
 
 import org.fest.reflect.exception.ReflectionError;
+import org.fest.reflect.field.decorator.DecoratorInvocationHandler;
 import org.fest.reflect.field.decorator.PostDecorator;
 import org.fest.reflect.field.decorator.PreDecorator;
 import org.fest.reflect.reference.TypeRef;
