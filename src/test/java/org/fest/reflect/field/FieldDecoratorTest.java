@@ -66,7 +66,7 @@ public class FieldDecoratorTest {
 
     LogMyName logMyName = new LogMyName("FEST");
 
-    field("logger").ofType(ILogger.class).in(logMyName).preDecoratedWith(mySmartLoggerMock);
+    field("logger").ofType(ILogger.class).in(logMyName).preDecorateWith(mySmartLoggerMock);
 
     // WHEN
     logMyName.logMyName();
@@ -112,7 +112,7 @@ public class FieldDecoratorTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).preDecoratedWith(firstUploadFileServiceMock).preDecoratedWith(secondUploadFileServiceMock);
+        .in(fileManager).preDecorateWith(firstUploadFileServiceMock).preDecorateWith(secondUploadFileServiceMock);
 
     // WHEN
     String fileName = "testFileName";
@@ -132,7 +132,7 @@ public class FieldDecoratorTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)
-        .postDecoratedWith(uploadFileServiceMock);
+        .postDecorateWith(uploadFileServiceMock);
 
     // WHEN
     String fileName = "testFileName";
@@ -151,7 +151,7 @@ public class FieldDecoratorTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).postDecoratedWith(firstUploadFileServiceMock).postDecoratedWith(secondUploadFileServiceMock);
+        .in(fileManager).postDecorateWith(firstUploadFileServiceMock).postDecorateWith(secondUploadFileServiceMock);
 
     // WHEN
     String fileName = "testFileName";
@@ -172,8 +172,8 @@ public class FieldDecoratorTest {
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)
         //
-        .preDecoratedWith(uploadFileServiceMock).postDecoratedWith(uploadFileServiceMock)
-        .preDecoratedWith(uploadFileServiceMock);
+        .preDecorateWith(uploadFileServiceMock).postDecorateWith(uploadFileServiceMock)
+        .preDecorateWith(uploadFileServiceMock);
 
     // WHEN
     String fileName = "testFileName";

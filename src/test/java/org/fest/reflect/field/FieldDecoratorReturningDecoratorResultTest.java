@@ -68,7 +68,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).preDecoratedWith(uploadFileServiceMock).returningDecoratorResult();
+        .in(fileManager).preDecorateWith(uploadFileServiceMock).returningDecoratorResult();
 
     field("notificationService").ofType(INotificationService.class).in(fileManager).set(notificationServiceMock);
 
@@ -92,7 +92,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).postDecoratedWith(uploadFileServiceMock).returningDecoratorResult();
+        .in(fileManager).postDecorateWith(uploadFileServiceMock).returningDecoratorResult();
 
     field("notificationService").ofType(INotificationService.class).in(fileManager).set(notificationServiceMock);
 
@@ -117,7 +117,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)//
-        .preDecoratedWith(uploadFileServiceMock).returningDecoratorResult().postDecoratedWith(uploadFileServiceMock);
+        .preDecorateWith(uploadFileServiceMock).returningDecoratorResult().postDecorateWith(uploadFileServiceMock);
 
     field("notificationService").ofType(INotificationService.class).in(fileManager).set(notificationServiceMock);
 
@@ -142,7 +142,7 @@ public class FieldDecoratorReturningDecoratorResultTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)//
-        .preDecoratedWith(uploadFileServiceMock).postDecoratedWith(uploadFileServiceMock).returningDecoratorResult();
+        .preDecorateWith(uploadFileServiceMock).postDecorateWith(uploadFileServiceMock).returningDecoratorResult();
 
     field("notificationService").ofType(INotificationService.class).in(fileManager).set(notificationServiceMock);
 
@@ -167,8 +167,8 @@ public class FieldDecoratorReturningDecoratorResultTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)//
-        .preDecoratedWith(uploadFileServiceMock).returningDecoratorResult()//
-        .postDecoratedWith(uploadFileServiceMock).returningDecoratorResult();
+        .preDecorateWith(uploadFileServiceMock).returningDecoratorResult()//
+        .postDecorateWith(uploadFileServiceMock).returningDecoratorResult();
 
     field("notificationService").ofType(INotificationService.class).in(fileManager).set(notificationServiceMock);
 
@@ -193,8 +193,8 @@ public class FieldDecoratorReturningDecoratorResultTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)//
-        .postDecoratedWith(uploadFileServiceMock).returningDecoratorResult()//
-        .preDecoratedWith(uploadFileServiceMock).returningDecoratorResult();
+        .postDecorateWith(uploadFileServiceMock).returningDecoratorResult()//
+        .preDecorateWith(uploadFileServiceMock).returningDecoratorResult();
 
     field("notificationService").ofType(INotificationService.class).in(fileManager).set(notificationServiceMock);
 

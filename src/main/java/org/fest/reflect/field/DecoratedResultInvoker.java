@@ -14,9 +14,8 @@
  */
 package org.fest.reflect.field;
 
-
 /**
- * An invoker which provides methods only for returning result from a decorator
+ * An invoker which provides methods to allow returning result from a decorator.
  * @author Ivan Hristov
  */
 public final class DecoratedResultInvoker<T> {
@@ -48,34 +47,52 @@ public final class DecoratedResultInvoker<T> {
 
   /**
    * Specifies that the result from the decorator should be returned.
+   * <p>
+   * If {@link IgnoringDecoratedExceptionInvoker#ignoringDecoratorExceptions()} is used in combination with this method
+   * and an exception happens, default value will be returned (as defined by JLS) for all primitives or null for all
+   * non-primitive.
+   * <p>
+   * Example 1:<br>
+   * If a {@link RuntimeException} happens while executing one of the decorated IExampleService field methods which
+   * returns primitive boolean value, false value will be returned
    * 
    * <pre>
-   * NOTE: 
-   *    If {@link IgnoringDecoratedExceptionInvoker#ignoringDecoratorExceptions(..)} is used in combination with this
-   * method and an exception happens default value will be returned (as defined by JLS) for all primitives or null for all non-primitive
+   * field("fieldName").ofType(IExampleService.class)
+   *                   .in(target)
+   *                   .postDecorateWith(postDecoratorService)
+   *                   .returningDecoratorResult()
+   *                   .ignoringDecoratorExceptions();
+   * </pre>
+   * In case of several decorator attached to a field, the result from the latest will be returned.
+   * <p>
+   * Example 2:<br>
+   * The result from the preDecoratorService will be returned
    * 
-   * Example 1: If a {@link RuntimeException} happens while executing one of the decorated IExampleService field methods which returns primitive boolean value, 
-   * a default value false value will be returned.
+   * <pre>
+   * field("fieldName").ofType(IExampleService.class)
+   *                   .in(target)
+   *                   .preDecorateWith(preDecoratorService)
+   *                   .returningDecoratorResult();
+   * </pre>
+   * Example 3:<br>
+   * The result from the postDecoratorService will be returned
    * 
-   *     field("fieldName").ofType(IExampleService.class)//
-   *        .in(target).postDecoratedWith(postDecoratorService)//
-   *        .returningDecoratorResult().ignoringDecoratorExceptions();
-   *        
-   * NOTE:       
-   *    In case of several decorator attached to a field, the result from the latest will be returned.
+   * <pre>
+   * field("fieldName").ofType(IExampleService.class)
+   *                   .in(target)
+   *                   .postDecorateWith(postDecoratorService)
+   *                   .returningDecoratorResult();
+   * </pre>
+   * Example 4:<br>
+   * The result from the preDecoratorService will be returned, since it's the <b>latest</b> attached decorators.
    * 
-   * Example 1: the result from the preDecoratorService will be returned
-   *   field("fieldName").ofType(IExampleService.class).in(target)//
-   *     .preDecoratedWith(preDecoratorService).returningDecoratorResult();
-   *     
-   * Example 2: the result from the postDecoratorService will be returned
-   *   field("fieldName").ofType(IExampleService.class).in(target)//
-   *     .postDecoratedWith(postDecoratorService).returningDecoratorResult();
-   *     
-   * Example 3: the result from the preDecoratorService will be returned, since it's the latest attached decorator
-   *    field("fieldName").ofType(IExampleService.class).in(target)//
-   *     .postDecoratedWith(postDecoratorService).returningDecoratorResult()//
-   *     .preDecoratedWith(preDecoratorService).returningDecoratorResult();
+   * <pre>
+   * field("fieldName").ofType(IExampleService.class)
+   *                   .in(target)
+   *                   .postDecorateWith(postDecoratorService)
+   *                   .returningDecoratorResult()
+   *                   .<b>preDecorateWith(preDecoratorService)</b>
+   *                   .returningDecoratorResult();
    * </pre>
    * 
    */
@@ -88,20 +105,20 @@ public final class DecoratedResultInvoker<T> {
   /**
    * Adds additional pre-decorator to an already decorated field; Note that if there are more than one pre-decorators
    * assigned to a field they will be executed starting from the last attached decorator.
-   * @param decorator
-   * @return
+   * @param decorator the decorator to pre-decorate
+   * @return the {@link DecoratedInvoker} pre-decorating given decorator
    */
-  public DecoratedInvoker<T> preDecoratedWith(T decorator) {
-    return invoker.preDecoratedWith(decorator);
+  public DecoratedInvoker<T> preDecorateWith(T decorator) {
+    return invoker.preDecorateWith(decorator);
   }
 
   /**
    * Adds additional post-decorator to an already decorated field; Note that if there are more than one post-decorators
    * assigned to a field they will be executed starting from the first attached decorator.
-   * @param decorator
-   * @return
+   * @param decorator the decorator to post-decorate
+   * @return the {@link DecoratedInvoker} post-decorating given decorator
    */
-  public DecoratedInvoker<T> postDecoratedWith(T decorator) {
-    return invoker.postDecoratedWith(decorator);
+  public DecoratedInvoker<T> postDecorateWith(T decorator) {
+    return invoker.postDecorateWith(decorator);
   }
 }

@@ -75,7 +75,7 @@ public class FieldDecoratorCombinedTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).preDecoratedWith(uploadFileServiceMock)//
+        .in(fileManager).preDecorateWith(uploadFileServiceMock)//
         .returningDecoratorResult().ignoringDecoratorExceptionsOfType(CustomeException.class);
 
     field("notificationService").ofType(INotificationService.class)//
@@ -101,7 +101,7 @@ public class FieldDecoratorCombinedTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).postDecoratedWith(uploadFileServiceMock)//
+        .in(fileManager).postDecorateWith(uploadFileServiceMock)//
         .returningDecoratorResult().ignoringDecoratorExceptions();
 
     field("notificationService").ofType(INotificationService.class)//
@@ -127,8 +127,8 @@ public class FieldDecoratorCombinedTest {
 
     FileManager fileManager = new FileManager();
 
-    field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).preDecoratedWith(uploadFileServiceMock)
-        .ignoringDecoratorExceptions().returningDecoratorResult().postDecoratedWith(uploadFileServiceMock)
+    field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).preDecorateWith(uploadFileServiceMock)
+        .ignoringDecoratorExceptions().returningDecoratorResult().postDecorateWith(uploadFileServiceMock)
         .ignoringDecoratorExceptionsOfType(CustomeException.class).returningDecoratorResult();
 
     field("notificationService").ofType(INotificationService.class).in(fileManager).set(notificationServiceMock);

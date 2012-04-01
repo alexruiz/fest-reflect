@@ -142,19 +142,20 @@ public final class Invoker<T> {
   }
 
   /**
-   * Decorates a targeted object's methods; Each execution of a targeted object's method will be first performed on the
-   * same method of the {@code decorator} object. The result (if any) from the invocation of the targeted object's
-   * method will be returned.
+   * <b>Pre</b>-decorates a targeted object's methods.
+   * <p>
+   * Each execution of a targeted object's method will be first performed on the same method of the {@code decorator}
+   * object. The result (if any) from the invocation of the targeted object's method will be returned but you can choose
+   * to return the decorator result if you want to.
    * <p>
    * Be aware:
-   * <li> The type of a targeted object should be an interface for this functionality to work
-   * <li> Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the default program's flow 
+   * <li>The type of a targeted object should be an interface for this functionality to work</li>
+   * <li>Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the
+   * default program's flow</li>
+   * <p>
+   * Example: Assuming we have the following code:
    * 
    * <pre>
-   * Example:
-   *  
-   * I - Assuming we have the following scenario:
-   * 
    * interface IUploadFileService { 
    *   boolean upload(String file, String destination); 
    * }
@@ -172,23 +173,27 @@ public final class Invoker<T> {
    *     } 
    *   }
    * }
+   * </pre>
    * 
-   * II - Say we want to decorate the uploadFileService.upload(...) part, so that additional functionality is executed
-   * <i>before</i> the actual uploadFileService.upload(...) logic. The following code will do the job:
-   *
+   * Let's say we want to decorate the uploadFileService.upload(...) part, so that additional functionality is executed
+   * <b>before</b> the actual uploadFileService.upload(...) logic, the following code will do the job:
+   * 
+   * <pre>
    * IUploadFileService uploadFileServiceDecorator = ...; 
    * FileManager fileManager = new FileManager();
    * 
-   * field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).preDecoratedWith(uploadFileServiceDecorator);
-   * 
-   * However, if there is an exception when calling uploadFileServiceDecorator.upload(fileName, DEFAULT_DESTINATION) the default 
-   * program's flow will be interrupted and the uploadFileService.upload(fileName, DEFAULT_DESTINATION) will not be executed.
+   * field("uploadFileService").ofType(IUploadFileService.class)
+   *                           .in(fileManager)
+   *                           .preDecorateWith(uploadFileServiceDecorator);
    * </pre>
-   * 
+   * However, if there is an exception when calling
+   * <code>uploadFileServiceDecorator.upload(fileName, DEFAULT_DESTINATION)</code> the default program's flow will be
+   * interrupted and the <code>uploadFileService.upload(fileName, DEFAULT_DESTINATION)</code> will not be executed.
+   * <p>
    * @param decorator which methods be called before the same targeted object methods
    * @return the {@link DecoratedInvoker} pre decorating the target field interface with given decorator.
    */
-  public DecoratedInvoker<T> preDecoratedWith(T decorator) {
+  public DecoratedInvoker<T> preDecorateWith(T decorator) {
     T target = get();
     DecoratorInvocationHandler<T> handler = new PreDecorator<T>(target, decorator);
     @SuppressWarnings("unchecked")
@@ -198,19 +203,20 @@ public final class Invoker<T> {
   }
 
   /**
-   * Decorates a targeted object's methods; After each execution of a targeted object's method the same method will be
-   * executed on the {@code decorator} object. The result (if any) from the invocation of the targeted object's method
-   * will be returned.
-   * <p> 
-   * Be aware :
-   * <li> The type of a targeted object should be an interface for this functionality to work
-   * <li> Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the default program's flow 
+   * <b>Post</b>-decorates a targeted object's methods.
+   * <p>
+   * After each execution of a targeted object's method, the same method of the {@code decorator}
+   * object will be called. The result (if any) from the invocation of the targeted object's method will be returned but you can choose
+   * to return the decorator result if you want to.
+   * <p>
+   * Be aware:
+   * <li>The type of a targeted object should be an interface for this functionality to work</li>
+   * <li>Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the
+   * default program's flow</li>
+   * <p>
+   * Example: Assuming we have the following code:
    * 
    * <pre>
-   * Example: 
-   * 
-   * I - Assuming we have the following scenario:
-   * 
    * interface IUploadFileService { 
    *   boolean upload(String file, String destination); 
    * }
@@ -218,7 +224,7 @@ public final class Invoker<T> {
    * public class FileManager {
    *     
    *   private IUploadFileService uploadFileService;
-   *   private static final String DEFAULT_DESTINATION = "http://example.org/default/destination/"
+   *   private static final String DEFAULT_DESTINATION = "http://example.org/default/destination/";
    * 
    *   public void manage(String fileName) {
    *     if( uploadFileService.upload(fileName, DEFAULT_DESTINATION) ) {
@@ -228,20 +234,27 @@ public final class Invoker<T> {
    *     } 
    *   }
    * }
-   * 
-   * II - Say we want to decorate the uploadFileService.upload(...) part, so that an additional functionality is executed 
-   * <i>after</i> the actual uploadFileService.upload(...) logic. The following code will do the job:
-   * 
-   * IUploadFileService uploadFileServiceDecorator = ...; 
-   * FileManager fileManager = new FileManager();
-   *  
-   * field("uploadFileService").ofType(IUploadFileService.class).in(fileManager).postDecoratedWith(uploadFileServiceDecorator); 
    * </pre>
    * 
+   * Let's say we want to decorate the uploadFileService.upload(...) part, so that additional functionality is executed
+   * <b>before</b> the actual uploadFileService.upload(...) logic, the following code will do the job:
+   * 
+   * <pre>
+   * IUploadFileService uploadFileServiceDecorator = ...; 
+   * FileManager fileManager = new FileManager();
+   * 
+   * field("uploadFileService").ofType(IUploadFileService.class)
+   *                           .in(fileManager)
+   *                           .postDecorateWith(uploadFileServiceDecorator);
+   * </pre>
+   * However, if there is an exception when calling
+   * <code>uploadFileServiceDecorator.upload(fileName, DEFAULT_DESTINATION)</code> the default program's flow will be
+   * interrupted and the <code>uploadFileService.upload(fileName, DEFAULT_DESTINATION)</code> will not be executed.
+   * <p>
    * @param decorator which methods be called after the same targeted object methods
    * @return the {@link DecoratedInvoker} post decorating the target field interface with given decorator.
    */
-  public DecoratedInvoker<T> postDecoratedWith(T decorator) {
+  public DecoratedInvoker<T> postDecorateWith(T decorator) {
     T target = get();
     DecoratorInvocationHandler<T> handler = new PostDecorator<T>(target, decorator);
     @SuppressWarnings("unchecked")

@@ -19,7 +19,7 @@ import java.lang.reflect.Proxy;
 import org.fest.reflect.field.decorator.RuntimeExceptionShield;
 
 /**
- * An invoker which provides methods only for ignoring exceptions from a decorator
+ * An invoker which provide methods to ignore exceptions from a decorator.
  * @author Ivan Hristov
  */
 public final class IgnoringDecoratedExceptionInvoker<T> {
@@ -65,6 +65,7 @@ public final class IgnoringDecoratedExceptionInvoker<T> {
    */
   public DecoratedResultInvoker<T> ignoringDecoratorExceptionsOfType(Class<?> exceptionClass) {
     RuntimeExceptionShield runtimeExceptionShield = new RuntimeExceptionShield(decorator, exceptionClass);
+    @SuppressWarnings("unchecked")
     T exceptionSafeDecorator = (T) Proxy.newProxyInstance(decorator.getClass().getClassLoader(),//
         new Class[] { expectedType }, runtimeExceptionShield);
 
@@ -75,22 +76,22 @@ public final class IgnoringDecoratedExceptionInvoker<T> {
   }
 
   /**
-   * Adds additional pre-decorator to an already decorated field; Note that if there are more than one pre-decorators
+   * Adds a pre-decorator to an already decorated field; Note that if there are more than one pre-decorators
    * assigned to a field they will be executed starting from the last attached decorator.
    * @param decorator
    * @return
    */
-  public DecoratedInvoker<T> preDecoratedWith(T decorator) {
-    return invoker.preDecoratedWith(decorator);
+  public DecoratedInvoker<T> preDecorateWith(T decorator) {
+    return invoker.preDecorateWith(decorator);
   }
 
   /**
-   * Adds additional post-decorator to an already decorated field; Note that if there are more than one post-decorators
+   * Adds a post-decorator to an already decorated field; Note that if there are more than one post-decorators
    * assigned to a field they will be executed starting from the first attached decorator.
    * @param decorator
    * @return
    */
-  public DecoratedInvoker<T> postDecoratedWith(T decorator) {
-    return invoker.postDecoratedWith(decorator);
+  public DecoratedInvoker<T> postDecorateWith(T decorator) {
+    return invoker.postDecorateWith(decorator);
   }
 }

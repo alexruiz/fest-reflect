@@ -83,7 +83,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions();
+        .in(fileManager).preDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions();
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
@@ -109,7 +109,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).postDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions();
+        .in(fileManager).postDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions();
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
@@ -131,7 +131,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions();
+        .in(fileManager).preDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions();
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
@@ -154,7 +154,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).postDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions();
+        .in(fileManager).postDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions();
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
@@ -180,9 +180,9 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)//
-        .preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions()//
-        .postDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions()//
-        .preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptionsOfType(SocketTimeoutException.class);
+        .preDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions()//
+        .postDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions()//
+        .preDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptionsOfType(SocketTimeoutException.class);
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
