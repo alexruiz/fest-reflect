@@ -24,9 +24,9 @@
     </mailingList>
   </mailingLists>
   <scm>
-    <developerConnection>scm:svn:https://svn.codehaus.org/fest/</developerConnection>
-    <connection>scm:svn:http://svn.codehaus.org/fest/</connection>
-    <url>http://fisheye.codehaus.org/browse/fest/</url>
+    <developerConnection>scm:git:git@github.com:alexruiz/fest-reflect.git</developerConnection>
+    <connection>scm:git:git://github.com/alexruiz/fest-reflect.git</connection>
+    <url>https://github.com/alexruiz/fest-reflect</url>
   </scm>
   <issueManagement>
     <system>JIRA</system>
@@ -53,13 +53,11 @@
       <type>jar</type>
       <scope>test</scope>
     </dependency>
-
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-all</artifactId>
       <scope>test</scope>
       <version>1.9.0</version>
     </dependency>
-
   </dependencies>
 </project>
