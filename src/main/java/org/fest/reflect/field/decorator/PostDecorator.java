@@ -17,7 +17,6 @@ package org.fest.reflect.field.decorator;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.fest.reflect.field.DecoratorInvocationHandler;
 
 /**
  * A proxy for post-decorating a field

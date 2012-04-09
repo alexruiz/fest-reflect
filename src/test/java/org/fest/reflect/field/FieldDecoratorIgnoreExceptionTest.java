@@ -15,12 +15,9 @@
 package org.fest.reflect.field;
 
 import static org.fest.reflect.core.Reflection.field;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import java.net.SocketTimeoutException;
 
@@ -71,7 +68,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     }
   }
 
-  @Test public void shouldNotIgnorePreDecoratorExceptions() throws SocketTimeoutException {
+  @Test public void should_not_ignore_pre_decorator_exceptions() throws SocketTimeoutException {
     // GIVEN
     expectedException.expect(SocketTimeoutException.class);
     String expectedExceptionMsg = "Expected test exception";
@@ -86,7 +83,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions();
+        .in(fileManager).preDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions();
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
@@ -97,7 +94,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     // THEN there should be an exception
   }
 
-  @Test public void shouldNotIgnorePostDecoratorExceptions() throws SocketTimeoutException {
+  @Test public void should_not_ignore_post_decorator_exceptions() throws SocketTimeoutException {
     // GIVEN
     expectedException.expect(SocketTimeoutException.class);
     String expectedExceptionMsg = "Expected test exception";
@@ -112,7 +109,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).postDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions();
+        .in(fileManager).postDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions();
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
@@ -123,7 +120,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     // THEN there should be an exception
   }
 
-  @Test public void shouldPreDecorateFieldAndIgnoreDecoratorExceptions() throws SocketTimeoutException {
+  @Test public void should_pre_decorate_field_ignoring_decorator_exceptions() throws SocketTimeoutException {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotifierService notifierServiceMock = mock(INotifierService.class);
@@ -134,7 +131,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions();
+        .in(fileManager).preDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions();
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
@@ -146,7 +143,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     verify(notifierServiceMock, times(1)).notify(eq("Unable to send msg!"));
   }
 
-  @Test public void shouldPostDecorateFieldAndIgnoreDecoratorExceptions() throws SocketTimeoutException {
+  @Test public void should_post_decorate_field_ignoring_decorator_exceptions() throws SocketTimeoutException {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotifierService notifierServiceMock = mock(INotifierService.class);
@@ -157,7 +154,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).postDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions();
+        .in(fileManager).postDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions();
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 
@@ -170,7 +167,7 @@ public class FieldDecoratorIgnoreExceptionTest {
     verify(notifierServiceMock, times(1)).notify(eq("Unable to send msg!"));
   }
 
-  @Test public void shouldPreDecoratorAndPostDecorateFieldIgnoreDecoratorExceptions() throws SocketTimeoutException {
+  @Test public void should_pre_and_post_decorate_field_ignoring_decorator_exceptions() throws SocketTimeoutException {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotifierService notifierServiceMock = mock(INotifierService.class);
@@ -183,9 +180,9 @@ public class FieldDecoratorIgnoreExceptionTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)//
-        .preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions()//
-        .postDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptions()//
-        .preDecoratedWith(uploadFileServiceMock).ignoringDecoratorExceptionsOfType(SocketTimeoutException.class);
+        .preDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions()//
+        .postDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptions()//
+        .preDecorateWith(uploadFileServiceMock).ignoringDecoratorExceptionsOfType(SocketTimeoutException.class);
 
     field("notifierService").ofType(INotifierService.class).in(fileManager).set(notifierServiceMock);
 

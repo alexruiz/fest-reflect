@@ -15,12 +15,9 @@
 package org.fest.reflect.field;
 
 import static org.fest.reflect.core.Reflection.field;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.inOrder;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -62,13 +59,14 @@ public class FieldDecoratorTest {
     public void info(String infoStr);
   }
 
-  @Test public void shouldPreDecorateField() {
+  @Test
+  public void should_pre_decorate_field() {
     // GIVEN
     ILogger mySmartLoggerMock = mock(ILogger.class);
 
     LogMyName logMyName = new LogMyName("FEST");
 
-    field("logger").ofType(ILogger.class).in(logMyName).preDecoratedWith(mySmartLoggerMock);
+    field("logger").ofType(ILogger.class).in(logMyName).preDecorateWith(mySmartLoggerMock);
 
     // WHEN
     logMyName.logMyName();
@@ -105,7 +103,8 @@ public class FieldDecoratorTest {
     }
   }
 
-  @Test public void shouldAttachTwoPreDecorators() {
+  @Test
+  public void should_attach_two_pre_decorators() {
     // GIVEN
     IUploadFileService firstUploadFileServiceMock = mock(IUploadFileService.class);
     IUploadFileService secondUploadFileServiceMock = mock(IUploadFileService.class);
@@ -113,7 +112,7 @@ public class FieldDecoratorTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).preDecoratedWith(firstUploadFileServiceMock).preDecoratedWith(secondUploadFileServiceMock);
+        .in(fileManager).preDecorateWith(firstUploadFileServiceMock).preDecorateWith(secondUploadFileServiceMock);
 
     // WHEN
     String fileName = "testFileName";
@@ -125,14 +124,15 @@ public class FieldDecoratorTest {
     inOrder.verify(firstUploadFileServiceMock, times(1)).upload(eq("testFileName"), anyString());
   }
 
-  @Test public void shouldPostDecorateField() {
+  @Test
+  public void should_post_decorate_field() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
 
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)
-        .postDecoratedWith(uploadFileServiceMock);
+        .postDecorateWith(uploadFileServiceMock);
 
     // WHEN
     String fileName = "testFileName";
@@ -142,7 +142,8 @@ public class FieldDecoratorTest {
     verify(uploadFileServiceMock, times(1)).upload(eq("testFileName"), anyString());
   }
 
-  @Test public void shouldAttachTwoPostDecorators() {
+  @Test
+  public void should_attach_two_post_decorators() {
     // GIVEN
     IUploadFileService firstUploadFileServiceMock = mock(IUploadFileService.class);
     IUploadFileService secondUploadFileServiceMock = mock(IUploadFileService.class);
@@ -150,7 +151,7 @@ public class FieldDecoratorTest {
     FileManager fileManager = new FileManager();
 
     field("uploadFileService").ofType(IUploadFileService.class)//
-        .in(fileManager).postDecoratedWith(firstUploadFileServiceMock).postDecoratedWith(secondUploadFileServiceMock);
+        .in(fileManager).postDecorateWith(firstUploadFileServiceMock).postDecorateWith(secondUploadFileServiceMock);
 
     // WHEN
     String fileName = "testFileName";
@@ -162,7 +163,8 @@ public class FieldDecoratorTest {
     inOrder.verify(secondUploadFileServiceMock, times(1)).upload(eq("testFileName"), anyString());
   }
 
-  @Test public void shouldPreDecoratorAndPostDecorateField() {
+  @Test
+  public void should_pre_and_post_decorate_field() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
 
@@ -170,8 +172,8 @@ public class FieldDecoratorTest {
 
     field("uploadFileService").ofType(IUploadFileService.class).in(fileManager)
         //
-        .preDecoratedWith(uploadFileServiceMock).postDecoratedWith(uploadFileServiceMock)
-        .preDecoratedWith(uploadFileServiceMock);
+        .preDecorateWith(uploadFileServiceMock).postDecorateWith(uploadFileServiceMock)
+        .preDecorateWith(uploadFileServiceMock);
 
     // WHEN
     String fileName = "testFileName";

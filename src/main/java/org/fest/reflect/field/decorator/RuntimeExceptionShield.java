@@ -27,22 +27,22 @@ import java.util.Map;
  */
 public class RuntimeExceptionShield implements InvocationHandler {
 
-  private static final Map<Class<?>, Object> DEFAULT_RETURN_VALUES = new HashMap<Class<?>, Object>() { // reference JLS
-    {
-      put(byte.class, 0);
-      put(short.class, 0);
-      put(int.class, 0);
-      put(long.class, 0L);
-      put(float.class, 0f);
-      put(double.class, 0d);
-      put(char.class, '\u0000');
-      put(boolean.class, false);
-    }
-  };
-
+  private static final Map<Class<?>, Object> DEFAULT_RETURN_VALUES = new HashMap<Class<?>, Object>();
   private final Object target;
   private final Class<?> exceptionClass;
 
+  // static init - reference JLS
+  {
+    DEFAULT_RETURN_VALUES.put(byte.class, 0);
+    DEFAULT_RETURN_VALUES.put(short.class, 0);
+    DEFAULT_RETURN_VALUES.put(int.class, 0);
+    DEFAULT_RETURN_VALUES.put(long.class, 0L);
+    DEFAULT_RETURN_VALUES.put(float.class, 0f);
+    DEFAULT_RETURN_VALUES.put(double.class, 0d);
+    DEFAULT_RETURN_VALUES.put(char.class, '\u0000');
+    DEFAULT_RETURN_VALUES.put(boolean.class, false);
+  }
+  
   public RuntimeExceptionShield(Object target, Class<?> exceptionClass) {
     this.target = target;
     this.exceptionClass = exceptionClass;
@@ -52,11 +52,9 @@ public class RuntimeExceptionShield implements InvocationHandler {
     try {
       return method.invoke(target, args);
     } catch (InvocationTargetException e) {
-      if (!(e.getCause().getClass() == exceptionClass)) { throw e.getCause(); }
-
+      if (!(e.getCause().getClass() == exceptionClass))  throw e.getCause();
       // shield from specified exceptions
     }
-
     return DEFAULT_RETURN_VALUES.get(method.getReturnType());
   }
 

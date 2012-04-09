@@ -12,7 +12,7 @@
  * 
  * Copyright @2006-2009 the original author or authors.
  */
-package org.fest.reflect.field;
+package org.fest.reflect.field.decorator;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
@@ -33,7 +33,7 @@ public abstract class DecoratorInvocationHandler<T> implements InvocationHandler
     this.decorator = decorator;
   }
 
-  void setDecorator(T decorator) {
+  public void setDecorator(T decorator) {
     this.decorator = decorator;
   }
 
@@ -72,7 +72,7 @@ public abstract class DecoratorInvocationHandler<T> implements InvocationHandler
 
   protected abstract Object getResult(Object firstResult, Object secondResult);
 
-  void setReturnDecoratorResult(boolean returnDecoratorResult) {
+  public void setReturnDecoratorResult(boolean returnDecoratorResult) {
    this.returnDecoratorResult =  returnDecoratorResult;
   }
 
