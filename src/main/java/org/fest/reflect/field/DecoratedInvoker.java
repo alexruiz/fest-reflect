@@ -21,6 +21,8 @@ import org.fest.reflect.field.decorator.RuntimeExceptionShield;
 
 /**
  * A decorated invoker allowing to ignore some exceptions or returning decorator result instead of field result.
+ * 
+ * @param <T> the type to decorate
  * @author Ivan Hristov
  */
 public final class DecoratedInvoker<T> {
@@ -72,7 +74,7 @@ public final class DecoratedInvoker<T> {
   /**
    * Specifies that the result from the decorator should be returned.
    * <p>
-   * If {@link IgnoringDecoratedExceptionInvoker#ignoringDecoratorExceptions() ignoringDecoratorExceptions()} is used in
+   * If {@link #ignoringDecoratorExceptions() ignoringDecoratorExceptions()} is used in
    * combination with this method and an exception is thrown, the default value will be returned (as defined by JLS) for
    * all primitives or null for all non-primitive.
    * <p>
@@ -114,6 +116,7 @@ public final class DecoratedInvoker<T> {
    *                   .<b>pre</b>DecorateWith(preDecoratorService)
    *                   .returningDecoratorResult();
    * </pre>
+   * @return this {@link DecoratedInvoker} for chaining methods
    */
   public DecoratedInvoker<T> returningDecoratorResult() {
     decoratorInvocationHandler.setReturnDecoratorResult(true);

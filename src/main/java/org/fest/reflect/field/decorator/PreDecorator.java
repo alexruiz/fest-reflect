@@ -20,6 +20,9 @@ import java.lang.reflect.Method;
 
 /**
  * A proxy for pre-decorating a field
+ * 
+ * @param <T> the type to decorate
+ * 
  * @author Ivan Hristov
  * 
  */

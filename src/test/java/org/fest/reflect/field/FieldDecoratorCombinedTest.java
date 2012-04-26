@@ -15,12 +15,9 @@
 package org.fest.reflect.field;
 
 import static org.fest.reflect.field.Fields.fieldOfType;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
+import static org.mockito.Matchers.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 
@@ -61,6 +58,8 @@ public class FieldDecoratorCombinedTest {
   }
 
   public class CustomeException extends RuntimeException {
+    private static final long serialVersionUID = 1L;
+
     public CustomeException() {
       super("This is a test excetpion");
     }

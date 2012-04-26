@@ -20,8 +20,10 @@ import java.lang.reflect.Method;
 
 /**
  * A proxy for post-decorating a field
- * @author Ivan Hristov
  * 
+ * @param <T> the type to decorate
+ * 
+ * @author Ivan Hristov
  */
 public class PostDecorator<T> extends DecoratorInvocationHandler<T> {
 

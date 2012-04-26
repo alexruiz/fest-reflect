@@ -19,8 +19,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
- * @author Ivan Hristov
+ * @param <T> the type to decorate
  * 
+ * @author Ivan Hristov
  */
 public abstract class DecoratorInvocationHandler<T> implements InvocationHandler {
 
