@@ -16,9 +16,8 @@ package org.fest.reflect.field;
 
 import static org.fest.reflect.field.Invoker.newInvoker;
 
-import java.util.Deque;
-import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.fest.reflect.core.Reflection;
 import org.fest.reflect.exception.ReflectionError;
@@ -43,7 +42,7 @@ import org.fest.reflect.exception.ReflectionError;
  */
 public class FieldType<T> {
 
-  private final Deque<String> listOfNestedFields;
+  private final List<String> listOfNestedFields;
 
   static <T> FieldType<T> newFieldType(String name, Class<T> type) {
     if (type == null) throw new NullPointerException("The type of the field to access should not be null");
@@ -68,9 +67,10 @@ public class FieldType<T> {
    */
   public Invoker<T> in(Object target) {
     Object nestedTarget = null;
-    Iterator<String> descendingIterator = listOfNestedFields.descendingIterator();
-    while (descendingIterator.hasNext()) {
-      String fieldName = descendingIterator.next();
+    int size = listOfNestedFields.size();
+    
+    for (--size; size >= 0; size--) {
+      String fieldName = listOfNestedFields.remove(size);
       nestedTarget = Invoker.getNestedField(fieldName, nestedTarget == null ? target : nestedTarget);
     }
 
