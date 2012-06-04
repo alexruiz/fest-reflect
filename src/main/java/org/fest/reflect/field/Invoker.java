@@ -270,8 +270,16 @@ public final class Invoker<T> {
    * @return the value of the field managed by this class.
    * @throws ReflectionError if the value of the field cannot be retrieved.
    */
-  @SuppressWarnings("unchecked")
   public T get() {
+    return Invoker.<T> get(field, accessible, target);
+  }
+
+  static Object getNestedField(String fieldName, Object target) {
+    Field field = lookupInClassHierarchy(fieldName, typeOf(target));
+    return get(field, field.isAccessible(), target);
+  }
+
+  @SuppressWarnings("unchecked") private static <T> T get(Field field, boolean accessible, Object target) {
     try {
       setAccessible(field, true);
       return (T) field.get(target);
