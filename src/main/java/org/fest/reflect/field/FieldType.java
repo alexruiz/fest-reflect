@@ -28,11 +28,11 @@ import org.fest.reflect.exception.ReflectionError;
  * The following is an example of proper usage of this class:
  * 
  * <pre>
- *   // Retrieves the value of the field "name"
- *   String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link Invoker#get() get}();
+ * // Retrieves the value of the field "name"
+ * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link Invoker#get() get}();
  *
- *   // Sets the value of the field "name" to "Yoda"
- *   {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link Invoker#set(Object) set}("Yoda");
+ * // Sets the value of the field "name" to "Yoda"
+ * {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link Invoker#set(Object) set}("Yoda");
  * </pre>
  * </p>
  * 
@@ -68,7 +68,7 @@ public class FieldType<T> {
   public Invoker<T> in(Object target) {
     Object nestedTarget = null;
     int size = listOfNestedFields.size();
-    
+
     for (--size; size >= 0; size--) {
       String fieldName = listOfNestedFields.remove(size);
       nestedTarget = Invoker.getNestedField(fieldName, nestedTarget == null ? target : nestedTarget);
@@ -83,41 +83,41 @@ public class FieldType<T> {
    * the top-level instance (to which presumably you hold a reference):
    * 
    * <pre>
-   * Example:
-   * Let's say we have the following simple service:
-   *   public class BusinessService {
-   *    private final NotificationService notificationService = new NotificationService();
-   *    //... logic goes here
-   *  }
+   * For example, let's say we have the following simple service:
+   * 
+   * public class BusinessService {
+   *   private NotificationService notificationService = new NotificationService();
+   *   //... logic goes here
+   * }
    *  
    * Where NotificationService is defined as follows:
    * 
-   *   public class NotificationService {
-   *    private final Logger logger = new Logger();
-   *    private final IClientStatusDao clientStatusDao = new ClientStatusDao();
-    *    //... logic goes here
-   *  }
+   * public class NotificationService {
+   *   private Logger logger = new Logger();
+   *   private IClientStatusDao clientStatusDao = new ClientStatusDao();
+   *   //... logic goes here
+   * }
    * 
    * And our ClientStatusDao looks like:
    * 
-   *   public class ClientStatusDao implements IClientStatusDao {
-   *    private final Session session = new SessionImpl();
-   *
+   * public class ClientStatusDao implements IClientStatusDao {
+   *   private final Session session = new SessionImpl();
    *    //... logic goes here
-   *  }
+   * }
    *     
    * Assuming we have only a reference to an instance of {@code BusinessService} (which is the top-level of our 
-   * aggregation chain) we can use FEST as follows in order to set the nested {@code logger} field within 
-   * the (nested)  {@code NotificationService} in  like this:
+   * aggregation chain), we can use FEST as follows in order to set the nested {@code logger} field within 
+   * the (nested) {@code NotificationService} in like this:
    *  
-   *  field("logger").ofType(Logger.class).withinField("notificationService").in(businessService).set(loggerMock);
+   *   field("logger").ofType(Logger.class).withinField("notificationService").in(businessService).set(loggerMock);
    *  
    * If you want you can also set the deeply nested {@code session} field within {@code ClientStatusDao} like this:
    * 
-   * field("session").ofType(Session.class).withinField("clientStatusDao").withinField("notificationService")
+   *   field("session").ofType(Session.class).withinField("clientStatusDao").withinField("notificationService")
    *     .in(businessService).set(sessionMock);
    * 
-   * And yes, you can also set, decorate, or do other interesting thigs with even more deeply nested fields. Just try out!  
+   * And yes, you can also set, decorate, or do other interesting things with even more deeply nested fields. 
+   * Just try out!  
    * </pre>
    * @param nestedField
    * @return
