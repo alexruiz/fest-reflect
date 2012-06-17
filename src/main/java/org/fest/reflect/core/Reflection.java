@@ -126,6 +126,7 @@ import org.fest.reflect.type.Type;
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
+ * @author Ivan Hristov
  */
 public final class Reflection {
 
@@ -150,7 +151,41 @@ public final class Reflection {
   public static StaticInnerClassName staticInnerClass(String name) { return startStaticInnerClassAccess(name); }
 
   /**
-   * Starting point of the fluent interface for accessing fields via reflection.
+   * Starting point of the fluent interface for accessing fields via reflection. Note that a (deeply) nested field 
+   * can be accessed by specifying the path to it. The path is composed from all nested fields separated by dot (.)
+   * <pre>
+   * For example, let's say we have the following simple service:
+   * 
+   * public class BusinessService {
+   *   private NotificationService notificationService = new NotificationService();
+   *   //... logic goes here
+   * }
+   *  
+   * Where NotificationService is defined as follows:
+   * 
+   * public class NotificationService {
+   *   private Logger logger = new Logger();
+   *   private IClientStatusDao clientStatusDao = new ClientStatusDao();
+   *   //... logic goes here
+   * }
+   * 
+   * And our ClientStatusDao looks like:
+   * 
+   * public class ClientStatusDao implements IClientStatusDao {
+   *   private final Session session = new SessionImpl();
+   *    //... logic goes here
+   * }
+   *     
+   * Assuming we have only a reference to an instance of {@code BusinessService} (which is the top-level of our 
+   * aggregation chain), we can use FEST as follows in order to set the nested {@code logger} field within 
+   * the (nested) {@code NotificationService} like this:
+   *  
+   *   field("notificationService.logger").ofType(Logger.class).in(businessService).set(loggerMock);
+   *  
+   * You can also set the deeply nested {@code session} field within {@code ClientStatusDao} like this:
+   * 
+   *   field("notificationService.clientStatusDao.session").ofType(Session.class).in(businessService).set(sessionMock);
+   *   
    * @param name the name of the field to access.
    * @return the starting point of the method chain.
    * @throws NullPointerException if the given name is <code>null</code>.

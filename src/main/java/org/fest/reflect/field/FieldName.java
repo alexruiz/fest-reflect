@@ -18,6 +18,10 @@ import static org.fest.reflect.field.FieldType.newFieldType;
 import static org.fest.reflect.field.FieldTypeRef.newFieldTypeRef;
 import static org.fest.util.Strings.isEmpty;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.fest.reflect.reference.TypeRef;
 
 
@@ -43,11 +47,13 @@ import org.fest.reflect.reference.TypeRef;
  * </p>
  *
  * @author Alex Ruiz
+ * @author Ivan Hristov
  */
 public final class FieldName {
 
   private final String name;
-
+  private final List<String> path;
+  
   /**
    * Creates a new <code>{@link FieldName}</code>: the starting point of the fluent interface for accessing fields
    * using Java Reflection.
@@ -69,7 +75,9 @@ public final class FieldName {
   }
 
   private FieldName(String name) {
-    this.name = name;
+    this.path = new ArrayList<String>(Arrays.asList(name.split("\\.")));
+    path.remove(path.size()-1);
+    this.name = name.substring(name.lastIndexOf('.') + 1, name.length());
   }
 
   /**
@@ -80,7 +88,7 @@ public final class FieldName {
    * @throws NullPointerException if the given type is <code>null</code>.
    */
   public <T> FieldType<T> ofType(Class<T> type) {
-    return newFieldType(name, type);
+    return newFieldType(name, type, path);
   }
 
   /**
@@ -99,6 +107,6 @@ public final class FieldName {
    * @since 1.1
    */
   public <T> FieldTypeRef<T> ofType(TypeRef<T> type) {
-    return newFieldTypeRef(name, type);
+    return newFieldTypeRef(name, type, path);
   }
 }

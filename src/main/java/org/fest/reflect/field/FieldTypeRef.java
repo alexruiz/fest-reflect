@@ -16,6 +16,8 @@ package org.fest.reflect.field;
 
 import static org.fest.reflect.field.Invoker.newInvoker;
 
+import java.util.List;
+
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
 
@@ -37,23 +39,25 @@ import org.fest.reflect.reference.TypeRef;
  * @param <T> the generic type of the field.
  *
  * @author Alex Ruiz
+ * @author Ivan Hristov
  *
  * @since 1.1
  */
 public class FieldTypeRef<T> {
 
-  static <T> FieldTypeRef<T> newFieldTypeRef(String name, TypeRef<T> type) {
+  static <T> FieldTypeRef<T> newFieldTypeRef(String name, TypeRef<T> type, List<String> path) {
     if (type == null)
       throw new NullPointerException("The type reference of the field to access should not be null");
-    return new FieldTypeRef<T>(name, type);
+    return new FieldTypeRef<T>(name, type, path);
   }
 
   private final String name;
   private final TypeRef<T> type;
-
-  private FieldTypeRef(String name, TypeRef<T> type) {
+  private final List<String> path;
+  private FieldTypeRef(String name, TypeRef<T> type, List<String> path) {
     this.name = name;
     this.type = type;
+    this.path = path;
   }
 
   /**
@@ -64,6 +68,12 @@ public class FieldTypeRef<T> {
    * @throws ReflectionError if a field with a matching name and type cannot be found.
    */
   public Invoker<T> in(Object target) {
-    return newInvoker(name, type, target);
+    Object nestedTarget = null;
+    
+    for (String fieldName : path) {
+      nestedTarget = Invoker.getNestedField(fieldName, nestedTarget == null ? target : nestedTarget);
+    }
+    
+    return newInvoker(name, type, nestedTarget == null ? target : nestedTarget);
   }
 }

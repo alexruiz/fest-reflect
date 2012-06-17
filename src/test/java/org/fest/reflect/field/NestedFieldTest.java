@@ -19,7 +19,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.fest.reflect.exception.ReflectionError;
+import org.fest.reflect.reference.TypeRef;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.matchers.JUnitMatchers;
@@ -79,6 +84,7 @@ public class NestedFieldTest {
 
   private static class ClientStatusDao implements IClientStatusDao {
     private final Session session;
+    private final List<String> listOfNames = Arrays.asList("Ivan", "Joel", "Alex");
 
     public ClientStatusDao() {
       this.session = new SessionImpl();
@@ -115,7 +121,7 @@ public class NestedFieldTest {
     Logger loggerMock = mock(Logger.class);
 
     // WHEN
-    field("logger").ofType(Logger.class).withinField("notificationService").in(businessService).set(loggerMock);
+    field("notificationService.logger").ofType(Logger.class).in(businessService).set(loggerMock);
 
     // THEN
     org.junit.Assert.assertEquals(businessService.getNotificationService().getLogger(), loggerMock);
@@ -131,8 +137,7 @@ public class NestedFieldTest {
     BusinessService businessService = new BusinessService();
     Session sessionMock = mock(Session.class);
 
-    field("session").ofType(Session.class).withinField("notificationService").withinField("clientStatusDao")
-        .in(businessService).set(sessionMock);
+    field("clientStatusDao.notificationService.session").ofType(Session.class).in(businessService).set(sessionMock);
 
     // WHEN
     businessService.doLogic();
@@ -146,8 +151,7 @@ public class NestedFieldTest {
     BusinessService businessService = new BusinessService();
     Session sessionMock = mock(Session.class);
 
-    field("session").ofType(Session.class).withinField("clientStatusDao").withinField("notificationService")
-        .in(businessService).set(sessionMock);
+    field("notificationService.clientStatusDao.session").ofType(Session.class).in(businessService).set(sessionMock);
 
     // WHEN
     businessService.doLogic();
@@ -156,14 +160,25 @@ public class NestedFieldTest {
     verify(sessionMock, times(1)).manageSession();
   }
 
+  @Test public void shouldGetSecondLevelNestedListOfNamesField() {
+    // GIVEN
+    BusinessService businessService = new BusinessService();
+
+    // WHEN
+    List<String> listOfNames = field("notificationService.clientStatusDao.listOfNames").ofType(new TypeRef<List<String>>() {})
+        .in(businessService).get();
+
+    // THEN
+    Assert.assertThat(listOfNames, JUnitMatchers.hasItems("Ivan", "Joel", "Alex")); 
+  }
+
   @Test public void shouldSetThirdLevelNestedSessionFactoryField() {
     // GIVEN
     BusinessService businessService = new BusinessService();
     SessionMonitor sessionMonitorMock = mock(SessionMonitor.class);
 
-    field("sessionMonitor").ofType(SessionMonitor.class)//
-        .withinField("session").withinField("clientStatusDao")//
-        .withinField("notificationService").in(businessService).set(sessionMonitorMock);
+    field("notificationService.clientStatusDao.session.sessionMonitor").ofType(SessionMonitor.class)//
+        .in(businessService).set(sessionMonitorMock);
 
     // WHEN
     businessService.doLogic();
