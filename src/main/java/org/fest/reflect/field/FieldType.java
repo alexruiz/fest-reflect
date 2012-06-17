@@ -16,10 +16,8 @@ package org.fest.reflect.field;
 
 import static org.fest.reflect.field.Invoker.newInvoker;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import org.fest.reflect.core.Reflection;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
@@ -39,23 +37,24 @@ import org.fest.reflect.exception.ReflectionError;
  * @param <T> the generic type of the field.
  * 
  * @author Alex Ruiz
+ * @author Ivan Hristov
  */
 public class FieldType<T> {
 
-  private final List<String> listOfNestedFields;
-
-  static <T> FieldType<T> newFieldType(String name, Class<T> type) {
+  private final List<String> path;
+  
+  static <T> FieldType<T> newFieldType(String name, Class<T> type, List<String> path) {
     if (type == null) throw new NullPointerException("The type of the field to access should not be null");
-    return new FieldType<T>(name, type);
+    return new FieldType<T>(name, type, path);
   }
 
   private final String name;
   private final Class<T> type;
 
-  private FieldType(String name, Class<T> type) {
+  private FieldType(String name, Class<T> type, List<String> path) {
     this.name = name;
     this.type = type;
-    this.listOfNestedFields = new LinkedList<String>();
+    this.path = path;
   }
 
   /**
@@ -67,10 +66,8 @@ public class FieldType<T> {
    */
   public Invoker<T> in(Object target) {
     Object nestedTarget = null;
-    int size = listOfNestedFields.size();
-
-    for (--size; size >= 0; size--) {
-      String fieldName = listOfNestedFields.remove(size);
+    
+    for (String fieldName : path) {
       nestedTarget = Invoker.getNestedField(fieldName, nestedTarget == null ? target : nestedTarget);
     }
 
@@ -122,8 +119,5 @@ public class FieldType<T> {
    * @param nestedField
    * @return
    */
-  public FieldType<T> withinField(String nestedField) {
-    listOfNestedFields.add(nestedField);
-    return this;
-  }
+
 }
