@@ -15,20 +15,21 @@
 package org.fest.reflect.field;
 
 import static org.fest.reflect.core.Reflection.field;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.fest.util.Collections.list;
 
-import java.util.Arrays;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.*;
+
 import java.util.List;
 
-import org.fest.reflect.exception.ReflectionError;
-import org.fest.reflect.reference.TypeRef;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.matchers.JUnitMatchers;
 import org.junit.rules.ExpectedException;
+
+import org.fest.reflect.exception.ReflectionError;
+import org.fest.reflect.reference.TypeRef;
 
 /**
  * @author Ivan Hristov
@@ -84,8 +85,9 @@ public class NestedFieldTest {
 
   private static class ClientStatusDao implements IClientStatusDao {
     private final Session session;
-    private final List<String> listOfNames = Arrays.asList("Ivan", "Joel", "Alex");
-
+    @SuppressWarnings("unused")
+    private final List<String> listOfNames = list("Ivan", "Joel", "Alex");
+    
     public ClientStatusDao() {
       this.session = new SessionImpl();
     }
@@ -124,7 +126,7 @@ public class NestedFieldTest {
     field("notificationService.logger").ofType(Logger.class).in(businessService).set(loggerMock);
 
     // THEN
-    org.junit.Assert.assertEquals(businessService.getNotificationService().getLogger(), loggerMock);
+    assertSame(businessService.getNotificationService().getLogger(), loggerMock);
   }
 
   @Test public void shouldThrowExceptionBecauseOfWrongOrder() {

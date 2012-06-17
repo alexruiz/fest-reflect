@@ -72,7 +72,7 @@ public final class DecoratedInvoker<T> {
   /**
    * Specifies that the result from the decorator should be returned.
    * <p>
-   * If {@link IgnoringDecoratedExceptionInvoker#ignoringDecoratorExceptions() ignoringDecoratorExceptions()} is used in
+   * If {@link DecoratedInvoker#ignoringDecoratorExceptions() ignoringDecoratorExceptions()} is used in
    * combination with this method and an exception is thrown, the default value will be returned (as defined by JLS) for
    * all primitives or null for all non-primitive.
    * <p>

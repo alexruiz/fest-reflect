@@ -1,15 +1,15 @@
 /*
  * Created on Oct 31, 2006
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
- *
+ * 
  * Copyright @2006-2009 the original author or authors.
  */
 package org.fest.reflect.core;
@@ -42,7 +42,9 @@ import org.fest.reflect.type.Type;
 
 /**
  * Understands the entry point for the classes in this package.
+ * <p>
  * The following is an example of proper usage of the classes in this package:
+ * 
  * <pre>
  *   // Loads the class 'org.republic.Jedi'
  *   Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#load() load}();
@@ -123,7 +125,7 @@ import org.fest.reflect.type.Type;
  *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.Invoker#set(Object) set}("Yoda");
  * </pre>
  * </p>
- *
+ * 
  * @author Alex Ruiz
  * @author Yvonne Wang
  * @author Ivan Hristov
@@ -138,7 +140,9 @@ public final class Reflection {
    * @throws IllegalArgumentException if the given name is empty.
    * @since 1.1
    */
-  public static Type type(String name) { return newType(name); }
+  public static Type type(String name) {
+    return newType(name);
+  }
 
   /**
    * Starting point of the fluent interface for accessing static inner class via reflection.
@@ -148,13 +152,18 @@ public final class Reflection {
    * @throws IllegalArgumentException if the given name is empty.
    * @since 1.1
    */
-  public static StaticInnerClassName staticInnerClass(String name) { return startStaticInnerClassAccess(name); }
+  public static StaticInnerClassName staticInnerClass(String name) {
+    return startStaticInnerClassAccess(name);
+  }
 
   /**
-   * Starting point of the fluent interface for accessing fields via reflection. Note that a (deeply) nested field 
-   * can be accessed by specifying the path to it. The path is composed from all nested fields separated by dot (.)
+   * Starting point of the fluent interface for accessing fields via reflection.<br>
+   * Nested field are supported with dot notation, e.g. <code>"person.address.street"</code>.
+   * <p>
+   * Let's look how it works on an example :
+   * 
    * <pre>
-   * For example, let's say we have the following simple service:
+   * Let's say we have the following simple service:
    * 
    * public class BusinessService {
    *   private NotificationService notificationService = new NotificationService();
@@ -176,22 +185,23 @@ public final class Reflection {
    *    //... logic goes here
    * }
    *     
-   * Assuming we have only a reference to an instance of {@code BusinessService} (which is the top-level of our 
-   * aggregation chain), we can use FEST as follows in order to set the nested {@code logger} field within 
-   * the (nested) {@code NotificationService} like this:
+   * Let's say we want to change the {@code logger} field of {@code NotificationService} within our instance of {@code BusinessService}, we can do this:
    *  
    *   field("notificationService.logger").ofType(Logger.class).in(businessService).set(loggerMock);
    *  
    * You can also set the deeply nested {@code session} field within {@code ClientStatusDao} like this:
    * 
    *   field("notificationService.clientStatusDao.session").ofType(Session.class).in(businessService).set(sessionMock);
-   *   
+   * </pre>
+   * 
    * @param name the name of the field to access.
    * @return the starting point of the method chain.
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static FieldName field(String name) { return beginFieldAccess(name); }
+  public static FieldName field(String name) {
+    return beginFieldAccess(name);
+  }
 
   /**
    * Starting point of the fluent interface for accessing static fields via reflection.
@@ -200,7 +210,9 @@ public final class Reflection {
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static StaticFieldName staticField(String name) { return beginStaticFieldAccess(name); }
+  public static StaticFieldName staticField(String name) {
+    return beginStaticFieldAccess(name);
+  }
 
   /**
    * Starting point of the fluent interface for invoking methods via reflection.
@@ -209,7 +221,9 @@ public final class Reflection {
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static MethodName method(String name) { return startMethodAccess(name); }
+  public static MethodName method(String name) {
+    return startMethodAccess(name);
+  }
 
   /**
    * Starting point of the fluent interface for invoking static methods via reflection.
@@ -218,13 +232,17 @@ public final class Reflection {
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static StaticMethodName staticMethod(String name) { return startStaticMethodAccess(name); }
+  public static StaticMethodName staticMethod(String name) {
+    return startStaticMethodAccess(name);
+  }
 
   /**
    * Starting point of the fluent interface for invoking constructors via reflection.
    * @return the starting point of the method chain.
    */
-  public static TargetType constructor() { return startConstructorAccess(); }
+  public static TargetType constructor() {
+    return startConstructorAccess();
+  }
 
   /**
    * Starting point of the fluent interface for accessing properties via Bean Introspection.
@@ -234,7 +252,9 @@ public final class Reflection {
    * @throws IllegalArgumentException if the given name is empty.
    * @since 1.2
    */
-  public static PropertyName property(String name) { return startPropertyAccess(name); }
+  public static PropertyName property(String name) {
+    return startPropertyAccess(name);
+  }
 
   private Reflection() {}
 }
