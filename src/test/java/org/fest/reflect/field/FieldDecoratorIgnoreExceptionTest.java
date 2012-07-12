@@ -1,14 +1,14 @@
 /*
  * Created on Mar 19, 2012
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  * 
  * Copyright @2006-2009 the original author or authors.
  */
@@ -36,7 +36,8 @@ import org.junit.rules.ExpectedException;
  */
 public class FieldDecoratorIgnoreExceptionTest {
 
-  @Rule public ExpectedException expectedException = ExpectedException.none();
+  @Rule
+  public ExpectedException expectedException = ExpectedException.none();
 
   public interface IUploadFileService {
     Boolean upload(String file, String destination) throws SocketTimeoutException;
@@ -71,7 +72,8 @@ public class FieldDecoratorIgnoreExceptionTest {
     }
   }
 
-  @Test public void shouldNotIgnorePreDecoratorExceptions() throws SocketTimeoutException {
+  @Test
+  public void shouldNotIgnorePreDecoratorExceptions() throws SocketTimeoutException {
     // GIVEN
     expectedException.expect(SocketTimeoutException.class);
     String expectedExceptionMsg = "Expected test exception";
@@ -97,7 +99,8 @@ public class FieldDecoratorIgnoreExceptionTest {
     // THEN there should be an exception
   }
 
-  @Test public void shouldNotIgnorePostDecoratorExceptions() throws SocketTimeoutException {
+  @Test
+  public void shouldNotIgnorePostDecoratorExceptions() throws SocketTimeoutException {
     // GIVEN
     expectedException.expect(SocketTimeoutException.class);
     String expectedExceptionMsg = "Expected test exception";
@@ -123,7 +126,8 @@ public class FieldDecoratorIgnoreExceptionTest {
     // THEN there should be an exception
   }
 
-  @Test public void shouldPreDecorateFieldAndIgnoreDecoratorExceptions() throws SocketTimeoutException {
+  @Test
+  public void shouldPreDecorateFieldAndIgnoreDecoratorExceptions() throws SocketTimeoutException {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotifierService notifierServiceMock = mock(INotifierService.class);
@@ -146,7 +150,8 @@ public class FieldDecoratorIgnoreExceptionTest {
     verify(notifierServiceMock, times(1)).notify(eq("Unable to send msg!"));
   }
 
-  @Test public void shouldPostDecorateFieldAndIgnoreDecoratorExceptions() throws SocketTimeoutException {
+  @Test
+  public void shouldPostDecorateFieldAndIgnoreDecoratorExceptions() throws SocketTimeoutException {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotifierService notifierServiceMock = mock(INotifierService.class);
@@ -170,7 +175,8 @@ public class FieldDecoratorIgnoreExceptionTest {
     verify(notifierServiceMock, times(1)).notify(eq("Unable to send msg!"));
   }
 
-  @Test public void shouldPreDecoratorAndPostDecorateFieldIgnoreDecoratorExceptions() throws SocketTimeoutException {
+  @Test
+  public void shouldPreDecoratorAndPostDecorateFieldIgnoreDecoratorExceptions() throws SocketTimeoutException {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
     INotifierService notifierServiceMock = mock(INotifierService.class);

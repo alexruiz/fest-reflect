@@ -1,14 +1,14 @@
 /*
  * Created on Mar 19, 2012
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  * 
  * Copyright @2006-2009 the original author or authors.
  */
@@ -62,7 +62,8 @@ public class FieldDecoratorTest {
     public void info(String infoStr);
   }
 
-  @Test public void shouldPreDecorateField() {
+  @Test
+  public void shouldPreDecorateField() {
     // GIVEN
     ILogger mySmartLoggerMock = mock(ILogger.class);
 
@@ -105,7 +106,8 @@ public class FieldDecoratorTest {
     }
   }
 
-  @Test public void shouldAttachTwoPreDecorators() {
+  @Test
+  public void shouldAttachTwoPreDecorators() {
     // GIVEN
     IUploadFileService firstUploadFileServiceMock = mock(IUploadFileService.class);
     IUploadFileService secondUploadFileServiceMock = mock(IUploadFileService.class);
@@ -125,7 +127,8 @@ public class FieldDecoratorTest {
     inOrder.verify(firstUploadFileServiceMock, times(1)).upload(eq("testFileName"), anyString());
   }
 
-  @Test public void shouldPostDecorateField() {
+  @Test
+  public void shouldPostDecorateField() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
 
@@ -142,7 +145,8 @@ public class FieldDecoratorTest {
     verify(uploadFileServiceMock, times(1)).upload(eq("testFileName"), anyString());
   }
 
-  @Test public void shouldAttachTwoPostDecorators() {
+  @Test
+  public void shouldAttachTwoPostDecorators() {
     // GIVEN
     IUploadFileService firstUploadFileServiceMock = mock(IUploadFileService.class);
     IUploadFileService secondUploadFileServiceMock = mock(IUploadFileService.class);
@@ -162,7 +166,8 @@ public class FieldDecoratorTest {
     inOrder.verify(secondUploadFileServiceMock, times(1)).upload(eq("testFileName"), anyString());
   }
 
-  @Test public void shouldPreDecoratorAndPostDecorateField() {
+  @Test
+  public void shouldPreDecoratorAndPostDecorateField() {
     // GIVEN
     IUploadFileService uploadFileServiceMock = mock(IUploadFileService.class);
 

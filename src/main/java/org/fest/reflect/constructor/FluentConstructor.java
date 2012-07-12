@@ -1,15 +1,15 @@
 /*
  * Created on Feb 25, 2011
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- *
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * 
  * Copyright @2011 the original author or authors.
  */
 package org.fest.reflect.constructor;
@@ -75,7 +75,7 @@ class FluentConstructor<T> implements ParameterTypes<T>, Invoker<T> {
       return constructor.newInstance(args);
     } catch (Throwable t) {
       Throwable cause = targetOf(t);
-      if (cause instanceof RuntimeException) throw (RuntimeException)cause;
+      if (cause instanceof RuntimeException) throw (RuntimeException) cause;
       throw new ReflectionError("Unable to create a new object from the enclosed constructor", cause);
     } finally {
       setAccessibleIgnoringExceptions(constructor, accessible);
