@@ -1,16 +1,15 @@
 /*
  * Created on Jan 25, 2009
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * 
  * Copyright @2009 the original author or authors.
  */
 package org.fest.reflect.innerclass;
@@ -23,6 +22,7 @@ import static org.fest.util.Strings.isEmpty;
  * <p>
  * Let's assume we have the class <code>Jedi</code>, which contains two static inner classes: <code>Master</code> and
  * <code>Padawan</code>.
+ * 
  * <pre>
  * public class Jedi {
  *
@@ -34,13 +34,14 @@ import static org.fest.util.Strings.isEmpty;
  * </p>
  * <p>
  * The following example shows how to get a reference to the inner class <code>Master</code>:
+ * 
  * <pre>
  * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#staticInnerClass(String) staticInnerClass}("Master").{@link org.fest.reflect.innerclass.StaticInnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.Invoker#get() get}();
  * </pre>
  * </p>
- *
+ * 
  * @author Alex Ruiz
- *
+ * 
  * @since 1.1
  */
 public final class StaticInnerClassName {
@@ -58,10 +59,8 @@ public final class StaticInnerClassName {
   }
 
   private static void validateIsNotNullOrEmpty(String name) {
-    if (name == null)
-      throw new NullPointerException("The name of the static inner class to access should not be null");
-    if (isEmpty(name))
-      throw new IllegalArgumentException("The name of the static inner class to access should not be empty");
+    if (name == null) throw new NullPointerException("The name of the static inner class to access should not be null");
+    if (isEmpty(name)) throw new IllegalArgumentException("The name of the static inner class to access should not be empty");
   }
 
   private final String name;

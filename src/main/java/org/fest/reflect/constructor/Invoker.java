@@ -1,15 +1,15 @@
 /*
  * Created on Oct 31, 2006
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- *
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * 
  * Copyright @2006-2009 the original author or authors.
  */
 package org.fest.reflect.constructor;
@@ -27,8 +27,9 @@ import org.fest.reflect.exception.ReflectionError;
 /**
  * Understands the invocation of a constructor via Java Reflection.
  * @param <T> the class in which the constructor is declared.
- * <p>
- * The following is an example of proper usage of the classes in this package:
+ *          <p>
+ *          The following is an example of proper usage of the classes in this package:
+ * 
  * <pre>
  *   // Equivalent to call 'new Person()'
  *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link #newInstance newInstance}();
@@ -36,8 +37,8 @@ import org.fest.reflect.exception.ReflectionError;
  *   // Equivalent to call 'new Person("Yoda")'
  *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link #newInstance newInstance}("Yoda");
  * </pre>
- * </p>
- *
+ *          </p>
+ * 
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
@@ -52,8 +53,8 @@ public final class Invoker<T> {
     try {
       return target.getDeclaredConstructor(parameterTypes);
     } catch (Exception e) {
-      throw new ReflectionError(concat("Unable to find constructor in type ", target.getName(),
-          " with parameter types ", Arrays.toString(parameterTypes)), e);
+      throw new ReflectionError(concat("Unable to find constructor in type ", target.getName(), " with parameter types ",
+          Arrays.toString(parameterTypes)), e);
     }
   }
 
@@ -77,7 +78,7 @@ public final class Invoker<T> {
       return newInstance;
     } catch (Throwable t) {
       Throwable cause = targetOf(t);
-      if (cause instanceof RuntimeException) throw (RuntimeException)cause;
+      if (cause instanceof RuntimeException) throw (RuntimeException) cause;
       throw new ReflectionError("Unable to create a new object from the enclosed constructor", cause);
     } finally {
       setAccessibleIgnoringExceptions(constructor, accessible);

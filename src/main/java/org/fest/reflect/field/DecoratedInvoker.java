@@ -1,14 +1,14 @@
 /*
  * Created on Mar 18, 2012
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  * 
  * Copyright @2006-2009 the original author or authors.
  */
@@ -72,13 +72,13 @@ public final class DecoratedInvoker<T> {
   /**
    * Specifies that the result from the decorator should be returned.
    * <p>
-   * If {@link DecoratedInvoker#ignoringDecoratorExceptions() ignoringDecoratorExceptions()} is used in
-   * combination with this method and an exception is thrown, the default value will be returned (as defined by JLS) for
-   * all primitives or null for all non-primitive.
+   * If {@link DecoratedInvoker#ignoringDecoratorExceptions() ignoringDecoratorExceptions()} is used in combination with this
+   * method and an exception is thrown, the default value will be returned (as defined by JLS) for all primitives or null for all
+   * non-primitive.
    * <p>
    * Example :<br>
-   * If a {@link RuntimeException} is thrown while executing one of the decorated <code>IExampleService</code> field
-   * methods which returns primitive boolean value, the default value <i>false</i> will be returned.
+   * If a {@link RuntimeException} is thrown while executing one of the decorated <code>IExampleService</code> field methods which
+   * returns primitive boolean value, the default value <i>false</i> will be returned.
    * 
    * <pre>
    * field("fieldName").ofType(IExampleService.class).in(target)
@@ -123,8 +123,8 @@ public final class DecoratedInvoker<T> {
   /**
    * Adds a pre-decorator to an already decorated field.
    * <p>
-   * Note that if there are more than one pre-decorators assigned to a field they will be executed starting from the
-   * last attached decorator.
+   * Note that if there are more than one pre-decorators assigned to a field they will be executed starting from the last attached
+   * decorator.
    * @param decorator which methods be called before the same targeted object methods
    * @return the {@link DecoratedInvoker} pre decorating the target field interface with given decorator.
    */
@@ -135,8 +135,8 @@ public final class DecoratedInvoker<T> {
   /**
    * Adds a post-decorator to an already decorated field
    * <p>
-   * Note that if there are more than one post-decorators assigned to a field they will be executed starting from the
-   * first attached decorator.
+   * Note that if there are more than one post-decorators assigned to a field they will be executed starting from the first
+   * attached decorator.
    * @param decorator which methods be called after the same targeted object methods
    * @return the {@link DecoratedInvoker} post decorating the target field interface with given decorator.
    */

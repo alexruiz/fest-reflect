@@ -1,14 +1,14 @@
 /*
  * Created on Apr 8, 2012
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  * 
  * Copyright @2006-2009 the original author or authors.
  */
@@ -37,7 +37,8 @@ import org.fest.reflect.reference.TypeRef;
  */
 public class NestedFieldTest {
 
-  @Rule public ExpectedException expectedException = ExpectedException.none();
+  @Rule
+  public ExpectedException expectedException = ExpectedException.none();
 
   private static final class BusinessService {
     private final NotificationService notificationService;
@@ -87,7 +88,7 @@ public class NestedFieldTest {
     private final Session session;
     @SuppressWarnings("unused")
     private final List<String> listOfNames = list("Ivan", "Joel", "Alex");
-    
+
     public ClientStatusDao() {
       this.session = new SessionImpl();
     }
@@ -117,7 +118,8 @@ public class NestedFieldTest {
     }
   }
 
-  @Test public void shouldSetOneLevelNestedLoggerField() {
+  @Test
+  public void shouldSetOneLevelNestedLoggerField() {
     // GIVEN
     BusinessService businessService = new BusinessService();
     Logger loggerMock = mock(Logger.class);
@@ -129,7 +131,8 @@ public class NestedFieldTest {
     assertSame(businessService.getNotificationService().getLogger(), loggerMock);
   }
 
-  @Test public void shouldThrowExceptionBecauseOfWrongOrder() {
+  @Test
+  public void shouldThrowExceptionBecauseOfWrongOrder() {
 
     expectedException.expect(ReflectionError.class);
     expectedException.expectMessage(JUnitMatchers.containsString(//
@@ -148,7 +151,8 @@ public class NestedFieldTest {
     verify(sessionMock, times(1)).manageSession();
   }
 
-  @Test public void shouldSetSecondLevelNestedSessionField() {
+  @Test
+  public void shouldSetSecondLevelNestedSessionField() {
     // GIVEN
     BusinessService businessService = new BusinessService();
     Session sessionMock = mock(Session.class);
@@ -162,7 +166,8 @@ public class NestedFieldTest {
     verify(sessionMock, times(1)).manageSession();
   }
 
-  @Test public void shouldGetSecondLevelNestedListOfNamesField() {
+  @Test
+  public void shouldGetSecondLevelNestedListOfNamesField() {
     // GIVEN
     BusinessService businessService = new BusinessService();
 
@@ -171,10 +176,11 @@ public class NestedFieldTest {
         .in(businessService).get();
 
     // THEN
-    Assert.assertThat(listOfNames, JUnitMatchers.hasItems("Ivan", "Joel", "Alex")); 
+    Assert.assertThat(listOfNames, JUnitMatchers.hasItems("Ivan", "Joel", "Alex"));
   }
 
-  @Test public void shouldSetThirdLevelNestedSessionFactoryField() {
+  @Test
+  public void shouldSetThirdLevelNestedSessionFactoryField() {
     // GIVEN
     BusinessService businessService = new BusinessService();
     SessionMonitor sessionMonitorMock = mock(SessionMonitor.class);

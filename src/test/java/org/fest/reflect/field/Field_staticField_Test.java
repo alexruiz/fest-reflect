@@ -1,14 +1,14 @@
 /*
  * Created on Nov 23, 2009
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  * 
  * Copyright @2009 the original author or authors.
  */
@@ -89,8 +89,7 @@ public class Field_staticField_Test {
 
   @Test
   public void should_return_real_static_field() {
-    java.lang.reflect.Field field = StaticFieldName.beginStaticFieldAccess("count").ofType(int.class).in(Person.class)
-        .info();
+    java.lang.reflect.Field field = StaticFieldName.beginStaticFieldAccess("count").ofType(int.class).in(Person.class).info();
     assertNotNull(field);
     assertEquals("count", field.getName());
     assertEquals(int.class, field.getType());
@@ -145,8 +144,7 @@ public class Field_staticField_Test {
   @Test
   public void should_use_TypeRef_to_write_static_field() {
     List<String> powers = list("jump");
-    StaticFieldName.beginStaticFieldAccess("commonPowers").ofType(new TypeRef<List<String>>() {}).in(Jedi.class).set(
-        powers);
+    StaticFieldName.beginStaticFieldAccess("commonPowers").ofType(new TypeRef<List<String>>() {}).in(Jedi.class).set(powers);
     assertEquals(1, Jedi.commonPowers().size());
     assertEquals("jump", Jedi.commonPowers().get(0));
   }

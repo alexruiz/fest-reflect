@@ -1,14 +1,14 @@
 /*
  * Created on Nov 23, 2009
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  * 
  * Copyright @2009 the original author or authors.
  */
@@ -103,8 +103,7 @@ public class Method_staticMethod_Test {
   @Test
   public void should_call_static_method_with_no_args_and_return_value() {
     Jedi.addCommonPower("Jump");
-    int count = StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType(int.class).in(Jedi.class)
-        .invoke();
+    int count = StaticMethodName.startStaticMethodAccess("commonPowerCount").withReturnType(int.class).in(Jedi.class).invoke();
     assertEquals(Jedi.commonPowerCount(), count);
   }
 
@@ -120,8 +119,8 @@ public class Method_staticMethod_Test {
   public void should_call_static_method_with_no_args_and_return_TypeRef() {
     Jedi.addCommonPower("jump");
     String method = "commonPowers";
-    List<String> powers = StaticMethodName.startStaticMethodAccess(method).withReturnType(
-        new TypeRef<List<String>>() {}).in(Jedi.class).invoke();
+    List<String> powers = StaticMethodName.startStaticMethodAccess(method).withReturnType(new TypeRef<List<String>>() {})
+        .in(Jedi.class).invoke();
     assertEquals(1, powers.size());
     assertEquals("jump", powers.get(0));
   }
@@ -130,16 +129,15 @@ public class Method_staticMethod_Test {
   public void should_call_static_method_with_args_and_return_TypeRef() {
     Jedi.addCommonPower("jump");
     String method = "commonPowersThatStartWith";
-    List<String> powers = StaticMethodName.startStaticMethodAccess(method).withReturnType(
-        new TypeRef<List<String>>() {}).withParameterTypes(String.class).in(Jedi.class).invoke("ju");
+    List<String> powers = StaticMethodName.startStaticMethodAccess(method).withReturnType(new TypeRef<List<String>>() {})
+        .withParameterTypes(String.class).in(Jedi.class).invoke("ju");
     assertEquals(1, powers.size());
     assertEquals("jump", powers.get(0));
   }
 
   @Test
   public void should_call_static_method_with_args_and_no_return_value() {
-    StaticMethodName.startStaticMethodAccess("addCommonPower").withParameterTypes(String.class).in(Jedi.class).invoke(
-        "Jump");
+    StaticMethodName.startStaticMethodAccess("addCommonPower").withParameterTypes(String.class).in(Jedi.class).invoke("Jump");
     assertEquals("Jump", Jedi.commonPowerAt(0));
   }
 

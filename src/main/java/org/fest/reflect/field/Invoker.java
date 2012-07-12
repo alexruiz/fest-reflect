@@ -1,14 +1,14 @@
 /*
  * Created on Oct 31, 2006
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  * 
  * Copyright @2006-2009 the original author or authors.
  */
@@ -145,14 +145,14 @@ public final class Invoker<T> {
   /**
    * <b>Pre</b>-decorates a targeted object's methods.
    * <p>
-   * Each execution of a targeted object's method will be first performed on the same method of the {@code decorator}
-   * object. The result (if any) from the invocation of the targeted object's method will be returned but you can choose
-   * to return the decorator result if you want to.
+   * Each execution of a targeted object's method will be first performed on the same method of the {@code decorator} object. The
+   * result (if any) from the invocation of the targeted object's method will be returned but you can choose to return the
+   * decorator result if you want to.
    * <p>
    * Be aware:
    * <li>The type of a targeted object should be an interface for this functionality to work</li>
-   * <li>Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the
-   * default program's flow</li>
+   * <li>Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the default
+   * program's flow</li>
    * <p>
    * Example: Assuming we have the following code:
    * 
@@ -187,9 +187,9 @@ public final class Invoker<T> {
    *                           .in(fileManager)
    *                           .preDecorateWith(uploadFileServiceDecorator);
    * </pre>
-   * However, if there is an exception when calling
-   * <code>uploadFileServiceDecorator.upload(fileName, DEFAULT_DESTINATION)</code> the default program's flow will be
-   * interrupted and the <code>uploadFileService.upload(fileName, DEFAULT_DESTINATION)</code> will not be executed.
+   * However, if there is an exception when calling <code>uploadFileServiceDecorator.upload(fileName, DEFAULT_DESTINATION)</code>
+   * the default program's flow will be interrupted and the <code>uploadFileService.upload(fileName, DEFAULT_DESTINATION)</code>
+   * will not be executed.
    * <p>
    * @param decorator which methods be called before the same targeted object methods
    * @return the {@link DecoratedInvoker} pre decorating the target field interface with given decorator.
@@ -206,14 +206,14 @@ public final class Invoker<T> {
   /**
    * <b>Post</b>-decorates a targeted object's methods.
    * <p>
-   * After each execution of a targeted object's method, the same method of the {@code decorator}
-   * object will be called. The result (if any) from the invocation of the targeted object's method will be returned but you can choose
-   * to return the decorator result if you want to.
+   * After each execution of a targeted object's method, the same method of the {@code decorator} object will be called. The
+   * result (if any) from the invocation of the targeted object's method will be returned but you can choose to return the
+   * decorator result if you want to.
    * <p>
    * Be aware:
    * <li>The type of a targeted object should be an interface for this functionality to work</li>
-   * <li>Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the
-   * default program's flow</li>
+   * <li>Any exception caused by an invocation of a {@code decorator} object's method will result in disrupting the default
+   * program's flow</li>
    * <p>
    * Example: Assuming we have the following code:
    * 
@@ -248,9 +248,9 @@ public final class Invoker<T> {
    *                           .in(fileManager)
    *                           .postDecorateWith(uploadFileServiceDecorator);
    * </pre>
-   * However, if there is an exception when calling
-   * <code>uploadFileServiceDecorator.upload(fileName, DEFAULT_DESTINATION)</code> the default program's flow will be
-   * interrupted and the <code>uploadFileService.upload(fileName, DEFAULT_DESTINATION)</code> will not be executed.
+   * However, if there is an exception when calling <code>uploadFileServiceDecorator.upload(fileName, DEFAULT_DESTINATION)</code>
+   * the default program's flow will be interrupted and the <code>uploadFileService.upload(fileName, DEFAULT_DESTINATION)</code>
+   * will not be executed.
    * <p>
    * @param decorator which methods be called after the same targeted object methods
    * @return the {@link DecoratedInvoker} post decorating the target field interface with given decorator.
@@ -279,7 +279,8 @@ public final class Invoker<T> {
     return get(field, field.isAccessible(), target);
   }
 
-  @SuppressWarnings("unchecked") private static <T> T get(Field field, boolean accessible, Object target) {
+  @SuppressWarnings("unchecked")
+  private static <T> T get(Field field, boolean accessible, Object target) {
     try {
       setAccessible(field, true);
       return (T) field.get(target);

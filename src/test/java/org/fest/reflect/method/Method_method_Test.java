@@ -1,14 +1,14 @@
 /*
  * Created on May 18, 2007
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  * 
  * Copyright @2007-2009 the original author or authors.
  */
@@ -122,16 +122,15 @@ public class Method_method_Test {
   @Test
   public void should_call_method_with_args_and_return_value() {
     jedi.addPower("healing");
-    String power = MethodName.startMethodAccess("powerAt").withReturnType(String.class).withParameterTypes(int.class)
-        .in(jedi).invoke(0);
+    String power = MethodName.startMethodAccess("powerAt").withReturnType(String.class).withParameterTypes(int.class).in(jedi)
+        .invoke(0);
     assertEquals("healing", power);
   }
 
   @Test
   public void should_call_method_with_no_args_and_return_TypeRef() {
     jedi.addPower("jump");
-    List<String> powers = MethodName.startMethodAccess("powers").withReturnType(new TypeRef<List<String>>() {})
-        .in(jedi).invoke();
+    List<String> powers = MethodName.startMethodAccess("powers").withReturnType(new TypeRef<List<String>>() {}).in(jedi).invoke();
     assertEquals(1, powers.size());
     assertEquals("jump", powers.get(0));
   }
@@ -156,8 +155,7 @@ public class Method_method_Test {
 
   @Test
   public void should_return_real_method() {
-    java.lang.reflect.Method method = MethodName.startMethodAccess("setName").withParameterTypes(String.class).in(jedi)
-        .info();
+    java.lang.reflect.Method method = MethodName.startMethodAccess("setName").withParameterTypes(String.class).in(jedi).info();
     assertNotNull(method);
     assertEquals("setName", method.getName());
     Class<?>[] parameterTypes = method.getParameterTypes();

@@ -1,16 +1,15 @@
 /*
  * Created on Jan 23, 2009
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
- *
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * 
  * Copyright @2009 the original author or authors.
  */
 package org.fest.reflect.type;
@@ -24,6 +23,7 @@ import static org.fest.util.Strings.isEmpty;
  * Understands loading a class dynamically.
  * <p>
  * The following is an example of proper usage of this class:
+ * 
  * <pre>
  *   // Loads the class 'org.republic.Jedi'
  *   Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#load() load}();
@@ -35,26 +35,23 @@ import static org.fest.util.Strings.isEmpty;
  *   Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link org.fest.reflect.type.TypeLoader#load() load}();
  * </pre>
  * </p>
- *
+ * 
  * @author Alex Ruiz
- *
+ * 
  * @since 1.1
  */
 public final class Type {
 
   /**
-   * Creates a new <code>{@link Type}</code>: the starting point of the fluent interface for loading classes
-   * dynamically.
+   * Creates a new <code>{@link Type}</code>: the starting point of the fluent interface for loading classes dynamically.
    * @param name the name of the class to load.
    * @return the created <code>Type</code>.
    * @throws NullPointerException if the given name is <code>null</code>.
    * @throws IllegalArgumentException if the given name is empty.
    */
   public static Type newType(String name) {
-    if (name == null)
-      throw new NullPointerException("The name of the class to load should not be null");
-    if (isEmpty(name))
-      throw new IllegalArgumentException("The name of the class to load should not be empty");
+    if (name == null) throw new NullPointerException("The name of the class to load should not be null");
+    if (isEmpty(name)) throw new IllegalArgumentException("The name of the class to load should not be empty");
     return new Type(name);
   }
 
@@ -74,11 +71,11 @@ public final class Type {
   }
 
   /**
-   * Loads the class with the name specified in this type, as the given type, using this class'
-   * <code>ClassLoader</code>.
+   * Loads the class with the name specified in this type, as the given type, using this class' <code>ClassLoader</code>.
    * <p>
-   * The following example shows how to use this method. Let's assume that we have the class <code>Jedi</code> that
-   * extends the class <code>Person</code>:
+   * The following example shows how to use this method. Let's assume that we have the class <code>Jedi</code> that extends the
+   * class <code>Person</code>:
+   * 
    * <pre>
    * Class&lt;Person&gt; type = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#loadAs(Class) loadAs}(Person.class);
    * </pre>
@@ -93,12 +90,15 @@ public final class Type {
     return newLoader(name, thisClassLoader()).loadAs(type);
   }
 
-  private ClassLoader thisClassLoader() { return getClass().getClassLoader(); }
+  private ClassLoader thisClassLoader() {
+    return getClass().getClassLoader();
+  }
 
   /**
    * Specifies the <code>{@link ClassLoader}</code> to use to load the class.
    * <p>
    * Example:
+   * 
    * <pre>
    * Class&lt;?&gt; type = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link TypeLoader#load() load}();
    * </pre>

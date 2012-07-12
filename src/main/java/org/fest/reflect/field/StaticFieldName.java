@@ -1,15 +1,15 @@
 /*
  * Created on Feb 5, 2008
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- *
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- *
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
+ * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * 
  * Copyright @2006-2009 the original author or authors.
  */
 package org.fest.reflect.field;
@@ -20,11 +20,11 @@ import static org.fest.util.Strings.isEmpty;
 
 import org.fest.reflect.reference.TypeRef;
 
-
 /**
  * Understands the name of a static field to access using Java Reflection.
  * <p>
  * The following is an example of proper usage of this class:
+ * 
  * <pre>
  *   // Retrieves the value of the static field "count"
  *   int count = {@link org.fest.reflect.core.Reflection#staticField(String) staticField}("count").{@link StaticFieldName#ofType(Class) ofType}(int.class).{@link StaticFieldType#in(Class) in}(Person.class).{@link Invoker#get() get}();
@@ -41,14 +41,14 @@ import org.fest.reflect.reference.TypeRef;
  *   {@link org.fest.reflect.core.Reflection#staticField(String) staticField}("commonPowers").{@link #ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link StaticFieldTypeRef#in(Class) in}(Jedi.class).{@link Invoker#set(Object) set}(commonPowers);
  * </pre>
  * </p>
- *
+ * 
  * @author Alex Ruiz
  */
 public final class StaticFieldName {
 
   /**
-   * Creates a new <code>{@link StaticFieldName}</code>: the starting point of the fluent interface for accessing
-   * static fields using Java Reflection.
+   * Creates a new <code>{@link StaticFieldName}</code>: the starting point of the fluent interface for accessing static fields
+   * using Java Reflection.
    * @param name the name of the field to access using Java Reflection.
    * @return the created <code>StaticFieldName</code>.
    * @throws NullPointerException if the given name is <code>null</code>.
@@ -60,10 +60,8 @@ public final class StaticFieldName {
   }
 
   private static void validateIsNotNullOrEmpty(String name) {
-    if (name == null)
-      throw new NullPointerException("The name of the static field to access should not be null");
-    if (isEmpty(name))
-      throw new IllegalArgumentException("The name of the static field to access should not be empty");
+    if (name == null) throw new NullPointerException("The name of the static field to access should not be null");
+    if (isEmpty(name)) throw new IllegalArgumentException("The name of the static field to access should not be empty");
   }
 
   private final String name;
@@ -84,10 +82,11 @@ public final class StaticFieldName {
   }
 
   /**
-   * Sets the type reference of the field to access. This method reduces casting when the type of the field to access
-   * uses generics.
+   * Sets the type reference of the field to access. This method reduces casting when the type of the field to access uses
+   * generics.
    * <p>
    * For example:
+   * 
    * <pre>
    *   List&lt;String&gt; commmonPowers = {@link org.fest.reflect.core.Reflection#staticField(String) staticField}("commonPowers").{@link #ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link StaticFieldTypeRef#in(Class) in}(Jedi.class).{@link Invoker#get() get}();
    * </pre>
