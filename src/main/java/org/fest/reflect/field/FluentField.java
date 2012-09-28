@@ -21,6 +21,9 @@ import static org.fest.reflect.util.Casting.cast;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.field.decorator.DecoratorInvocationHandler;
@@ -36,6 +39,7 @@ import org.fest.reflect.reference.TypeRef;
 class FluentField<T> implements Name<T>, Target<T>, Invoker<T> {
 
   private final Class<T> type;
+  private List<String> path;
   private String name;
   private Object target;
   private Field field;
@@ -54,7 +58,9 @@ class FluentField<T> implements Name<T>, Target<T>, Invoker<T> {
   public Target<T> withName(String name) {
     if (name == null) throw new NullPointerException("The name of the field to access should not be null");
     if (name.length() == 0) throw new IllegalArgumentException("The name of the field to access should not be empty");
-    this.name = name;
+    this.path = new ArrayList<String>(Arrays.asList(name.split("\\.")));
+    this.path.remove(path.size()-1);
+    this.name = name.substring(name.lastIndexOf('.') + 1, name.length());
     return this;
   }
 
@@ -70,57 +76,65 @@ class FluentField<T> implements Name<T>, Target<T>, Invoker<T> {
     return updateTarget(target);
   }
 
-  private Invoker<T> updateTarget(Object target) {
-    this.target = target;
-    findField();
+  private Invoker<T> updateTarget(Object t) {
+    Object nestedTarget = null;
+    for (String fieldName : path) {
+        Object realTarget = nestedTarget == null ? t : nestedTarget;
+        nestedTarget = get(findField(fieldName, realTarget, false), realTarget);
+    }
+
+    this.target = nestedTarget == null ? t : nestedTarget;
+    this.field = findField(name, target, true);
     return this;
   }
 
-  private void findField() {
-    findFieldInTypeHierarchy(targetType());
-    checkRightType();
+  private Field findField(String fieldName, Object target, boolean checkFieldType) {
+    Field field = findFieldInTypeHierarchy(fieldName, targetType(target));
+    checkRightType(target, field, checkFieldType);
+    return field;
   }
 
-  private Class<?> targetType() {
+  private Class<?> targetType(Object target) {
     if (target instanceof Class<?>) return (Class<?>) target;
     return target.getClass();
   }
 
-  private void findFieldInTypeHierarchy(Class<?> targetType) {
+  private Field findFieldInTypeHierarchy(String fieldName, Class<?> targetType) {
     Class<?> current = targetType;
+    Field field;
     while (current != null) {
-      field = findFieldIn(current);
-      if (field != null) return;
+      field = findFieldIn(fieldName, current);
+      if (field != null) return field;
       current = current.getSuperclass();
     }
-    throw cannotFindField(targetType);
+    throw cannotFindField(fieldName, targetType);
   }
 
-  private Field findFieldIn(Class<?> declaringType) {
+  private Field findFieldIn(String fieldName, Class<?> declaringType) {
     try {
-      return declaringType.getDeclaredField(name);
+      return declaringType.getDeclaredField(fieldName);
     } catch (NoSuchFieldException e) {
       return null;
     }
   }
 
-  private ReflectionError cannotFindField(Class<?> targetType) {
+  private ReflectionError cannotFindField(String name, Class<?> targetType) {
     String message = String.format("Unable to find field '%s' in %s", name, targetType.getName());
     return new ReflectionError(message);
   }
 
-  private void checkRightType() {
+  private void checkRightType(Object target, Field field, boolean checkFieldType) {
     boolean isAccessible = field.isAccessible();
     try {
       makeAccessible(field);
       Class<?> actualType = field.getType();
-      if (!type.isAssignableFrom(actualType)) throw wrongType(actualType);
+      if (checkFieldType && !type.isAssignableFrom(actualType)) throw wrongType(target, actualType);
     } finally {
       setAccessibleIgnoringExceptions(field, isAccessible);
     }
   }
 
-  private ReflectionError wrongType(Class<?> actual) {
+  private ReflectionError wrongType(Object target, Class<?> actual) {
     String format = "The type of the field '%s' in %s should be <%s> but was <%s>";
     String message = String.format(format, name, target.getClass().getName(), type.getName(), actual.getName());
     throw new ReflectionError(message);
@@ -128,15 +142,27 @@ class FluentField<T> implements Name<T>, Target<T>, Invoker<T> {
 
   /** {@inheritDoc} */
   public T get() {
-    boolean accessible = field.isAccessible();
-    try {
-      setAccessible(field, true);
-      return cast(field.get(target), type);
-    } catch (Throwable t) {
-      throw new ReflectionError(String.format("Unable to obtain the value in field '%s'", field.getName()), t);
-    } finally {
-      setAccessibleIgnoringExceptions(field, accessible);
-    }
+      boolean accessible = field.isAccessible();
+      try {
+          setAccessible(field, true);
+          return cast(field.get(target), type);
+      } catch (Throwable t) {
+          throw new ReflectionError(String.format("Unable to obtain the value in field '%s'", field.getName()), t);
+      } finally {
+          setAccessibleIgnoringExceptions(field, accessible);
+      }
+  }
+
+  private T get(Field field, Object target) {
+      boolean accessible = field.isAccessible();
+      try {
+          setAccessible(field, true);
+          return (T) field.get(target);
+      } catch (Throwable t) {
+          throw new ReflectionError(String.format("Unable to obtain the value in field '%s'", field.getName()), t);
+      } finally {
+          setAccessibleIgnoringExceptions(field, accessible);
+      }
   }
 
   /** {@inheritDoc} */
