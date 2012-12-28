@@ -1,69 +1,80 @@
 /*
  * Created on Aug 17, 2006
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  * 
- * Copyright @2006-2009 the original author or authors.
+ * Copyright @2006-2013 the original author or authors.
  */
 package org.fest.reflect.constructor;
 
-import static org.fest.reflect.constructor.Invoker.newInvoker;
-import static org.fest.reflect.constructor.ParameterTypes.newParameterTypes;
+import javax.annotation.Nonnull;
+
+import org.fest.util.InternalApi;
 
 /**
- * Understands the type of object that the constructor will create.
- * <p>
- * The following is an example of proper usage of the classes in this package:
- * 
- * <pre>
- *   // Equivalent to call 'new Person()'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link Invoker#newInstance newInstance}();
+ * Starting point of the fluent interface for invoking constructors via Java Reflection.
  *
- *   // Equivalent to call 'new Person("Yoda")'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link Invoker#newInstance newInstance}("Yoda");
+ * <p>
+ * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
+ * {@link org.fest.reflect.core.Reflection#constructor()}.
+ * </p>
+ *
+ * <p>
+ * Examples demonstrating usage of the fluent interface:
+ *
+ * <pre>
+ *   // Equivalent to invoking 'new Person()'
+ *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
+ * 
+ *   // Equivalent to invoking 'new Person("Yoda")'
+ *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
  * </pre>
  * </p>
- * 
+ *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
 public final class TargetType {
-
   /**
-   * Creates a new </code>{@link TargetType}</code>.
-   * @return the created <code>TargetType</code>.
+   * Creates a new {@link TargetType}.
+   * 
+   * <p>
+   * <strong>Note:</strong> Do <em>not</em> invoke this constructor directly. Instead, invoke
+   * {@link org.fest.reflect.core.Reflection#constructor()}.
    */
-  public static TargetType startConstructorAccess() {
-    return new TargetType();
-  }
-
-  private TargetType() {}
+  @InternalApi
+  public TargetType() {}
 
   /**
-   * Creates a new constructor invoker.
-   * @param <T> the generic type of the class containing the constructor to invoke.
-   * @param target the the type of object that the constructor invoker will create.
+   * Creates a new invoker for a type's default constructor.
+   * 
+   * @param target the type of the object to create by invoking a constructor.
    * @return the created constructor invoker.
+   * @throws NullPointerException if the given type is {@code null}.
    */
-  public <T> Invoker<T> in(Class<T> target) {
-    return newInvoker(target);
+  public @Nonnull <T> ConstructorInvoker<T> in(@Nonnull Class<T> target) {
+    return new ConstructorInvoker<T>(target);
   }
 
   /**
-   * Specifies the parameter types for the constructor to invoke. This method call is optional if the constructor to call does not
-   * accept arguments.
+   * Specifies the parameter types for the constructor to invoke.
+   * 
+   * <p>
+   * <strong>Note:</strong> Invocation of this method is optional if the constructor to invoke is the default
+   * constructor.
+   * 
    * @param parameterTypes the types of the parameters to pass to the constructor.
    * @return the created parameter type holder.
-   * @throws NullPointerException if the given array is <code>null</code>.
+   * @throws NullPointerException if the given array is {@code null}.
    */
-  public ParameterTypes withParameterTypes(Class<?>... parameterTypes) {
-    return newParameterTypes(parameterTypes);
+  public @Nonnull ParameterTypes withParameterTypes(@Nonnull Class<?>... parameterTypes) {
+    return new ParameterTypes(parameterTypes);
   }
 }

@@ -14,20 +14,15 @@
  */
 package org.fest.reflect.method;
 
+import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
 import javax.annotation.Nonnull;
 
 import org.fest.reflect.reference.TypeRef;
-import org.fest.util.InternalApi;
 
 /**
- * Starting point of the fluent interface for invoking methods using Java Reflection.
- *
- * <p>
- * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
- * {@link org.fest.reflect.core.Reflection#method(String)}.
- * </p>
+ * Holds the return type of the method to invoke.
  *
  * <p>
  * Examples demonstrating usage of the fluent interface:
@@ -53,59 +48,17 @@ import org.fest.util.InternalApi;
  * </pre>
  * </p>
  *
+ * @param <T> the return type of the method to invoke.
  * @author Yvonne Wang
  * @author Alex Ruiz
  */
-public final class MethodName {
-  private final String value;
+public class ReturnType<T> {
+  private final String methodName;
+  private final Class<T> value;
 
-  /**
-   * Creates a new {@link MethodName}.
-   * 
-   * <p>
-   * <strong>Note:</strong> Do <em>not</em> invoke this constructor directly. Instead, invoke
-   * {@link org.fest.reflect.core.Reflection#method(String)}.
-   * 
-   * @param name the name of the method to invoke.
-   * @throws NullPointerException if the method name is {@code null}.
-   * @throws IllegalArgumentException if the method name is empty.
-   */
-  @InternalApi
-  public MethodName(@Nonnull String name) {
-    this.value = checkNotNullOrEmpty(name);
-  }
-
-  /**
-   * Specifies the return type of the method to invoke.
-   * 
-   * <p>
-   * <strong>Note:</strong> Invocation of this method is optional if the return type of the method to invoke is
-   * {@code void}.
-   * 
-   * @param type the return type of the method to invoke.
-   * @return a holder for the method's return type.
-   * @throws NullPointerException if the given type is {@code null}.
-   */
-  public @Nonnull <T> ReturnType<T> withReturnType(@Nonnull Class<T> type) {
-    return new ReturnType<T>(checkNotNullOrEmpty(value), type);
-  }
-
-  /**
-   * Specifies the return type of the method to invoke. This method uses {@link TypeRef} instead of {@link Class} to
-   * preserve generic types that otherwise would be lost due to erasure.
-   * 
-   * <p>
-   * <strong>Note:</strong> Invocation of this method is optional if the return type of the method to invoke is
-   * {@code void}.
-   * 
-   * @param <T> the generic type of the method's return type.
-   * @param type the return type reference of the method to invoke.
-   * @return a holder for the method's return type.
-   * @throws NullPointerException if the given type reference is {@code null}.
-   * @since 1.1
-   */
-  public @Nonnull <T> ReturnTypeRef<T> withReturnType(@Nonnull TypeRef<T> type) {
-    return new ReturnTypeRef<T>(checkNotNullOrEmpty(value), type);
+  ReturnType(@Nonnull String methodName, @Nonnull Class<T> returnType) {
+    this.methodName = checkNotNull(methodName);
+    this.value = checkNotNull(returnType);
   }
 
   /**
@@ -118,18 +71,18 @@ public final class MethodName {
    * @return a holder for the method's parameter types.
    * @throws NullPointerException if the array of parameter types is {@code null}.
    */
-  public @Nonnull ParameterTypes<Void> withParameterTypes(@Nonnull Class<?>... parameterTypes) {
-    return new ParameterTypes<Void>(checkNotNullOrEmpty(value), Void.class, parameterTypes);
+  public @Nonnull ParameterTypes<T> withParameterTypes(@Nonnull Class<?>... parameterTypes) {
+    return new ParameterTypes<T>(checkNotNullOrEmpty(methodName), checkNotNull(value), parameterTypes);
   }
 
   /**
-   * Creates a new invoker for a method that does not take any parameters and its return type is {@code void}.
+   * Creates a new invoker for a method that does not take any parameters.
    * 
    * @param target the object containing the method to invoke.
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.
    */
-  public @Nonnull MethodInvoker<Void> in(@Nonnull Object target) {
-    return new MethodInvoker<Void>(checkNotNullOrEmpty(value), Void.class, new Class<?>[0], target);
+  public @Nonnull MethodInvoker<T> in(@Nonnull Object target) {
+    return new MethodInvoker<T>(checkNotNullOrEmpty(methodName), checkNotNull(value), new Class<?>[0], target);
   }
 }

@@ -1,58 +1,56 @@
 /*
  * Created on Aug 17, 2006
  * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
- * License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  * 
  * http://www.apache.org/licenses/LICENSE-2.0
  * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS"
- * BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  * 
- * Copyright @2006-2009 the original author or authors.
+ * Copyright @2006-2013 the original author or authors.
  */
 package org.fest.reflect.constructor;
 
-import static org.fest.reflect.constructor.Invoker.newInvoker;
+import static org.fest.util.Preconditions.checkNotNull;
+
+import javax.annotation.Nonnull;
 
 /**
- * Understands the parameter types for the constructor to invoke.
- * <p>
- * The following is an example of proper usage of the classes in this package:
- * 
- * <pre>
- *   // Equivalent to call 'new Person()'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link Invoker#newInstance newInstance}();
+ * Holds the parameter types for the constructor to invoke.
  *
- *   // Equivalent to call 'new Person("Yoda")'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link Invoker#newInstance newInstance}("Yoda");
+ * <p>
+ * Examples demonstrating usage of the fluent interface:
+ *
+ * <pre>
+ *   // Equivalent to invoking 'new Person()'
+ *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
+ * 
+ *   // Equivalent to invoking 'new Person("Yoda")'
+ *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
  * </pre>
  * </p>
- * 
+ *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
 public final class ParameterTypes {
-
-  static ParameterTypes newParameterTypes(Class<?>[] parameterTypes) {
-    if (parameterTypes == null) throw new NullPointerException("The array of parameter types should not be null");
-    return new ParameterTypes(parameterTypes);
-  }
-
   private final Class<?>[] parameterTypes;
 
-  private ParameterTypes(Class<?>[] parameterTypes) {
-    this.parameterTypes = parameterTypes;
+  ParameterTypes(@Nonnull Class<?>[] parameterTypes) {
+    this.parameterTypes = checkNotNull(parameterTypes);
   }
 
   /**
    * Creates a new constructor invoker.
-   * @param <T> the generic type of the class containing the constructor to invoke.
-   * @param target the the type of object that the constructor invoker will create.
+   * 
+   * @param target the type of the object to create by invoking a constructor.
    * @return the created constructor invoker.
+   * @throws NullPointerException if the given type is {@code null}.
    */
-  public <T> Invoker<T> in(Class<T> target) {
-    return newInvoker(target, parameterTypes);
+  public @Nonnull <T> ConstructorInvoker<T> in(@Nonnull Class<T> target) {
+    return new ConstructorInvoker<T>(target, checkNotNull(parameterTypes));
   }
 }
