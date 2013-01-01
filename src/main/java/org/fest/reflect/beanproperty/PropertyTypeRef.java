@@ -46,19 +46,19 @@ public class PropertyTypeRef<T> {
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
-   *   // Retrieves the value of the property "name"
-   *   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
+   * // Retrieves the value of the property "name"
+   * String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
    * 
-   *   // Sets the value of the property "name" to "Yoda"
-   *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
+   * // Sets the value of the property "name" to "Yoda"
+   * {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
    * 
-   *   // Retrieves the value of the property "powers"
-   *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
-   * 
-   *   // Sets the value of the property "powers"
-   *   List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
-   *   powers.add("heal");
-   *   {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
+   * // Retrieves the value of the property "powers"
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
+   *
+   * // Sets the value of the property "powers"
+   * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   * powers.add("heal");
+   * {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
    * </pre>
    * </p>
    *
