@@ -27,33 +27,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.fest.reflect.exception.ReflectionError;
-import org.fest.reflect.reference.TypeRef;
 
 /**
  * Accesses a field via Java Reflection.
- *
- * <p>
- * Examples demonstrating usage of the fluent interface:
- *
- * <pre>
- * // Retrieves the value of the field "name"
- * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
- *
- * // Sets the value of the field "name" to "Yoda"
- * {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#set(Object) set}("Yoda");
- *
- * // Retrieves the value of the field "powers"
- * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#get() get}();
- *
- * // Sets the value of the field "powers"
- * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
- * powers.add("heal");
- * {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#set(Object) set}(powers);
- *
- * // Retrieves the value of the static field "count" in Person.class
- * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
- * </pre>
- * </p>
  * 
  * @param <T> the type of the field to access.
  * @author Alex Ruiz
@@ -90,8 +66,9 @@ public final class FieldAccessor<T> {
         makeAccessible(field);
         Class<?> actualType = field.getType();
         if (!fieldType.isAssignableFrom(actualType)) {
-          String format = "Expecting type of field '%s' to be <%s> but was <%s>";
-          String msg = String.format(format, fieldName, fieldType.getName(), actualType.getName());
+          String format = "Expecting type of field '%s' in %s to be <%s> but was <%s>";
+          String msg =
+              String.format(format, fieldName, originalType.getName(), fieldType.getName(), actualType.getName());
           throw new ReflectionError(msg);
         }
       } finally {
@@ -106,6 +83,29 @@ public final class FieldAccessor<T> {
 
   /**
    * Sets a value in the field managed by this class.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
+   * <pre>
+   * // Retrieves the value of the field "name"
+   * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
+   *
+   * // Sets the value of the field "name" to "Yoda"
+   * {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#set(Object) set}("Yoda");
+   *
+   * // Retrieves the value of the field "powers"
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#get() get}();
+   *
+   * // Sets the value of the field "powers"
+   * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   * powers.add("heal");
+   * {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#set(Object) set}(powers);
+   *
+   * // Retrieves the value of the static field "count" in Person.class
+   * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
+   * </pre>
+   * </p>
    * 
    * @param value the value to set.
    * @throws ReflectionError if the given value cannot be set.
@@ -115,16 +115,41 @@ public final class FieldAccessor<T> {
     try {
       setAccessible(f, true);
       f.set(target, value);
-    } catch (Exception e) {
+    } catch (Throwable t) {
       String format = "Failed to set value %s in field '%s'";
       String msg = String.format(format, String.valueOf(value), f.getName());
-      throw new ReflectionError(msg, e);
+      throw new ReflectionError(msg, t);
     } finally {
       setAccessibleIgnoringExceptions(f, accessible);
     }
   }
 
   /**
+   * Retrieves the value of the field in this fluent interface.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
+   * <pre>
+   * // Retrieves the value of the field "name"
+   * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
+   *
+   * // Sets the value of the field "name" to "Yoda"
+   * {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#set(Object) set}("Yoda");
+   *
+   * // Retrieves the value of the field "powers"
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#get() get}();
+   *
+   * // Sets the value of the field "powers"
+   * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   * powers.add("heal");
+   * {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#set(Object) set}(powers);
+   *
+   * // Retrieves the value of the static field "count" in Person.class
+   * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
+   * </pre>
+   * </p>
+   *
    * @return the value of the field in this fluent interface.
    * @throws ReflectionError if the value of the field cannot be retrieved.
    */
@@ -136,7 +161,7 @@ public final class FieldAccessor<T> {
       return castSafely(value, checkNotNull(fieldType));
     } catch (Throwable t) {
       String msg = String.format("Failed to get the value of field '%s'", f.getName());
-      throw new ReflectionError(msg);
+      throw new ReflectionError(msg, t);
     } finally {
       setAccessibleIgnoringExceptions(f, accessible);
     }

@@ -14,8 +14,18 @@
  */
 package org.fest.reflect.core;
 
+import static org.fest.test.ExpectedException.none;
+import static org.fest.util.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
+import org.fest.reflect.exception.ReflectionError;
+import org.fest.reflect.reference.TypeRef;
+import org.fest.test.ExpectedException;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -24,6 +34,9 @@ import org.junit.Test;
  * @author Alex Ruiz
  */
 public class Reflection_field_Test {
+  @Rule
+  public ExpectedException thrown = none();
+
   @Test
   public void should_get_field_value() {
     Person person = new Person();
@@ -42,58 +55,58 @@ public class Reflection_field_Test {
   @Test
   public void should_return_real_field() {
     Person person = new Person();
-    java.lang.reflect.Field field = Reflection.field("name").ofType(String.class).in(person).field();
+    Field field = Reflection.field("name").ofType(String.class).in(person).field();
     assertEquals("name", field.getName());
     assertEquals(String.class, field.getType());
   }
-  //
-  //  @Test
-  //  public void should_throw_error_if_wrong_field_type_was_specified() {
-  //    String msg = "The type of the field 'name' in org.fest.reflect.Person should be <java.lang.Integer> but was <java.lang.String>";
-  //    expectReflectionError(msg).on(new CodeToTest() {
-  //      public void run() {
-  //        FieldName.beginFieldAccess("name").ofType(Integer.class).in(person).get();
-  //      }
-  //    });
-  //  }
-  //
-  //  @Test
-  //  public void should_throw_error_if_field_name_is_invalid() {
-  //    expectReflectionError("Unable to find field 'age' in org.fest.reflect.Person").on(new CodeToTest() {
-  //      public void run() {
-  //        FieldName.beginFieldAccess("age").ofType(Integer.class).in(person);
-  //      }
-  //    });
-  //  }
-  //
-  //  @Test
-  //  public void should_get_field_in_super_type() {
-  //    Jedi jedi = new Jedi("Yoda");
-  //    String jediName = FieldName.beginFieldAccess("name").ofType(String.class).in(jedi).get();
-  //    assertEquals("Yoda", jediName);
-  //  }
-  //
-  //  @Test
-  //  public void should_use_TypeRef_to_read_field() {
-  //    Jedi jedi = new Jedi("Yoda");
-  //    jedi.addPower("heal");
-  //    List<String> powers = FieldName.beginFieldAccess("powers").ofType(new TypeRef<List<String>>() {
-  //    }).in(jedi).get();
-  //    assertEquals(1, powers.size());
-  //    assertEquals("heal", powers.get(0));
-  //  }
-  //
-  //  @Test
-  //  public void should_use_TypeRef_to_write_field() {
-  //    Jedi jedi = new Jedi("Yoda");
-  //    List<String> powers = list("heal");
-  //    FieldName.beginFieldAccess("powers").ofType(new TypeRef<List<String>>() {
-  //    }).in(jedi).set(powers);
-  //    assertEquals(1, jedi.powers().size());
-  //    assertEquals("heal", jedi.powers().get(0));
-  //  }
+
+  @Test
+  public void should_throw_error_if_wrong_field_type_was_specified() {
+    Person person = new Person();
+    String msg = "Expecting type of field 'name' in " + getClass().getName()
+        + "$Person to be <java.lang.Integer> but was <java.lang.String>";
+    thrown.expect(ReflectionError.class, msg);
+    Reflection.field("name").ofType(Integer.class).in(person).get();
+  }
+
+  @Test
+  public void should_throw_error_if_field_name_is_invalid() {
+    Person person = new Person();
+    String msg = "Failed to find field 'age' in " + getClass().getName() + "$Person";
+    thrown.expect(ReflectionError.class, msg);
+    Reflection.field("age").ofType(Integer.class).in(person).get();
+  }
+
+  @Test
+  public void should_get_field_in_super_type() {
+    Jedi jedi = new Jedi();
+    jedi.name = "Yoda";
+    String name = Reflection.field("name").ofType(String.class).in(jedi).get();
+    assertEquals("Yoda", name);
+  }
+
+  @Test
+  public void should_use_TypeRef_to_access_field() {
+    Jedi jedi = new Jedi();
+    List<String> powers = Reflection.field("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).get();
+    assertSame(jedi.powers, powers);
+  }
+
+  @Test
+  public void should_access_static_field() {
+    List<Person> persons = Reflection.field("elements").ofType(new TypeRef<List<Person>>() {}).in(Persons.class).get();
+    assertSame(Persons.elements, persons);
+  }
+
+  private static class Persons {
+    static List<Person> elements = newArrayList();
+  }
 
   private static class Person {
     String name;
+  }
+
+  private static class Jedi extends Person {
+    List<String> powers = newArrayList();
   }
 }

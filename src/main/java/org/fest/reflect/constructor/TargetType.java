@@ -26,18 +26,6 @@ import org.fest.util.InternalApi;
  * {@link org.fest.reflect.core.Reflection#constructor()}.
  * </p>
  *
- * <p>
- * Examples demonstrating usage of the fluent interface:
- *
- * <pre>
- *   // Equivalent to invoking 'new Person()'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
- * 
- *   // Equivalent to invoking 'new Person("Yoda")'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
- * </pre>
- * </p>
- *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
@@ -54,7 +42,19 @@ public final class TargetType {
 
   /**
    * Creates a new invoker for a type's default constructor.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
+   * <pre>
+   * // Equivalent to invoking 'new Person()'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
    * 
+   * // Equivalent to invoking 'new Person("Yoda")'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
+   * </pre>
+   * </p>
+   *
    * @param target the type of the object to create by invoking a constructor.
    * @return the created constructor invoker.
    * @throws NullPointerException if the given type is {@code null}.
@@ -65,11 +65,23 @@ public final class TargetType {
 
   /**
    * Specifies the parameter types for the constructor to invoke.
-   * 
+   *
    * <p>
    * <strong>Note:</strong> Invocation of this method is optional if the constructor to invoke is the default
    * constructor.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
    * 
+   * <pre>
+   * // Equivalent to invoking 'new Person()'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
+   * 
+   * // Equivalent to invoking 'new Person("Yoda")'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
+   * </pre>
+   * </p>
+   *
    * @param parameterTypes the types of the parameters to pass to the constructor.
    * @return the created parameter type holder.
    * @throws NullPointerException if the given array is {@code null}.

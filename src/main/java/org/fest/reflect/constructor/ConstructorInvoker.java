@@ -18,9 +18,9 @@ import static org.fest.reflect.util.Accessibles.makeAccessible;
 import static org.fest.reflect.util.Accessibles.setAccessibleIgnoringExceptions;
 import static org.fest.reflect.util.Throwables.targetOf;
 import static org.fest.util.Preconditions.checkNotNull;
+import static org.fest.util.ToString.toStringOf;
 
 import java.lang.reflect.Constructor;
-import java.util.Arrays;
 
 import javax.annotation.Nonnull;
 
@@ -54,18 +54,29 @@ public final class ConstructorInvoker<T> {
     try {
       this.constructor = target.getDeclaredConstructor(parameterTypes);
     } catch (Throwable t) {
-      String format = "Unable to find constructor in type %s with parameter types %s";
-      // TODO: format array of Class.
-      String msg = String.format(format, target.getName(), Arrays.toString(parameterTypes));
+      String format = "Failed to find constructor in type %s with parameter types %s";
+      String msg = String.format(format, target.getName(), toStringOf(parameterTypes));
       throw new ReflectionError(msg);
     }
   }
 
   /**
    * Invokes the constructor of the specified type with the given arguments.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   * 
+   * <pre>
+   * // Equivalent to invoking 'new Person()'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
+   * 
+   * // Equivalent to invoking 'new Person("Yoda")'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
+   * </pre>
+   * </p>
    * 
    * @param args the arguments to pass to the constructor (can be zero or more).
-   * @return the created instance of <code>T</code>.
+   * @return the created instance of {@code T}.
    * @throws ReflectionError if a new instance cannot be created.
    */
   public T newInstance(@Nonnull Object... args) {

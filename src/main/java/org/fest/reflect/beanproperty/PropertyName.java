@@ -29,26 +29,6 @@ import org.fest.util.InternalApi;
  * {@link org.fest.reflect.core.Reflection#property(String)}.
  * </p>
  *
- * <p>
- * Examples demonstrating usage of the fluent interface:
- *
- * <pre>
- *   // Retrieves the value of the property "name"
- *   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
- * 
- *   // Sets the value of the property "name" to "Yoda"
- *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
- * 
- *   // Retrieves the value of the property "powers"
- *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
- * 
- *   // Sets the value of the property "powers"
- *   List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
- *   powers.add("heal");
- *   {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
- * </pre>
- * </p>
- *
  * @author Alex Ruiz
  * @since 1.2
  */
@@ -73,7 +53,27 @@ public final class PropertyName {
 
   /**
    * Specifies the type of the property to access.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
+   * <pre>
+   *   // Retrieves the value of the property "name"
+   *   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
    * 
+   *   // Sets the value of the property "name" to "Yoda"
+   *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
+   * 
+   *   // Retrieves the value of the property "powers"
+   *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
+   * 
+   *   // Sets the value of the property "powers"
+   *   List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   *   powers.add("heal");
+   *   {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
+   * </pre>
+   * </p>
+   *
    * @param type the type of the property to access.
    * @return a holder for the property type.
    * @throws NullPointerException if the given type is {@code null}.
@@ -85,7 +85,27 @@ public final class PropertyName {
   /**
    * Specifies the type of the property to access. This method uses {@link TypeRef} instead of {@link Class} to preserve
    * generic types that otherwise would be lost due to erasure.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
+   * <pre>
+   *   // Retrieves the value of the property "name"
+   *   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
    * 
+   *   // Sets the value of the property "name" to "Yoda"
+   *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
+   * 
+   *   // Retrieves the value of the property "powers"
+   *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
+   * 
+   *   // Sets the value of the property "powers"
+   *   List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   *   powers.add("heal");
+   *   {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
+   * </pre>
+   * </p>
+   *
    * @param type the type of the property to access.
    * @return a holder for the property type.
    * @throws NullPointerException if the given type reference is {@code null}.

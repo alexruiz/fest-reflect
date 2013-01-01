@@ -51,7 +51,7 @@ public final class TypeLoader {
   }
 
   /**
-   * Loads the class with the name specified in this type, using this class' <code>ClassLoader</code>.
+   * Loads the class with the name specified in this type, using this class' {@code ClassLoader}.
    * <p>
    * Example:
    * 
@@ -74,16 +74,15 @@ public final class TypeLoader {
   }
 
   /**
-   * Loads the class with the name specified in this type, as the given type, using this class' <code>ClassLoader</code>
+   * Loads the class with the name specified in this type, as the given type, using this class' {@code ClassLoader}
    * .
    * <p>
-   * The following example shows how to use this method. Let's assume that we have the class <code>Jedi</code> that
-   * extends the class <code>Person</code>:
+   * The following example shows how to use this method. Let's assume that we have the class {@code Jedi} that extends
+   * the class {@code Person}:
    * 
    * <pre>
    * Class&lt;Person&gt; type = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link TypeLoader#loadAs(Class) loadAs}(Person.class);
    * </pre>
-   * 
    * </p>
    * 
    * @param type the given type.

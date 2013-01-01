@@ -68,7 +68,7 @@ public final class Type {
   }
 
   /**
-   * Loads the class with the name specified in this type, using this class' <code>ClassLoader</code>.
+   * Loads the class with the name specified in this type, using this class' {@code ClassLoader}.
    * 
    * @return the loaded class.
    * @throws ReflectionError wrapping any error that occurred during class loading.
@@ -78,11 +78,10 @@ public final class Type {
   }
 
   /**
-   * Loads the class with the name specified in this type, as the given type, using this class' <code>ClassLoader</code>
-   * .
+   * Loads the class with the name specified in this type, as the given type, using this class' {@code ClassLoader}.
    * <p>
-   * The following example shows how to use this method. Let's assume that we have the class <code>Jedi</code> that
-   * extends the class <code>Person</code>:
+   * The following example shows how to use this method. Let's assume that we have the class {{@code Jedi} that extends
+   * the class {@code Person}:
    * 
    * <pre>
    * Class&lt;Person&gt; type = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#loadAs(Class) loadAs}(Person.class);
@@ -104,7 +103,7 @@ public final class Type {
   }
 
   /**
-   * Specifies the <code>{@link ClassLoader}</code> to use to load the class.
+   * Specifies the {@link ClassLoader} to use to load the class.
    * <p>
    * Example:
    * 
@@ -114,9 +113,9 @@ public final class Type {
    * 
    * </p>
    * 
-   * @param classLoader the given <code>ClassLoader</code>.
-   * @return an object responsible of loading a class with the given <code>ClassLoader</code>.
-   * @throws NullPointerException if the given <code>ClassLoader</code> is {@code null}.
+   * @param classLoader the given {@code ClassLoader}.
+   * @return an object responsible of loading a class with the given {@code ClassLoader}.
+   * @throws NullPointerException if the given {@code ClassLoader} is {@code null}.
    */
   public TypeLoader withClassLoader(@Nonnull ClassLoader classLoader) {
     return new TypeLoader(checkNotNullOrEmpty(name), classLoader);

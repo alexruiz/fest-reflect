@@ -20,33 +20,9 @@ import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 import javax.annotation.Nonnull;
 
 import org.fest.reflect.exception.ReflectionError;
-import org.fest.reflect.reference.TypeRef;
 
 /**
  * Holds the type of the field to access via Java Reflection.
- *
- * <p>
- * Examples demonstrating usage of the fluent interface:
- *
- * <pre>
- * // Retrieves the value of the field "name"
- * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
- *
- * // Sets the value of the field "name" to "Yoda"
- * {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#set(Object) set}("Yoda");
- *
- * // Retrieves the value of the field "powers"
- * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#get() get}();
- *
- * // Sets the value of the field "powers"
- * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
- * powers.add("heal");
- * {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#set(Object) set}(powers);
- *
- * // Retrieves the value of the static field "count" in Person.class
- * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
- * </pre>
- * </p>
  *
  * @param <T> the type of the field.
  * @author Alex Ruiz
@@ -62,7 +38,30 @@ public class FieldType<T> {
 
   /**
    * Creates a new field accessor.
-   * 
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
+   * <pre>
+   * // Retrieves the value of the field "name"
+   * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
+   *
+   * // Sets the value of the field "name" to "Yoda"
+   * {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#set(Object) set}("Yoda");
+   *
+   * // Retrieves the value of the field "powers"
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#get() get}();
+   *
+   * // Sets the value of the field "powers"
+   * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   * powers.add("heal");
+   * {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#set(Object) set}(powers);
+   *
+   * // Retrieves the value of the static field "count" in Person.class
+   * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
+   * </pre>
+   * </p>
+   *
    * @param target the object containing the field to access.
    * @return the created field accessor.
    * @throws NullPointerException if the given target is {@code null}.

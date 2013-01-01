@@ -26,30 +26,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import org.fest.reflect.exception.ReflectionError;
-import org.fest.reflect.reference.TypeRef;
 
 /**
  * Accesses a property from a JavaBean via Bean Introspection.
- *
- * <p>
- * Examples demonstrating usage of the fluent interface:
- *
- * <pre>
- *   // Retrieves the value of the property "name"
- *   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
- * 
- *   // Sets the value of the property "name" to "Yoda"
- *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
- * 
- *   // Retrieves the value of the property "powers"
- *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
- * 
- *   // Sets the value of the property "powers"
- *   List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
- *   powers.add("heal");
- *   {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
- * </pre>
- * </p>
  *
  * @param <T> the type for the property to access.
  * @author Alex Ruiz
@@ -85,8 +64,9 @@ public final class PropertyAccessor<T> {
     if (found != null) {
       Class<?> actualType = found.getPropertyType();
       if (!propertyType.isAssignableFrom(actualType)) {
-        String format = "Expecting type of property '%s' to be <%s> but was <%s>";
-        String msg = String.format(format, propertyName, propertyType.getName(), actualType.getName());
+        String format = "Expecting type of property '%s' in %s to be <%s> but was <%s>";
+        String msg =
+            String.format(format, propertyName, targetType.getName(), propertyType.getName(), actualType.getName());
         throw new ReflectionError(msg);
       }
       return found;
@@ -97,7 +77,27 @@ public final class PropertyAccessor<T> {
 
   /**
    * Sets a value of the JavaBeans property specified in this fluent interface.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
+   * <pre>
+   *   // Retrieves the value of the property "name"
+   *   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
    * 
+   *   // Sets the value of the property "name" to "Yoda"
+   *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
+   * 
+   *   // Retrieves the value of the property "powers"
+   *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
+   * 
+   *   // Sets the value of the property "powers"
+   *   List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   *   powers.add("heal");
+   *   {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
+   * </pre>
+   * </p>
+   *
    * @param value the value to set.
    * @throws ReflectionError if the given value cannot be set.
    */
@@ -112,6 +112,28 @@ public final class PropertyAccessor<T> {
   }
 
   /**
+   * Retrieves the value of the JavaBeans property in this fluent interface.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
+   * <pre>
+   *   // Retrieves the value of the property "name"
+   *   String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
+   * 
+   *   // Sets the value of the property "name" to "Yoda"
+   *   {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
+   * 
+   *   // Retrieves the value of the property "powers"
+   *   List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
+   * 
+   *   // Sets the value of the property "powers"
+   *   List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   *   powers.add("heal");
+   *   {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
+   * </pre>
+   * </p>
+   *
    * @return the value of the JavaBeans property in this fluent interface.
    * @throws ReflectionError if the value of the property cannot be retrieved.
    */
@@ -121,7 +143,7 @@ public final class PropertyAccessor<T> {
       return castSafely(value, checkNotNull(propertyType));
     } catch (Throwable t) {
       String msg = String.format("Failed to get the value of property '%s'", descriptor.getName());
-      throw new ReflectionError(msg);
+      throw new ReflectionError(msg, t);
     }
   }
 

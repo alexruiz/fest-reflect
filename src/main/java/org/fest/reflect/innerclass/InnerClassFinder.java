@@ -25,32 +25,6 @@ import org.fest.reflect.exception.ReflectionError;
 /**
  * Obtains a reference to a static inner class.
  *
- * <p>
- * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
- * {@link org.fest.reflect.core.Reflection#innerClass(String)}.
- * </p>
- *
- * <p>
- * Let's assume we have the class {@code Jedi}, which contains two static inner classes: {@code Master} and
- * {@code Padawan}.
- *
- * <pre>
- * public class Jedi {
- *   public static class Master {
- *   }
- * 
- *   public static class Padawan {
- *   }
- * }
- * </pre>
- * 
- * The following example shows how to get a reference to the inner class {@code Master}:
- * 
- * <pre>
- * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) staticInnerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
- * </pre>
- * </p>
- *
  * @author Alex Ruiz
  * @since 1.1
  */
@@ -64,7 +38,28 @@ public class InnerClassFinder {
   }
 
   /**
-   * @return a reference to the static inner class with the specified name in the specified declaring class.
+   * Returns a reference to the static inner class with the name and declaring class specified in the fluent interface.
+   *
+   * <p>
+   * Let's assume we have the class {@code Jedi}, which contains two static inner classes: {@code Master} and
+   * {@code Padawan}.
+   *
+   * <pre>
+   * public class Jedi {
+   *   public static class Master {}
+   * 
+   *   public static class Padawan {}
+   * }
+   * </pre>
+   * 
+   * The following example shows how to get a reference to the inner class {@code Master}:
+   * 
+   * <pre>
+   * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
+   * </pre>
+   * </p>
+   *
+   * @return a reference to the static inner class with the name and declaring class specified in the fluent interface.
    * @throws ReflectionError if the static inner class does not exist (since 1.2).
    */
   public @Nonnull Class<?> get() {

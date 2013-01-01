@@ -21,18 +21,6 @@ import javax.annotation.Nonnull;
 /**
  * Holds the parameter types for the constructor to invoke.
  *
- * <p>
- * Examples demonstrating usage of the fluent interface:
- *
- * <pre>
- *   // Equivalent to invoking 'new Person()'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
- * 
- *   // Equivalent to invoking 'new Person("Yoda")'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
- * </pre>
- * </p>
- *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
@@ -45,7 +33,19 @@ public final class ParameterTypes {
 
   /**
    * Creates a new constructor invoker.
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
    * 
+   * <pre>
+   * // Equivalent to invoking 'new Person()'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
+   * 
+   * // Equivalent to invoking 'new Person("Yoda")'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
+   * </pre>
+   * </p>
+   *
    * @param target the type of the object to create by invoking a constructor.
    * @return the created constructor invoker.
    * @throws NullPointerException if the given type is {@code null}.

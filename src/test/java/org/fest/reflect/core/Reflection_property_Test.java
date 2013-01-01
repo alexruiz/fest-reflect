@@ -67,7 +67,8 @@ public class Reflection_property_Test {
   @Test
   public void should_throw_error_if_wrong_property_type_was_specified() {
     Person person = new Person();
-    String message = "Expecting type of property 'name' to be <java.lang.Integer> but was <java.lang.String>";
+    String message = "Expecting type of property 'name' in " + getClass().getName()
+        + "$Person to be <java.lang.Integer> but was <java.lang.String>";
     thrown.expect(ReflectionError.class, message);
     Reflection.property("name").ofType(Integer.class).in(person).get();
   }
@@ -95,7 +96,7 @@ public class Reflection_property_Test {
     assertEquals("Yoda", person.getName());
   }
 
-  private static class Person {
+  public static class Person {
     private String name;
 
     public String getName() {
