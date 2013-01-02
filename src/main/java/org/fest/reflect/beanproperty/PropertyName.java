@@ -22,7 +22,11 @@ import org.fest.reflect.reference.TypeRef;
 import org.fest.util.InternalApi;
 
 /**
- * Starting point of the fluent interface for accessing JavaBeans properties via Bean Introspection.
+ * <p>
+ * Starting point of the fluent interface for accessing
+ * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> properties via
+ * Bean Introspection.
+ * </p>
  *
  * <p>
  * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
@@ -36,11 +40,14 @@ public final class PropertyName {
   private final String name;
 
   /**
+   * <p>
    * Creates a new {@link PropertyName}.
-   * 
+   * </p>
+   *
    * <p>
    * <strong>Note:</strong> Do <em>not</em> invoke this constructor directly. Instead, invoke
    * {@link org.fest.reflect.core.Reflection#property(String)}.
+   * </p>
    * 
    * @param name the name of the property to access.
    * @throws NullPointerException if the property name is {@code null}.
@@ -52,12 +59,18 @@ public final class PropertyName {
   }
 
   /**
-   * Specifies the type of the property to access.
+   * <p>
+   * Specifies the type of the
+   * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property to
+   * access.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#property(String) org.fest.reflect.core.Reflection.property};
+   *
    * // Retrieves the value of the property "name"
    * String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
    * 
@@ -83,13 +96,19 @@ public final class PropertyName {
   }
 
   /**
-   * Specifies the type of the property to access. This method uses {@link TypeRef} instead of {@link Class} to preserve
-   * generic types that otherwise would be lost due to erasure.
+   * <p>
+   * Specifies the type of the
+   * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property to
+   * access. This method uses {@link TypeRef} instead of {@link Class} to preserve generic types that otherwise would be
+   * lost due to erasure.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#property(String) org.fest.reflect.core.Reflection.property};
+   *
    * // Retrieves the value of the property "name"
    * String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
    * 

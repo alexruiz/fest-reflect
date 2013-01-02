@@ -32,12 +32,16 @@ public final class ParameterTypes {
   }
 
   /**
+   * <p>
    * Creates a new constructor invoker.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    * 
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
+   *
    * // Equivalent to invoking 'new Person()'
    * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
    * 

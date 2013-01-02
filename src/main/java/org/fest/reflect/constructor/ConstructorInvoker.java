@@ -27,19 +27,8 @@ import javax.annotation.Nonnull;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Invokes a constructor via Java Reflection.
- *
- * <p>
- * Examples demonstrating usage of the fluent interface:
- *
- * <pre>
- *   // Equivalent to invoking 'new Person()'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
- * 
- *   // Equivalent to invoking 'new Person("Yoda")'
- *   Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
- * </pre>
- * </p>
+ * Invokes a constructor via
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
  *
  * @param <T> the type in which the constructor is declared.
  * @author Alex Ruiz
@@ -61,12 +50,16 @@ public final class ConstructorInvoker<T> {
   }
 
   /**
+   * <p>
    * Invokes the constructor of the specified type with the given arguments.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    * 
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
+   *
    * // Equivalent to invoking 'new Person()'
    * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
    * 

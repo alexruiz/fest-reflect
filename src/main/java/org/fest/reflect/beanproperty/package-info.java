@@ -14,12 +14,18 @@
  */
 
 /**
- * Provides a fluent interface for JavaBean property access via Bean Instrospection.
+ * <p>
+ * Provides a fluent interface for
+ * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property access
+ * via Bean Instrospection.
+ * </p>
  *
  * <p>
  * Examples:
  *
  * <pre>
+ * // import static {@link org.fest.reflect.core.Reflection#property(String) org.fest.reflect.core.Reflection.property};
+ *
  * // Retrieves the value of the property "name"
  * String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link org.fest.reflect.beanproperty.PropertyName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.beanproperty.PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.PropertyAccessor#get() get}();
  *

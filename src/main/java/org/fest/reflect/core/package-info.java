@@ -13,13 +13,18 @@
  * Copyright @2013 the original author or authors.
  */
 /**
- * Fluent interfaces that provide a more readable, easier to write and type safer way to use Java Reflection and
- * Beans Introspection.
+ * <p>
+ * Fluent interfaces that provide a more readable, easier to write and type safer way to use
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a> and
+ * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">Beans Introspection</a>.
+ * </p>
  *
  * <p>
  * Examples:
  *
  * <pre>
+ * // import static {@link org.fest.reflect.core.Reflection org.fest.reflect.core.Reflection}.*;
+ *
  * // Loads the class 'org.republic.Jedi'
  * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#load() load}();
  *

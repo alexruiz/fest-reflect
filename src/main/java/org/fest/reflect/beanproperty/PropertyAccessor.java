@@ -28,7 +28,9 @@ import javax.annotation.Nullable;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Accesses a property from a JavaBean via Bean Introspection.
+ * Accesses a
+ * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property via Bean
+ * Introspection.
  *
  * @param <T> the type for the property to access.
  * @author Alex Ruiz
@@ -76,12 +78,18 @@ public final class PropertyAccessor<T> {
   }
 
   /**
-   * Sets a value of the JavaBeans property specified in this fluent interface.
+   * <p>
+   * Sets a value of the
+   * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property in
+   * this fluent interface.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#property(String) org.fest.reflect.core.Reflection.property};
+   *
    * // Retrieves the value of the property "name"
    * String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
    * 
@@ -112,12 +120,18 @@ public final class PropertyAccessor<T> {
   }
 
   /**
-   * Retrieves the value of the JavaBeans property in this fluent interface.
-   *
+   * <p>
+   * Retrieves the value of the
+   * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property in
+   * this fluent interface.
+   * </p>
+   * 
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#property(String) org.fest.reflect.core.Reflection.property};
+   *
    * // Retrieves the value of the property "name"
    * String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
    * 
@@ -148,7 +162,9 @@ public final class PropertyAccessor<T> {
   }
 
   /**
-   * @return the underlying JavaBeans property to invoke via Bean Introspection.
+   * @return the underlying
+   * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property to
+   * invoke via Bean Introspection.
    */
   public @Nonnull PropertyDescriptor descriptor() {
     return checkNotNull(descriptor);

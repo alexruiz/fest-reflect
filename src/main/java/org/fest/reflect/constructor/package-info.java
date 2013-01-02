@@ -14,12 +14,17 @@
  */
 
 /**
- * Provides a fluent interface for invoking constructors via Java Reflection.
+ * <p>
+ * Provides a fluent interface for invoking constructors via
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
+ * </p>
  *
  * <p>
  * Examples:
  *
  * <pre>
+ * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
+ *
  * // Equivalent to invoking 'new Person()'
  * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}();
  * 

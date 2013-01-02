@@ -25,12 +25,16 @@ import org.fest.reflect.reference.TypeRef;
 import org.fest.reflect.type.Type;
 
 /**
+ * <p>
  * Starting points for the fluent interfaces in this library.
+ * </p>
  *
  * <p>
  * Examples:
  *
  * <pre>
+ * // import static {@link org.fest.reflect.core.Reflection org.fest.reflect.core.Reflection}.*;
+ *
  * // Loads the class 'org.republic.Jedi'
  * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#load() load}();
  *
@@ -129,7 +133,8 @@ public final class Reflection {
   }
 
   /**
-   * Starting point of the fluent interface for accessing static inner class via Java Reflection.
+   * Starting point of the fluent interface for accessing static inner class via
+   * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
    * 
    * @param name the name of the static inner class to access.
    * @return the starting point of the method chain.
@@ -142,7 +147,8 @@ public final class Reflection {
   }
 
   /**
-   * Starting point of the fluent interface for accessing fields via Java Reflection.
+   * Starting point of the fluent interface for accessing fields via
+   * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
    * 
    * @param name the name of the field to access.
    * @return the starting point of the method chain.
@@ -154,7 +160,8 @@ public final class Reflection {
   }
 
   /**
-   * Starting point of the fluent interface for invoking methods via Java Reflection.
+   * Starting point of the fluent interface for invoking methods via
+   * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
    * 
    * @param name the name of the method to invoke.
    * @return the starting point of the method chain.
@@ -166,7 +173,8 @@ public final class Reflection {
   }
 
   /**
-   * Starting point of the fluent interface for invoking constructors via Java Reflection.
+   * Starting point of the fluent interface for invoking constructors via
+   * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
    * 
    * @return the starting point of the method chain.
    */
@@ -175,7 +183,8 @@ public final class Reflection {
   }
 
   /**
-   * Starting point of the fluent interface for accessing properties via Bean Introspection.
+   * Starting point of the fluent interface for accessing properties via
+   * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">Beans Introspection</a>.
    * 
    * @param name the name of the property to access.
    * @return the starting point of the method chain.

@@ -15,7 +15,7 @@
 package org.fest.reflect.exception;
 
 /**
- * An error raised while using Java Reflection.
+ * An error that occurred while using Java Reflection.
  * 
  * @author Alex Ruiz
  */

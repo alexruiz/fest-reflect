@@ -19,7 +19,10 @@ import javax.annotation.Nonnull;
 import org.fest.util.InternalApi;
 
 /**
- * Starting point of the fluent interface for invoking constructors via Java Reflection.
+ * <p>
+ * Starting point of the fluent interface for invoking constructors via
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
+ * </p>
  *
  * <p>
  * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
@@ -31,8 +34,10 @@ import org.fest.util.InternalApi;
  */
 public final class TargetType {
   /**
+   * <p>
    * Creates a new {@link TargetType}.
-   * 
+   * </p>
+   *
    * <p>
    * <strong>Note:</strong> Do <em>not</em> invoke this constructor directly. Instead, invoke
    * {@link org.fest.reflect.core.Reflection#constructor()}.
@@ -41,12 +46,16 @@ public final class TargetType {
   public TargetType() {}
 
   /**
+   * <p>
    * Creates a new invoker for a type's default constructor.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
+   *
    * // Equivalent to invoking 'new Person()'
    * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
    * 
@@ -64,7 +73,9 @@ public final class TargetType {
   }
 
   /**
+   * <p>
    * Specifies the parameter types for the constructor to invoke.
+   * </p>
    *
    * <p>
    * <strong>Note:</strong> Invocation of this method is optional if the constructor to invoke is the default
@@ -74,6 +85,8 @@ public final class TargetType {
    * Examples demonstrating usage of the fluent interface:
    * 
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
+   *
    * // Equivalent to invoking 'new Person()'
    * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
    * 

@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <artifactId>fest-reflect</artifactId>
   <version>2.0-SNAPSHOT</version>
-  <name>FEST Reflection</name>
+  <name>FEST-Reflect</name>
   <description>Fluent Interface that simplifies usage of Java Reflection</description>
   <inceptionYear>2007</inceptionYear>
   <url>http://fest.easytesting.org/reflect</url>

@@ -124,7 +124,6 @@ public final class MethodName {
    * </pre>
    * </p>
    * 
-   * @param <T> the generic type of the method's return type.
    * @param type the return type reference of the method to invoke.
    * @return a holder for the method's return type.
    * @throws NullPointerException if the given type reference is {@code null}.
