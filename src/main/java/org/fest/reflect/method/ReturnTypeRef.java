@@ -22,8 +22,9 @@ import javax.annotation.Nonnull;
 import org.fest.reflect.reference.TypeRef;
 
 /**
- * Holds the return type reference of the method to invoke, preserving generic types that otherwise would be lost due to
- * erasure.
+ * Stores the return type reference of the method to invoke, preserving generic types that otherwise would be lost due
+ * to
+ * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>.
  *
  * @param <T> the return type of the method to invoke.
  * @author Alex Ruiz
@@ -39,7 +40,9 @@ public class ReturnTypeRef<T> {
   }
 
   /**
+   * <p>
    * Specifies the parameter types of the method to invoke.
+   * </p>
    *
    * <p>
    * <strong>Note:</strong> Invocation of this method is optional if the method to invoke does not take any arguments.
@@ -49,6 +52,8 @@ public class ReturnTypeRef<T> {
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+   *
    * // Equivalent to invoking the method 'person.setName("Luke")'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
    *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
@@ -78,12 +83,16 @@ public class ReturnTypeRef<T> {
   }
 
   /**
-   * Creates a new invoker for a method that does not take any parameters.
-   *
+   * <p>
+   * Specifies the object or class containing the method to invoke. The method to invoke does not take any parameters.
+   * </p>
+   * 
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+   *
    * // Equivalent to invoking the method 'person.setName("Luke")'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
    *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
@@ -103,8 +112,8 @@ public class ReturnTypeRef<T> {
    * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    * </pre>
    * </p>
-   * 
-   * @param target the object containing the method to invoke.
+   *
+   * @param target the object containing the method to invoke. To invoke a static method, pass a class instead.
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.
    */

@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Holds the type of the property to access via Bean Introspection.
+ * Stores the type of the property to access via Bean Introspection.
  *
  * @param <T> the type of the property.
  * @author Alex Ruiz
@@ -39,9 +39,9 @@ public class PropertyType<T> {
 
   /**
    * <p>
-   * Creates a new
-   * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property
-   * accessor.
+   * Specifies the
+   * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBean</a> to access the
+   * property from.
    * </p>
    *
    * <p>
@@ -50,19 +50,19 @@ public class PropertyType<T> {
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#property(String) org.fest.reflect.core.Reflection.property};
    *
-   * // Retrieves the value of the property "name"
-   * String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#get() get}();
+   * // Equivalent to "String name = person.getName()"
+   * String name = {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link org.fest.reflect.beanproperty.PropertyName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.beanproperty.PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.PropertyAccessor#get() get}();
    * 
-   * // Sets the value of the property "name" to "Yoda"
-   * {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link PropertyName#ofType(Class) ofType}(String.class).{@link PropertyType#in(Object) in}(person).{@link PropertyAccessor#set(Object) set}("Yoda");
+   * // Equivalent to "person.setName("Yoda")"
+   * {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link org.fest.reflect.beanproperty.PropertyName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.beanproperty.PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.PropertyAccessor#set(Object) set}("Yoda");
    * 
-   * // Retrieves the value of the property "powers"
-   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#get() get}();
+   * // Equivalent to "List&lt;String&gt; powers = jedi.getPowers()"
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link org.fest.reflect.beanproperty.PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link org.fest.reflect.beanproperty.PropertyTypeRef#in(Object) in}(jedi).{@link org.fest.reflect.beanproperty.PropertyAccessor#get() get}();
    *
-   * // Sets the value of the property "powers"
+   * // Equivalent to "jedi.setPowers(powers)"
    * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
    * powers.add("heal");
-   * {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link PropertyTypeRef#in(Object) in}(jedi).{@link PropertyAccessor#set(Object) set}(powers);
+   * {@link org.fest.reflect.core.Reflection#property(String) property}("powers").{@link org.fest.reflect.beanproperty.PropertyName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link org.fest.reflect.beanproperty.PropertyTypeRef#in(Object) in}(jedi).{@link org.fest.reflect.beanproperty.PropertyAccessor#set(Object) set}(powers);
    * </pre>
    * </p>
    *

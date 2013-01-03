@@ -15,7 +15,8 @@
 package org.fest.reflect.exception;
 
 /**
- * An error that occurred while using Java Reflection.
+ * An error that occurred while accessing Java elements via
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Reflection</a>..
  * 
  * @author Alex Ruiz
  */

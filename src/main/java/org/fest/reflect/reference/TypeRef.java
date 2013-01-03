@@ -24,7 +24,9 @@ import javax.annotation.Nonnull;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Allows usage of generics without the effects of erasure. Based on Neal Gafter's
+ * Allows usage of generics without the effects of
+ * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>. Based
+ * on Neal Gafter's
  * <code><a href="http://gafter.blogspot.com/2006/12/super-type-tokens.html" target="_blank">TypeReference</a></code>.
  * 
  * @param <T> the generic type in this reference.
@@ -36,7 +38,7 @@ public abstract class TypeRef<T> {
   private final Class<T> rawType;
 
   /**
-   * Creates a new </code>{@link TypeRef}</code>.
+   * Creates a new {@link TypeRef}.
    * 
    * @throws ReflectionError if the generic type of this reference is missing the type parameter.
    */

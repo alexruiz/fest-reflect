@@ -22,11 +22,35 @@ import org.fest.reflect.reference.TypeRef;
 import org.fest.util.InternalApi;
 
 /**
- * Starting point of the fluent interface for accessing fields via Java Reflection.
+ * <p>
+ * Stores the name of the field to access via
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
+ * </p>
  *
  * <p>
- * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
- * {@link org.fest.reflect.core.Reflection#field(String)}.
+ * <strong>Note:</strong> To improve code readability, we recommend invoking
+ * {@link org.fest.reflect.core.Reflection#field(String) Reflection.field(String)} instead of this class' constructor:
+ *
+ * <pre>
+ * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
+ *
+ * // Retrieves the value of the field "name"
+ * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
+ *
+ * // Sets the value of the field "name" to "Yoda"
+ * {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#set(Object) set}("Yoda");
+ *
+ * // Retrieves the value of the field "powers"
+ * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#get() get}();
+ *
+ * // Sets the value of the field "powers"
+ * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+ * powers.add("heal");
+ * {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#set(Object) set}(powers);
+ *
+ * // Retrieves the value of the static field "count" in Person.class
+ * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
+ * </pre>
  * </p>
  *
  * @author Alex Ruiz
@@ -35,11 +59,35 @@ public final class FieldName {
   private final String name;
 
   /**
-   * Creates a new {@link FieldName}.
-   * 
    * <p>
-   * <strong>Note:</strong> Do <em>not</em> invoke this constructor directly. Instead, invoke
-   * {@link org.fest.reflect.core.Reflection#field(String)}.
+   * Creates a new {@link FieldName}.
+   * </p>
+   *
+   * <p>
+   * <strong>Note:</strong> To improve code readability, we recommend invoking
+   * {@link org.fest.reflect.core.Reflection#field(String) Reflection.field(String)} instead of this constructor:
+   *
+   * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
+   *
+   * // Retrieves the value of the field "name"
+   * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
+   *
+   * // Sets the value of the field "name" to "Yoda"
+   * {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#set(Object) set}("Yoda");
+   *
+   * // Retrieves the value of the field "powers"
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#get() get}();
+   *
+   * // Sets the value of the field "powers"
+   * List&lt;String&gt; powers = new ArrayList&lt;String&gt;();
+   * powers.add("heal");
+   * {@link org.fest.reflect.core.Reflection#field(String) field}("powers").{@link FieldName#ofType(TypeRef) ofType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link FieldTypeRef#in(Object) in}(jedi).{@link FieldAccessor#set(Object) set}(powers);
+   *
+   * // Retrieves the value of the static field "count" in Person.class
+   * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
+   * </pre>
+   * </p>
    * 
    * @param name the name of the field to invoke.
    * @throws NullPointerException if the field name is {@code null}.
@@ -51,12 +99,16 @@ public final class FieldName {
   }
 
   /**
+   * <p>
    * Specifies the type of the field to access.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
+   *
    * // Retrieves the value of the field "name"
    * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
    *
@@ -85,13 +137,18 @@ public final class FieldName {
   }
 
   /**
+   * <p>
    * Specifies the type of the field to access. This method uses {@link TypeRef} instead of {@link Class} to preserve
-   * generic types that otherwise would be lost due to erasure.
+   * generic types that otherwise would be lost due to
+   * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
+   *
    * // Retrieves the value of the field "name"
    * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
    *

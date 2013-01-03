@@ -22,11 +22,36 @@ import org.fest.reflect.reference.TypeRef;
 import org.fest.util.InternalApi;
 
 /**
- * Starting point of the fluent interface for invoking methods using Java Reflection.
+ * <p>
+ * Stores the name of the method to invoke via
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
+ * </p>
  *
  * <p>
- * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
- * {@link org.fest.reflect.core.Reflection#method(String)}.
+ * <strong>Note:</strong> To improve code readability, we recommend invoking
+ * {@link org.fest.reflect.core.Reflection#method(String) Reflection.method(String)} instead of this class' constructor:
+ *
+ * <pre>
+ * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+ *
+ * // Equivalent to invoking the method 'person.setName("Luke")'
+ * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
+ *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
+ *                  .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}("Luke");
+ *
+ * // Equivalent to invoking the method 'jedi.getPowers()'
+ * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(org.fest.reflect.reference.TypeRef) withReturnType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
+ *                                          .{@link org.fest.reflect.method.ReturnTypeRef#in(Object) in}(person)
+ *                                          .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
+ *
+ * // Equivalent to invoking the static method 'Jedi.setCommonPower("Jump")'
+ * {@link org.fest.reflect.core.Reflection#method(String) method}("setCommonPower").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
+ *                         .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(Jedi.class)
+ *                         .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}("Jump");
+ *
+ * // Equivalent to invoking the static method 'Jedi.addPadawan()'
+ * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
+ * </pre>
  * </p>
  *
  * @author Yvonne Wang
@@ -36,11 +61,36 @@ public final class MethodName {
   private final String value;
 
   /**
-   * Creates a new {@link MethodName}.
-   * 
    * <p>
-   * <strong>Note:</strong> Do <em>not</em> invoke this constructor directly. Instead, invoke
-   * {@link org.fest.reflect.core.Reflection#method(String)}.
+   * Creates a new {@link MethodName}.
+   * </p>
+   *
+   * <p>
+   * <strong>Note:</strong> To improve code readability, we recommend invoking
+   * {@link org.fest.reflect.core.Reflection#method(String) Reflection.method(String)} instead of this constructor:
+   *
+   * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+   *
+   * // Equivalent to invoking the method 'person.setName("Luke")'
+   * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
+   *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
+   *                  .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}("Luke");
+   *
+   * // Equivalent to invoking the method 'jedi.getPowers()'
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(org.fest.reflect.reference.TypeRef) withReturnType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
+   *                                          .{@link org.fest.reflect.method.ReturnTypeRef#in(Object) in}(person)
+   *                                          .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
+   *
+   * // Equivalent to invoking the static method 'Jedi.setCommonPower("Jump")'
+   * {@link org.fest.reflect.core.Reflection#method(String) method}("setCommonPower").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
+   *                         .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(Jedi.class)
+   *                         .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}("Jump");
+   *
+   * // Equivalent to invoking the static method 'Jedi.addPadawan()'
+   * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
+   * </pre>
+   * </p>
    * 
    * @param name the name of the method to invoke.
    * @throws NullPointerException if the method name is {@code null}.
@@ -52,7 +102,9 @@ public final class MethodName {
   }
 
   /**
+   * <p>
    * Specifies the return type of the method to invoke.
+   * </p>
    *
    * <p>
    * <strong>Note:</strong> Invocation of this method is optional if the return type of the method to invoke is
@@ -63,13 +115,15 @@ public final class MethodName {
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+   *
    * // Equivalent to invoking the method 'person.setName("Luke")'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
    *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
    *                  .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}("Luke");
    *
    * // Equivalent to invoking the method 'jedi.getPowers()'
-   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(TypeRef) withReturnType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(org.fest.reflect.reference.TypeRef) withReturnType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
    *                                          .{@link org.fest.reflect.method.ReturnTypeRef#in(Object) in}(person)
    *                                          .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    *
@@ -92,9 +146,12 @@ public final class MethodName {
   }
 
   /**
+   * <p>
    * Specifies the return type of the method to invoke. This method uses {@link TypeRef} instead of {@link Class} to
-   * preserve generic types that otherwise would be lost due to erasure.
-   *
+   * preserve generic types that otherwise would be lost due to
+   * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>.
+   * </p>
+   * 
    * <p>
    * <strong>Note:</strong> Invocation of this method is optional if the return type of the method to invoke is
    * {@code void}.
@@ -104,13 +161,15 @@ public final class MethodName {
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+   *
    * // Equivalent to invoking the method 'person.setName("Luke")'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
    *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
    *                  .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}("Luke");
    *
    * // Equivalent to invoking the method 'jedi.getPowers()'
-   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(TypeRef) withReturnType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(org.fest.reflect.reference.TypeRef) withReturnType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
    *                                          .{@link org.fest.reflect.method.ReturnTypeRef#in(Object) in}(person)
    *                                          .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    *
@@ -134,7 +193,9 @@ public final class MethodName {
   }
 
   /**
+   * <p>
    * Specifies the parameter types of the method to invoke.
+   * </p>
    *
    * <p>
    * <strong>Note:</strong> Invocation of this method is optional if the method to invoke does not take any arguments.
@@ -144,13 +205,15 @@ public final class MethodName {
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+   *
    * // Equivalent to invoking the method 'person.setName("Luke")'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
    *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
    *                  .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}("Luke");
    *
    * // Equivalent to invoking the method 'jedi.getPowers()'
-   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(TypeRef) withReturnType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(org.fest.reflect.reference.TypeRef) withReturnType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
    *                                          .{@link org.fest.reflect.method.ReturnTypeRef#in(Object) in}(person)
    *                                          .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    *
@@ -173,19 +236,24 @@ public final class MethodName {
   }
 
   /**
-   * Creates a new invoker for a method that does not take any parameters and its return type is {@code void}.
+   * <p>
+   * Specifies the object or class containing the method to invoke. The method to invoke does not take any parameters
+   * and its return type is {@code void}.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+   *
    * // Equivalent to invoking the method 'person.setName("Luke")'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
    *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
    *                  .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}("Luke");
    *
    * // Equivalent to invoking the method 'jedi.getPowers()'
-   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(TypeRef) withReturnType}(new {@link TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
+   * List&lt;String&gt; powers = {@link org.fest.reflect.core.Reflection#method(String) method}("getPowers").{@link org.fest.reflect.method.MethodName#withReturnType(org.fest.reflect.reference.TypeRef) withReturnType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {})
    *                                          .{@link org.fest.reflect.method.ReturnTypeRef#in(Object) in}(person)
    *                                          .{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    *
@@ -199,7 +267,7 @@ public final class MethodName {
    * </pre>
    * </p>
    * 
-   * @param target the object containing the method to invoke.
+   * @param target the object containing the method to invoke. To invoke a static method, pass a class instead.
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.
    */

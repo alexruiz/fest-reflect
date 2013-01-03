@@ -31,7 +31,8 @@ import javax.annotation.Nullable;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Invokes a method using reflecion.
+ * Invokes a method using
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
  *
  * @param <T> the return type of the method to invoke.
  * @author Yvonne Wang
@@ -79,7 +80,9 @@ public final class MethodInvoker<T> {
   }
 
   /**
-   * Invokes the method managed by this class using the given arguments.
+   * <p>
+   * Invokes a method.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:

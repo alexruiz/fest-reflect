@@ -19,7 +19,7 @@ import static org.fest.util.Preconditions.checkNotNull;
 import javax.annotation.Nonnull;
 
 /**
- * Holds the parameter types for the constructor to invoke.
+ * Stores the parameter types for the constructor to invoke.
  *
  * @author Alex Ruiz
  * @author Yvonne Wang
@@ -33,7 +33,7 @@ public final class ParameterTypes {
 
   /**
    * <p>
-   * Creates a new constructor invoker.
+   * Indicates the data type of the object to create.
    * </p>
    *
    * <p>
@@ -42,11 +42,11 @@ public final class ParameterTypes {
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
    *
-   * // Equivalent to invoking 'new Person()'
-   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
+   * // Equivalent to 'Person p = new Person()'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}();
    * 
-   * // Equivalent to invoking 'new Person("Yoda")'
-   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
+   * // Equivalent to 'Person p = new Person("Yoda")'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.ParameterTypes#in(Class) in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}("Yoda");
    * </pre>
    * </p>
    *

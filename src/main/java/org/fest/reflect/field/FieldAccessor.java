@@ -29,7 +29,8 @@ import javax.annotation.Nullable;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Accesses a field via Java Reflection.
+ * Accesses a field via
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
  * 
  * @param <T> the type of the field to access.
  * @author Alex Ruiz
@@ -82,12 +83,16 @@ public final class FieldAccessor<T> {
   }
 
   /**
-   * Sets a value in the field managed by this class.
+   * <p>
+   * Sets a value in the field specified in this fluent interface.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
+   *
    * // Retrieves the value of the field "name"
    * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
    *
@@ -125,12 +130,16 @@ public final class FieldAccessor<T> {
   }
 
   /**
-   * Retrieves the value of the field in this fluent interface.
-   *
+   * <p>
+   * Retrieves the value of the field specified in this fluent interface.
+   * </p>
+   * 
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
+   *
    * // Retrieves the value of the field "name"
    * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
    *
@@ -168,7 +177,7 @@ public final class FieldAccessor<T> {
   }
 
   /**
-   * @return the underlying field to invoke.
+   * @return the underlying field to access.
    */
   public @Nonnull Field field() {
     return checkNotNull(field);

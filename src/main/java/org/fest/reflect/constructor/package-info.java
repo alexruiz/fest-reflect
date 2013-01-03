@@ -25,10 +25,10 @@
  * <pre>
  * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
  *
- * // Equivalent to invoking 'new Person()'
+ * // Equivalent to 'Person p = new Person()'
  * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}();
  * 
- * // Equivalent to invoking 'new Person("Yoda")'
+ * // Equivalent to 'Person p = new Person("Yoda")'
  * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.ParameterTypes#in(Class) in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}("Yoda");
  * </pre>
  * </p>

@@ -38,11 +38,13 @@ public class InnerClassFinder {
   }
 
   /**
-   * Returns a reference to the static inner class with the name and declaring class specified in the fluent interface.
+   * <p>
+   * Returns a reference to the static inner class specified in the fluent interface.
+   * </p>
    *
    * <p>
-   * Let's assume we have the class {@code Jedi}, which contains two static inner classes: {@code Master} and
-   * {@code Padawan}.
+   * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
+   * {@code Padawan}:
    *
    * <pre>
    * public class Jedi {
@@ -51,15 +53,17 @@ public class InnerClassFinder {
    *   public static class Padawan {}
    * }
    * </pre>
-   * 
+   *
    * The following example shows how to get a reference to the inner class {@code Master}:
-   * 
+   *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
+   *
    * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
    * </pre>
    * </p>
    *
-   * @return a reference to the static inner class with the name and declaring class specified in the fluent interface.
+   * @return a reference to the static inner class specified in the fluent interface.
    * @throws ReflectionError if the static inner class does not exist (since 1.2).
    */
   public @Nonnull Class<?> get() {

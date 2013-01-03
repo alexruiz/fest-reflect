@@ -20,7 +20,7 @@ import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 import javax.annotation.Nonnull;
 
 /**
- * Holds the parameter types of the method to invoke.
+ * Stores the parameter types of the method to invoke.
  *
  * @param <T> the return type of the method to invoke.
  * @author Yvonne Wang
@@ -38,12 +38,16 @@ public final class ParameterTypes<T> {
   }
 
   /**
-   * Creates a new method invoker.
+   * <p>
+   * Specifies the object or class containing the method to invoke.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
+   *
    * // Equivalent to invoking the method 'person.setName("Luke")'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
    *                  .{@link org.fest.reflect.method.ParameterTypes#in(Object) in}(person)
@@ -64,7 +68,7 @@ public final class ParameterTypes<T> {
    * </pre>
    * </p>
    * 
-   * @param target the object containing the method to invoke.
+   * @param target the object containing the method to invoke. To invoke a static method, pass a class instead.
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.
    */

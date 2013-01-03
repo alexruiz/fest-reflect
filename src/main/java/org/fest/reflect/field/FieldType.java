@@ -22,7 +22,8 @@ import javax.annotation.Nonnull;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Holds the type of the field to access via Java Reflection.
+ * Stores the type of the field to access via
+ * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
  *
  * @param <T> the type of the field.
  * @author Alex Ruiz
@@ -37,12 +38,16 @@ public class FieldType<T> {
   }
 
   /**
-   * Creates a new field accessor.
+   * <p>
+   * Specifies the object or class containing the field to access.
+   * </p>
    *
    * <p>
    * Examples demonstrating usage of the fluent interface:
    *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
+   *
    * // Retrieves the value of the field "name"
    * String name = {@link org.fest.reflect.core.Reflection#field(String) field}("name").{@link FieldName#ofType(Class) ofType}(String.class).{@link FieldType#in(Object) in}(person).{@link FieldAccessor#get() get}();
    *
@@ -62,7 +67,7 @@ public class FieldType<T> {
    * </pre>
    * </p>
    *
-   * @param target the object containing the field to access.
+   * @param target the object containing the field to access. To access a static field, pass a class instead.
    * @return the created field accessor.
    * @throws NullPointerException if the given target is {@code null}.
    * @throws ReflectionError if a field with a matching name and type cannot be found.

@@ -25,8 +25,19 @@ import org.fest.util.InternalApi;
  * </p>
  *
  * <p>
- * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
- * {@link org.fest.reflect.core.Reflection#constructor()}.
+ * <strong>Note:</strong> To improve code readability, we recommend invoking the static method
+ * {@link org.fest.reflect.core.Reflection#constructor() Reflection.constructor()} instead of this class'
+ * constructor:
+ *
+ * <pre>
+ * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
+ *
+ * // Equivalent to 'Person p = new Person()'
+ * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}();
+ * 
+ * // Equivalent to 'Person p = new Person("Yoda")'
+ * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.ParameterTypes#in(Class) in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}("Yoda");
+ * </pre>
  * </p>
  *
  * @author Alex Ruiz
@@ -39,15 +50,26 @@ public final class TargetType {
    * </p>
    *
    * <p>
-   * <strong>Note:</strong> Do <em>not</em> invoke this constructor directly. Instead, invoke
-   * {@link org.fest.reflect.core.Reflection#constructor()}.
+   * <strong>Note:</strong> To improve code readability, we recommend invoking the static method
+   * {@link org.fest.reflect.core.Reflection#constructor() Reflection.constructor()} instead of this constructor:
+   *
+   * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
+   *
+   * // Equivalent to 'Person p = new Person()'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}();
+   * 
+   * // Equivalent to 'Person p = new Person("Yoda")'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.ParameterTypes#in(Class) in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}("Yoda");
+   * </pre>
+   * </p>
    */
   @InternalApi
   public TargetType() {}
 
   /**
    * <p>
-   * Creates a new invoker for a type's default constructor.
+   * Indicates the data type of the object to create.
    * </p>
    *
    * <p>
@@ -56,11 +78,11 @@ public final class TargetType {
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
    *
-   * // Equivalent to invoking 'new Person()'
-   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
+   * // Equivalent to 'Person p = new Person()'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}();
    * 
-   * // Equivalent to invoking 'new Person("Yoda")'
-   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
+   * // Equivalent to 'Person p = new Person("Yoda")'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.ParameterTypes#in(Class) in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}("Yoda");
    * </pre>
    * </p>
    *
@@ -87,11 +109,11 @@ public final class TargetType {
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
    *
-   * // Equivalent to invoking 'new Person()'
-   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#in in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}();
+   * // Equivalent to 'Person p = new Person()'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}();
    * 
-   * // Equivalent to invoking 'new Person("Yoda")'
-   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link ParameterTypes#in(Class) in}(Person.class).{@link ConstructorInvoker#newInstance newInstance}("Yoda");
+   * // Equivalent to 'Person p = new Person("Yoda")'
+   * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.ParameterTypes#in(Class) in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}("Yoda");
    * </pre>
    * </p>
    *

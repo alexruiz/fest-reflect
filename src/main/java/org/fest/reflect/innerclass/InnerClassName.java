@@ -21,13 +21,35 @@ import javax.annotation.Nonnull;
 import org.fest.util.InternalApi;
 
 /**
- * Starting point of the fluent interface for invoking methods using Java Reflection.
+ * Stores the name of the inner class to access.
  *
  * <p>
- * <strong>Note:</strong> Do <em>not</em> instantiate this class directly. Instead, invoke
- * {@link org.fest.reflect.core.Reflection#innerClass(String)}.
+ * <strong>Note:</strong> To improve code readability, we recommend invoking
+ * {@link org.fest.reflect.core.Reflection#innerClass(String) Reflection.innerClass(String)} instead of this class'
+ * constructor:
  * </p>
+ *
+ * <p>
+ * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
+ * {@code Padawan}:
+ *
+ * <pre>
+ * public class Jedi {
+ *   public static class Master {}
  * 
+ *   public static class Padawan {}
+ * }
+ * </pre>
+ *
+ * The following example shows how to get a reference to the inner class {@code Master}:
+ *
+ * <pre>
+ * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
+ *
+ * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
+ * </pre>
+ * </p>
+ *
  * @author Alex Ruiz
  * @since 1.1
  */
@@ -35,8 +57,37 @@ public final class InnerClassName {
   private final String name;
 
   /**
+   * <p>
    * Creates a new {@link InnerClassName}.
+   * </p>
+   *
+   * <p>
+   * <strong>Note:</strong> To improve code readability, we recommend invoking
+   * {@link org.fest.reflect.core.Reflection#innerClass(String) Reflection.innerClass(String)} instead of this class'
+   * constructor.
+   * </p>
+   *
+   * <p>
+   * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
+   * {@code Padawan}:
+   *
+   * <pre>
+   * public class Jedi {
+   *   public static class Master {}
    * 
+   *   public static class Padawan {}
+   * }
+   * </pre>
+   *
+   * The following example shows how to get a reference to the inner class {@code Master}:
+   *
+   * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
+   *
+   * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
+   * </pre>
+   * </p>
+   *
    * @param name the name of the static inner class to obtain.
    * @throws NullPointerException if the given name is {@code null}.
    * @throws IllegalArgumentException if the given name is empty.
@@ -47,11 +98,13 @@ public final class InnerClassName {
   }
 
   /**
+   * <p>
    * Specifies the declaring class of the static inner class to obtain.
+   * </p>
    *
    * <p>
-   * Let's assume we have the class {@code Jedi}, which contains two static inner classes: {@code Master} and
-   * {@code Padawan}.
+   * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
+   * {@code Padawan}:
    *
    * <pre>
    * public class Jedi {
@@ -60,10 +113,12 @@ public final class InnerClassName {
    *   public static class Padawan {}
    * }
    * </pre>
-   * 
+   *
    * The following example shows how to get a reference to the inner class {@code Master}:
-   * 
+   *
    * <pre>
+   * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
+   *
    * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
    * </pre>
    * </p>
