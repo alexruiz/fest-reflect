@@ -44,4 +44,3 @@
  * </p>
  */
 package org.fest.reflect.field;
-
