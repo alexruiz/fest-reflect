@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 import org.fest.reflect.exception.ReflectionError;
 
 /**
- * Loads a class dynamically using a specific {@link ClassLoader}.
+ * Loads a class dynamically using a specific {@code ClassLoader}.
  *
  * <p>
  * Examples demonstrating usage of the fluent interface:
@@ -51,14 +51,25 @@ public final class TypeLoader {
   }
 
   /**
-   * Loads the class with the name specified in this type, using this class' {@code ClassLoader}.
    * <p>
-   * Example:
-   * 
+   * Loads the class with the name specified in this type, using {@code this} class' {@code ClassLoader}.
+   * </p>
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
    * <pre>
-   * Class&lt;?&gt; type = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link TypeLoader#load() load}();
-   * </pre>
+   * // import static  {@link org.fest.reflect.core.Reflection#type(String) org.fest.reflect.core.Reflection.type};
    * 
+   * // Loads the class 'org.republic.Jedi'
+   * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#load() load}();
+   *
+   * // Loads the class 'org.republic.Jedi' as 'org.republic.Person' (Jedi extends Person)
+   * Class&lt;Person&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#loadAs(Class) loadAs}(Person.class);
+   *
+   * // Loads the class 'org.republic.Jedi' using a custom class loader
+   * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link org.fest.reflect.type.TypeLoader#load() load}();
+   * </pre>
    * </p>
    * 
    * @return the loaded class.
@@ -74,30 +85,39 @@ public final class TypeLoader {
   }
 
   /**
-   * Loads the class with the name specified in this type, as the given type, using this class' {@code ClassLoader}
-   * .
    * <p>
-   * The following example shows how to use this method. Let's assume that we have the class {@code Jedi} that extends
-   * the class {@code Person}:
-   * 
+   * Loads the class as the given super-type.
+   * </p>
+   *
+   * <p>
+   * Examples demonstrating usage of the fluent interface:
+   *
    * <pre>
-   * Class&lt;Person&gt; type = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link TypeLoader#loadAs(Class) loadAs}(Person.class);
+   * // import static  {@link org.fest.reflect.core.Reflection#type(String) org.fest.reflect.core.Reflection.type};
+   * 
+   * // Loads the class 'org.republic.Jedi'
+   * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#load() load}();
+   *
+   * // Loads the class 'org.republic.Jedi' as 'org.republic.Person' (Jedi extends Person)
+   * Class&lt;Person&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#loadAs(Class) loadAs}(Person.class);
+   *
+   * // Loads the class 'org.republic.Jedi' using a custom class loader
+   * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link org.fest.reflect.type.TypeLoader#load() load}();
    * </pre>
    * </p>
-   * 
-   * @param type the given type.
-   * @param <T> the generic type of the type.
+   *
+   * @param superType the given super-type.
    * @return the loaded class.
-   * @throws NullPointerException if the given type is {@code null}.
+   * @throws NullPointerException if the given super-type is {@code null}.
    * @throws ReflectionError wrapping any error that occurred during class loading.
    */
-  public @Nonnull <T> Class<? extends T> loadAs(@Nonnull Class<T> type) {
-    checkNotNull(type);
+  public @Nonnull <T> Class<? extends T> loadAs(@Nonnull Class<T> superType) {
+    checkNotNull(superType);
     try {
-      return checkNotNull(loadType().asSubclass(type));
+      return checkNotNull(loadType().asSubclass(superType));
     } catch (Throwable t) {
       String format = "Unable to load class '%s' as %s using ClassLoader %s";
-      throw new ReflectionError(String.format(format, name, type.getName(), classLoader), t);
+      throw new ReflectionError(String.format(format, name, superType.getName(), classLoader), t);
     }
   }
 

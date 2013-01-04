@@ -19,20 +19,21 @@ import java.lang.reflect.InvocationTargetException;
 import javax.annotation.Nullable;
 
 /**
- * Understands utility methods related to {@link Throwable}s.
+ * Understands utility methods related to {@code Throwable}s.
  * 
  * @author Alex Ruiz
  * @since 1.2
  */
 public final class Throwables {
   /**
-   * Obtains the target of the given {@link Throwable}. If the {@code Throwable} is a {@link InvocationTargetException},
+   * Obtains the target of the given {@code Throwable}. If the {@code Throwable} is a {@code InvocationTargetException},
    * this method will return the "target exception" (not the cause.) For other {@code Throwable}s, the same instance is
    * returned unmodified.
    * 
    * @param t the given {@code Throwable}.
    * @return the target exception, if applicable. Otherwise, this method returns the same {@code Throwable} passed as
    *         argument.
+   * @see InvocationTargetException
    */
   public static @Nullable Throwable targetOf(@Nullable Throwable t) {
     if (t instanceof InvocationTargetException) {

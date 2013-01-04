@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 import javax.annotation.Nonnull;
 
 /**
- * Utility methods related to {@link AccessibleObject}s.
+ * Utility methods related to {@code AccessibleObject}s.
  * 
  * @author Alex Ruiz
  */
@@ -33,7 +33,7 @@ public final class Accessibles {
   private static Logger logger = Logger.getLogger(Accessibles.class.getCanonicalName());
 
   /**
-   * Sets the {@code accessible} flag of the given {@link AccessibleObject} to the given {@code boolean} value, ignoring
+   * Sets the {@code accessible} flag of the given {@code AccessibleObject} to the given {@code boolean} value, ignoring
    * any thrown exception.
    * 
    * @param o the given {@code AccessibleObject}.
@@ -49,7 +49,7 @@ public final class Accessibles {
   }
 
   /**
-   * Sets the {@code accessible} flag of the given {@link AccessibleObject} to {@code true}.
+   * Sets the {@code accessible} flag of the given {@code AccessibleObject} to {@code true}.
    * 
    * @param o the given {@code AccessibleObject}.
    * @throws NullPointerException if the given  {@code AccessibleObject} is {@code null}.
@@ -60,7 +60,7 @@ public final class Accessibles {
   }
 
   /**
-   * Sets the {@code accessible} flag of the given {@link AccessibleObject} to the given {@code boolean} value.
+   * Sets the {@code accessible} flag of the given {@code AccessibleObject} to the given {@code boolean} value.
    * 
    * @param o the given {@code AccessibleObject}.
    * @param accessible the value to set the {@code accessible} flag to.
