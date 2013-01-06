@@ -1,4 +1,4 @@
-FEST-Reflect provides an intuitive, compact and type-safe fluent API that makes [Java reflection](http://docs.oracle.com/javase/tutorial/reflect/index.html) easier to use. It makes Java reflection tremendously easy to use: no more casting, checked exceptions, PriviledgedActions or calls to setAccessible. FEST’s reflection module can even overcome the limitations of [generics](http://docs.oracle.com/javase/tutorial/java/generics/) and [type erasure](http://docs.oracle.com/javase/tutorial/java/generics/erasure.html).
+FEST-Reflect provides an intuitive, compact and type-safe fluent API that makes [Java reflection](http://docs.oracle.com/javase/tutorial/reflect/index.html) tremendously easy to use: no more casting, checked exceptions, PriviledgedActions or calls to setAccessible. FEST’s reflection module can even overcome the limitations of [generics](http://docs.oracle.com/javase/tutorial/java/generics/) and [type erasure](http://docs.oracle.com/javase/tutorial/java/generics/erasure.html).
 
 Example:
 
