@@ -128,6 +128,6 @@ public final class InnerClassName {
    * @throws NullPointerException if the given declaring class is {@code null}.
    */
   public @Nonnull InnerClassFinder in(@Nonnull Class<?> declaringClass) {
-    return new InnerClassFinder(declaringClass, checkNotNullOrEmpty(name));
+    return new InnerClassFinder(declaringClass, name);
   }
 }

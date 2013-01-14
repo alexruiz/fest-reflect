@@ -58,6 +58,6 @@ public abstract class TypeRef<T> {
    * @return the raw type of the generic type in this reference.
    */
   public final @Nonnull Class<T> rawType() {
-    return checkNotNull(rawType);
+    return rawType;
   }
 }

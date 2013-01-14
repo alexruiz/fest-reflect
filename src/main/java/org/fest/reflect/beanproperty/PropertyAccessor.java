@@ -152,7 +152,7 @@ public final class PropertyAccessor<T> {
   public @Nullable T get() {
     try {
       Object value = descriptor.getReadMethod().invoke(target);
-      return castSafely(value, checkNotNull(propertyType));
+      return castSafely(value, propertyType);
     } catch (Throwable t) {
       String msg = String.format("Failed to get the value of property '%s'", descriptor.getName());
       throw new ReflectionError(msg, t);
@@ -165,6 +165,6 @@ public final class PropertyAccessor<T> {
    * invoke via Bean Introspection.
    */
   public @Nonnull PropertyDescriptor descriptor() {
-    return checkNotNull(descriptor);
+    return descriptor;
   }
 }

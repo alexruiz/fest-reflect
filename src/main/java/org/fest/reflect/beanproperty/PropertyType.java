@@ -72,6 +72,6 @@ public class PropertyType<T> {
    * @throws ReflectionError if a property with a matching name and type cannot be found.
    */
   public @Nonnull PropertyAccessor<T> in(@Nonnull Object target) {
-    return new PropertyAccessor<T>(checkNotNullOrEmpty(propertyName), checkNotNull(value), target);
+    return new PropertyAccessor<T>(propertyName, value, target);
   }
 }

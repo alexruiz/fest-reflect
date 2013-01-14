@@ -55,6 +55,6 @@ public final class ParameterTypes {
    * @throws NullPointerException if the given type is {@code null}.
    */
   public @Nonnull <T> ConstructorInvoker<T> in(@Nonnull Class<T> target) {
-    return new ConstructorInvoker<T>(target, checkNotNull(parameterTypes));
+    return new ConstructorInvoker<T>(target, parameterTypes);
   }
 }

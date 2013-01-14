@@ -73,6 +73,6 @@ public class FieldType<T> {
    * @throws ReflectionError if a field with a matching name and type cannot be found.
    */
   public @Nonnull FieldAccessor<T> in(@Nonnull Object target) {
-    return new FieldAccessor<T>(checkNotNullOrEmpty(filedName), checkNotNull(value), target);
+    return new FieldAccessor<T>(filedName, value, target);
   }
 }

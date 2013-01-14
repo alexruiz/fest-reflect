@@ -17,7 +17,7 @@
  * <p>
  * Provides a fluent interface for
  * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property access
- * via Bean Instrospection.
+ * via Bean Introspection.
  * </p>
  *
  * <p>

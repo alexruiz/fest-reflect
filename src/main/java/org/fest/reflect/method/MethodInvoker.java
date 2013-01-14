@@ -136,6 +136,6 @@ public final class MethodInvoker<T> {
    * @return the underlying method to invoke via Java Reflection.
    */
   public @Nonnull Method target() {
-    return checkNotNull(method);
+    return method;
   }
 }

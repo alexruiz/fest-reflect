@@ -129,7 +129,7 @@ public final class PropertyName {
    * @throws NullPointerException if the given type is {@code null}.
    */
   public @Nonnull <T> PropertyType<T> ofType(@Nonnull Class<T> type) {
-    return new PropertyType<T>(checkNotNullOrEmpty(name), type);
+    return new PropertyType<T>(name, type);
   }
 
   /**
@@ -168,6 +168,6 @@ public final class PropertyName {
    * @throws NullPointerException if the given type reference is {@code null}.
    */
   public @Nonnull <T> PropertyTypeRef<T> ofType(@Nonnull TypeRef<T> type) {
-    return new PropertyTypeRef<T>(checkNotNullOrEmpty(name), type);
+    return new PropertyTypeRef<T>(name, type);
   }
 }

@@ -73,7 +73,7 @@ public final class ConstructorInvoker<T> {
    * @throws ReflectionError if a new instance cannot be created.
    */
   public T newInstance(@Nonnull Object... args) {
-    Constructor<T> c = checkNotNull(constructor);
+    Constructor<T> c = constructor;
     boolean accessible = constructor.isAccessible();
     try {
       makeAccessible(c);
@@ -94,6 +94,6 @@ public final class ConstructorInvoker<T> {
    * @return the underlying constructor to invoke.
    */
   public @Nonnull Constructor<T> constructor() {
-    return checkNotNull(constructor);
+    return constructor;
   }
 }

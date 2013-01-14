@@ -50,6 +50,7 @@ public final class Types {
    * @return the given object casted to the given type.
    */
   public static <T> T castSafely(@Nullable Object o, @Nonnull Class<T> type) {
+    checkNotNull(type);
     if (type.isPrimitive()) {
       return getWrapperType(type).cast(o);
     }

@@ -133,7 +133,7 @@ public final class FieldName {
    * @throws NullPointerException if the given type is {@code null}.
    */
   public @Nonnull <T> FieldType<T> ofType(@Nonnull Class<T> type) {
-    return new FieldType<T>(checkNotNullOrEmpty(name), type);
+    return new FieldType<T>(name, type);
   }
 
   /**
@@ -174,6 +174,6 @@ public final class FieldName {
    * @since 1.1
    */
   public @Nonnull <T> FieldTypeRef<T> ofType(@Nonnull TypeRef<T> type) {
-    return new FieldTypeRef<T>(checkNotNullOrEmpty(name), type);
+    return new FieldTypeRef<T>(name, type);
   }
 }

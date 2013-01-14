@@ -79,7 +79,7 @@ public class ReturnTypeRef<T> {
    * @throws NullPointerException if the array of parameter types is {@code null}.
    */
   public @Nonnull ParameterTypes<T> withParameterTypes(@Nonnull Class<?>... parameterTypes) {
-    return new ParameterTypes<T>(checkNotNullOrEmpty(methodName), value.rawType(), parameterTypes);
+    return new ParameterTypes<T>(methodName, value.rawType(), parameterTypes);
   }
 
   /**
@@ -117,7 +117,7 @@ public class ReturnTypeRef<T> {
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.
    */
-  public @Nonnull MethodInvoker<T> in(Object target) {
-    return new MethodInvoker<T>(checkNotNullOrEmpty(methodName), value.rawType(), new Class<?>[0], checkNotNull(target));
+  public @Nonnull MethodInvoker<T> in(@Nonnull Object target) {
+    return new MethodInvoker<T>(methodName, value.rawType(), new Class<?>[0], target);
   }
 }

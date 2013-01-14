@@ -73,6 +73,6 @@ public final class ParameterTypes<T> {
    * @throws NullPointerException if the given target is {@code null}.
    */
   public @Nonnull MethodInvoker<T> in(@Nonnull Object target) {
-    return new MethodInvoker<T>(checkNotNullOrEmpty(methodName), checkNotNull(returnType), checkNotNull(value), target);
+    return new MethodInvoker<T>(methodName, returnType, value, target);
   }
 }

@@ -61,7 +61,7 @@ public class Reflection_constructor_Test {
 
   @Test
   public void should_throw_error_if_constructor_was_not_found() {
-    String msg = "Unable to find constructor in type " + getClass().getName() + "$Person with parameter types [float]";
+    String msg = "Failed to find constructor in type " + getClass().getName() + "$Person with parameter types [float]";
     thrown.expect(ReflectionError.class, msg);
     Reflection.constructor().withParameterTypes(float.class).in(Person.class);
   }

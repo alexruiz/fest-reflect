@@ -114,6 +114,6 @@ public class ReturnType<T> {
    * @throws NullPointerException if the given target is {@code null}.
    */
   public @Nonnull MethodInvoker<T> in(@Nonnull Object target) {
-    return new MethodInvoker<T>(checkNotNullOrEmpty(methodName), checkNotNull(value), new Class<?>[0], target);
+    return new MethodInvoker<T>(methodName, value, new Class<?>[0], target);
   }
 }

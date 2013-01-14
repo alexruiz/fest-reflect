@@ -75,6 +75,6 @@ public class PropertyTypeRef<T> {
    * @throws ReflectionError if a property with a matching name and type cannot be found.
    */
   public @Nonnull PropertyAccessor<T> in(@Nonnull Object target) {
-    return new PropertyAccessor<T>(checkNotNullOrEmpty(propertyName), value.rawType(), target);
+    return new PropertyAccessor<T>(propertyName, value.rawType(), target);
   }
 }

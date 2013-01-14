@@ -189,7 +189,7 @@ public final class MethodName {
    * @since 1.1
    */
   public @Nonnull <T> ReturnTypeRef<T> withReturnType(@Nonnull TypeRef<T> type) {
-    return new ReturnTypeRef<T>(checkNotNullOrEmpty(value), type);
+    return new ReturnTypeRef<T>(value, type);
   }
 
   /**
@@ -232,7 +232,7 @@ public final class MethodName {
    * @throws NullPointerException if the array of parameter types is {@code null}.
    */
   public @Nonnull ParameterTypes<Void> withParameterTypes(@Nonnull Class<?>... parameterTypes) {
-    return new ParameterTypes<Void>(checkNotNullOrEmpty(value), Void.class, parameterTypes);
+    return new ParameterTypes<Void>(value, Void.class, parameterTypes);
   }
 
   /**
@@ -272,6 +272,6 @@ public final class MethodName {
    * @throws NullPointerException if the given target is {@code null}.
    */
   public @Nonnull MethodInvoker<Void> in(@Nonnull Object target) {
-    return new MethodInvoker<Void>(checkNotNullOrEmpty(value), Void.class, new Class<?>[0], target);
+    return new MethodInvoker<Void>(value, Void.class, new Class<?>[0], target);
   }
 }
