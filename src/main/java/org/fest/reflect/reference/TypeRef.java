@@ -27,7 +27,7 @@ import org.fest.reflect.exception.ReflectionError;
  * Allows usage of generics without the effects of
  * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>. Based
  * on Neal Gafter's
- * <code><a href="http://gafter.blogspot.com/2006/12/super-type-tokens.html" target="_blank">TypeReference</a></code>.
+ * {@code <a href="http://gafter.blogspot.com/2006/12/super-type-tokens.html" target="_blank">TypeReference</a>}.
  * 
  * @param <T> the generic type in this reference.
  * @author crazybob@google.com (Bob Lee)

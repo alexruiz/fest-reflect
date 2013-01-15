@@ -126,7 +126,7 @@ public final class MethodInvoker<T> {
         throw (RuntimeException) cause;
       }
       String format = "Unable to invoke method %s with arguments %s";
-      throw new ReflectionError(String.format(format, quote(method.getName()), format(args)));
+      throw new ReflectionError(String.format(format, quote(method.getName()), format(args)), cause);
     } finally {
       setAccessibleIgnoringExceptions(method, accessible);
     }

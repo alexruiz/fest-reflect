@@ -77,8 +77,7 @@ public final class ConstructorInvoker<T> {
     boolean accessible = constructor.isAccessible();
     try {
       makeAccessible(c);
-      T newInstance = c.newInstance(args);
-      return newInstance;
+      return c.newInstance(args);
     } catch (Throwable t) {
       Throwable cause = targetOf(t);
       if (cause instanceof RuntimeException) {

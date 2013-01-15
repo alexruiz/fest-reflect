@@ -48,7 +48,7 @@ public final class PropertyAccessor<T> {
   }
 
   private PropertyDescriptor findPropertyDescriptor(@Nonnull String propertyName) {
-    BeanInfo beanInfo = null;
+    BeanInfo beanInfo;
     Class<?> targetType = target.getClass();
     try {
       beanInfo = Introspector.getBeanInfo(targetType);
