@@ -50,6 +50,7 @@ public abstract class TypeRef<T> {
     }
     Type type = ((ParameterizedType) superclass).getActualTypeArguments()[0];
     rawType = type instanceof Class<?> ? (Class<T>) type : (Class<T>) ((ParameterizedType) type).getRawType();
+    checkNotNull(rawType);
   }
 
   /**
