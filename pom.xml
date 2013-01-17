@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
-
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd ">
   <modelVersion>4.0.0</modelVersion>
   <artifactId>fest-reflect</artifactId>
   <version>2.0-SNAPSHOT</version>
@@ -27,27 +27,26 @@
     <url>https://github.com/alexruiz/fest-reflect</url>
   </scm>
   <issueManagement>
-    <system>JIRA</system>
-    <url>http://jira.codehaus.org/browse/FEST</url>
+    <system>github</system>
+    <url>https://github.com/alexruiz/fest-reflect/issues</url>
   </issueManagement>
   <dependencies>
     <dependency>
       <groupId>org.easytesting</groupId>
       <artifactId>fest-util</artifactId>
       <version>1.2.4-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.findbugs</groupId>
+      <artifactId>jsr305</artifactId>
       <type>jar</type>
     </dependency>
     <dependency>
       <groupId>org.easytesting</groupId>
       <artifactId>fest-test</artifactId>
       <version>2.1.2-SNAPSHOT</version>
-      <type>jar</type>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>com.google.code.findbugs</groupId>
-      <artifactId>jsr305</artifactId>
-    </dependency>  
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
