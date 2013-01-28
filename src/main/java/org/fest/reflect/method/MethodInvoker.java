@@ -114,7 +114,7 @@ public final class MethodInvoker<T> {
    */
   public @Nullable T invoke(@Nonnull Object... args) {
     checkNotNull(args);
-    Method method = target();
+    Method method = method();
     boolean accessible = method.isAccessible();
     try {
       makeAccessible(method);
@@ -135,7 +135,7 @@ public final class MethodInvoker<T> {
   /**
    * @return the underlying method to invoke via Java Reflection.
    */
-  public @Nonnull Method target() {
+  public @Nonnull Method method() {
     return method;
   }
 }
