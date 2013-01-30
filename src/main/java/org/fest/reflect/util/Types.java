@@ -14,9 +14,9 @@
  */
 package org.fest.reflect.util;
 
+import static org.fest.util.Maps.newHashMap;
 import static org.fest.util.Preconditions.checkNotNull;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Nonnull;
@@ -28,7 +28,7 @@ import javax.annotation.Nullable;
  * @author Alex Ruiz
  */
 public final class Types {
-  private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_WRAPPER_TYPE = new HashMap<Class<?>, Class<?>>();
+  private static final Map<Class<?>, Class<?>> PRIMITIVE_TO_WRAPPER_TYPE = newHashMap();
 
   static {
     boolean.class.isPrimitive();
