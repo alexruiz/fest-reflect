@@ -59,7 +59,7 @@ public class Reflection_property_Test {
   @Test
   public void should_return_property_descriptor() {
     Person person = new Person();
-    PropertyDescriptor property = Reflection.property("name").ofType(String.class).in(person).descriptor();
+    PropertyDescriptor property = Reflection.property("name").ofType(String.class).in(person).target();
     assertEquals("name", property.getName());
     assertEquals(String.class, property.getPropertyType());
   }

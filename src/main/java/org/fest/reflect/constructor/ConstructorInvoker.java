@@ -92,7 +92,7 @@ public final class ConstructorInvoker<T> {
   /**
    * @return the underlying constructor to invoke.
    */
-  public @Nonnull Constructor<T> constructor() {
+  public @Nonnull Constructor<T> target() {
     return constructor;
   }
 }

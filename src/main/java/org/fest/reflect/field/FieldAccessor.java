@@ -179,7 +179,7 @@ public final class FieldAccessor<T> {
   /**
    * @return the underlying field to access.
    */
-  public @Nonnull Field field() {
+  public @Nonnull Field target() {
     return field;
   }
 }

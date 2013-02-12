@@ -164,7 +164,7 @@ public final class PropertyAccessor<T> {
    * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a> property to
    * invoke via Bean Introspection.
    */
-  public @Nonnull PropertyDescriptor descriptor() {
+  public @Nonnull PropertyDescriptor target() {
     return descriptor;
   }
 }

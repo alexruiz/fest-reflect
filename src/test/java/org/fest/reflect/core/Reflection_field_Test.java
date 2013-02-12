@@ -55,7 +55,7 @@ public class Reflection_field_Test {
   @Test
   public void should_return_real_field() {
     Person person = new Person();
-    Field field = Reflection.field("name").ofType(String.class).in(person).field();
+    Field field = Reflection.field("name").ofType(String.class).in(person).target();
     assertEquals("name", field.getName());
     assertEquals(String.class, field.getType());
   }

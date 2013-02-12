@@ -52,7 +52,7 @@ public class Reflection_constructor_Test {
 
   @Test
   public void should_return_real_constructor() {
-    Constructor<Person> constructor = Reflection.constructor().withParameterTypes(String.class).in(Person.class).constructor();
+    Constructor<Person> constructor = Reflection.constructor().withParameterTypes(String.class).in(Person.class).target();
     assertNotNull(constructor);
     Class<?>[] parameterTypes = constructor.getParameterTypes();
     assertEquals(1, parameterTypes.length);
