@@ -17,7 +17,7 @@ package org.fest.reflect.field;
 import static org.fest.reflect.util.ExpectedFailures.expectIllegalArgumentException;
 import static org.fest.reflect.util.ExpectedFailures.expectNullPointerException;
 import static org.fest.reflect.util.ExpectedFailures.expectReflectionError;
-import static org.fest.util.Collections.list;
+import static org.fest.util.Lists.newArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -149,7 +149,7 @@ public class Field_field_Test {
   @Test
   public void should_use_TypeRef_to_write_field() {
     Jedi jedi = new Jedi("Yoda");
-    List<String> powers = list("heal");
+    List<String> powers = newArrayList("heal");
     FieldName.beginFieldAccess("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).set(powers);
     assertEquals(1, jedi.powers().size());
     assertEquals("heal", jedi.powers().get(0));

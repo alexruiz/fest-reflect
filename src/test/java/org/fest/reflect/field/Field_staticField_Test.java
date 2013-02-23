@@ -17,7 +17,7 @@ package org.fest.reflect.field;
 import static org.fest.reflect.util.ExpectedFailures.expectIllegalArgumentException;
 import static org.fest.reflect.util.ExpectedFailures.expectNullPointerException;
 import static org.fest.reflect.util.ExpectedFailures.expectReflectionError;
-import static org.fest.util.Collections.list;
+import static org.fest.util.Lists.newArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -143,7 +143,7 @@ public class Field_staticField_Test {
 
   @Test
   public void should_use_TypeRef_to_write_static_field() {
-    List<String> powers = list("jump");
+    List<String> powers = newArrayList("jump");
     StaticFieldName.beginStaticFieldAccess("commonPowers").ofType(new TypeRef<List<String>>() {}).in(Jedi.class).set(powers);
     assertEquals(1, Jedi.commonPowers().size());
     assertEquals("jump", Jedi.commonPowers().get(0));

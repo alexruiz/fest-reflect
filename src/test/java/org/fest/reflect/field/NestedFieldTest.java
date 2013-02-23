@@ -15,7 +15,7 @@
 package org.fest.reflect.field;
 
 import static org.fest.reflect.core.Reflection.field;
-import static org.fest.util.Collections.list;
+import static org.fest.util.Lists.newArrayList;
 
 import static org.junit.Assert.assertSame;
 import static org.mockito.Mockito.*;
@@ -87,7 +87,7 @@ public class NestedFieldTest {
   private static class ClientStatusDao implements IClientStatusDao {
     private final Session session;
     @SuppressWarnings("unused")
-    private final List<String> listOfNames = list("Ivan", "Joel", "Alex");
+    private final List<String> listOfNames = newArrayList("Ivan", "Joel", "Alex");
 
     public ClientStatusDao() {
       this.session = new SessionImpl();
