@@ -14,29 +14,31 @@
  */
 package org.fest.reflect.util;
 
-import static org.fest.util.Preconditions.checkNotNull;
-
+import javax.annotation.Nonnull;
 import java.lang.reflect.AccessibleObject;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.annotation.Nonnull;
+import static org.fest.util.Preconditions.checkNotNull;
 
 /**
  * Utility methods related to {@code AccessibleObject}s.
- * 
+ *
  * @author Alex Ruiz
  */
 public final class Accessibles {
   private static Logger logger = Logger.getLogger(Accessibles.class.getCanonicalName());
 
+  private Accessibles() {
+  }
+
   /**
    * Sets the {@code accessible} flag of the given {@code AccessibleObject} to the given {@code boolean} value, ignoring
    * any thrown exception.
-   * 
-   * @param o the given {@code AccessibleObject}.
+   *
+   * @param o          the given {@code AccessibleObject}.
    * @param accessible the value to set the {@code accessible} flag to.
    */
   public static void setAccessibleIgnoringExceptions(@Nonnull AccessibleObject o, boolean accessible) {
@@ -50,10 +52,10 @@ public final class Accessibles {
 
   /**
    * Sets the {@code accessible} flag of the given {@code AccessibleObject} to {@code true}.
-   * 
+   *
    * @param o the given {@code AccessibleObject}.
    * @throws NullPointerException if the given  {@code AccessibleObject} is {@code null}.
-   * @throws SecurityException if the request is denied.
+   * @throws SecurityException    if the request is denied.
    */
   public static void makeAccessible(@Nonnull AccessibleObject o) {
     setAccessible(o, true);
@@ -61,11 +63,11 @@ public final class Accessibles {
 
   /**
    * Sets the {@code accessible} flag of the given {@code AccessibleObject} to the given {@code boolean} value.
-   * 
-   * @param o the given {@code AccessibleObject}.
+   *
+   * @param o          the given {@code AccessibleObject}.
    * @param accessible the value to set the {@code accessible} flag to.
    * @throws NullPointerException if the given  {@code AccessibleObject} is {@code null}.
-   * @throws SecurityException if the request is denied.
+   * @throws SecurityException    if the request is denied.
    */
   public static void setAccessible(@Nonnull AccessibleObject o, boolean accessible) {
     AccessController.doPrivileged(new SetAccessibleAction(o, accessible));
@@ -86,6 +88,4 @@ public final class Accessibles {
       return null;
     }
   }
-
-  private Accessibles() {}
 }

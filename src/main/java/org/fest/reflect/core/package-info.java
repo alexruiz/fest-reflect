@@ -13,15 +13,11 @@
  * Copyright @2013 the original author or authors.
  */
 /**
- * <p>
  * Fluent interfaces that provide a more readable, easier to write and type safer way to use
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a> and
  * <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">Beans Introspection</a>.
- * </p>
- *
- * <p>
+ * <p/>
  * Examples:
- *
  * <pre>
  * // import static {@link org.fest.reflect.core.Reflection org.fest.reflect.core.Reflection}.*;
  *
@@ -69,7 +65,7 @@
  * {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#set(Object) set}(3);
  *
  * // Retrieves the value of the static field "commonPowers" in Jedi.class
- * List&lt;String&gt; commmonPowers = {@link org.fest.reflect.core.Reflection#field(String) field}("commonPowers").{@link org.fest.reflect.field.FieldName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link org.fest.reflect.field.FieldTypeRef#in(Object) in}(Jedi.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
+ * List&lt;String&gt; commonPowers = {@link org.fest.reflect.core.Reflection#field(String) field}("commonPowers").{@link org.fest.reflect.field.FieldName#ofType(org.fest.reflect.reference.TypeRef) ofType}(new {@link org.fest.reflect.reference.TypeRef TypeRef}&lt;List&lt;String&gt;&gt;() {}).{@link org.fest.reflect.field.FieldTypeRef#in(Object) in}(Jedi.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
  *
  * // Equivalent to invoking the method 'person.concentrate()'
  * {@link org.fest.reflect.core.Reflection#method(String) method}("concentrate").{@link org.fest.reflect.method.MethodName#in(Object) in}(person).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
@@ -103,6 +99,5 @@
  * // Sets the value of the property "name" to "Yoda"
  * {@link org.fest.reflect.core.Reflection#property(String) property}("name").{@link org.fest.reflect.beanproperty.PropertyName#ofType(Class) ofType}(String.class).{@link org.fest.reflect.beanproperty.PropertyType#in(Object) in}(person).{@link org.fest.reflect.beanproperty.PropertyAccessor#set(Object) set}("Yoda");
  * </pre>
- * </p>
  */
 package org.fest.reflect.core;

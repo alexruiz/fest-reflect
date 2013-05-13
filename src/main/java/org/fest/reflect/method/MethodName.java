@@ -14,23 +14,19 @@
  */
 package org.fest.reflect.method;
 
-import static org.fest.util.Preconditions.checkNotNullOrEmpty;
-
-import javax.annotation.Nonnull;
-
 import org.fest.reflect.reference.TypeRef;
 import org.fest.util.InternalApi;
 
+import javax.annotation.Nonnull;
+
+import static org.fest.util.Preconditions.checkNotNullOrEmpty;
+
 /**
- * <p>
  * Stores the name of the method to invoke via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
- * </p>
- *
- * <p>
+ * <p/>
  * <strong>Note:</strong> To improve code readability, we recommend invoking
  * {@link org.fest.reflect.core.Reflection#method(String) Reflection.method(String)} instead of this class' constructor:
- *
  * <pre>
  * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
  *
@@ -52,7 +48,6 @@ import org.fest.util.InternalApi;
  * // Equivalent to invoking the static method 'Jedi.addPadawan()'
  * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
  * </pre>
- * </p>
  *
  * @author Yvonne Wang
  * @author Alex Ruiz
@@ -61,14 +56,10 @@ public final class MethodName {
   private final String value;
 
   /**
-   * <p>
    * Creates a new {@link MethodName}.
-   * </p>
-   *
-   * <p>
+   * <p/>
    * <strong>Note:</strong> To improve code readability, we recommend invoking
    * {@link org.fest.reflect.core.Reflection#method(String) Reflection.method(String)} instead of this constructor:
-   *
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
    *
@@ -90,10 +81,9 @@ public final class MethodName {
    * // Equivalent to invoking the static method 'Jedi.addPadawan()'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    * </pre>
-   * </p>
-   * 
+   *
    * @param name the name of the method to invoke.
-   * @throws NullPointerException if the method name is {@code null}.
+   * @throws NullPointerException     if the method name is {@code null}.
    * @throws IllegalArgumentException if the method name is empty.
    */
   @InternalApi
@@ -102,18 +92,12 @@ public final class MethodName {
   }
 
   /**
-   * <p>
    * Specifies the return type of the method to invoke.
-   * </p>
-   *
-   * <p>
+   * <p/>
    * <strong>Note:</strong> Invocation of this method is optional if the return type of the method to invoke is
    * {@code void}.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
    *
@@ -135,7 +119,6 @@ public final class MethodName {
    * // Equivalent to invoking the static method 'Jedi.addPadawan()'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    * </pre>
-   * </p>
    *
    * @param type the return type of the method to invoke.
    * @return a holder for the method's return type.
@@ -146,20 +129,14 @@ public final class MethodName {
   }
 
   /**
-   * <p>
    * Specifies the return type of the method to invoke. This method uses {@link TypeRef} instead of {@link Class} to
    * preserve generic types that otherwise would be lost due to
    * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>.
-   * </p>
-   * 
-   * <p>
+   * <p/>
    * <strong>Note:</strong> Invocation of this method is optional if the return type of the method to invoke is
    * {@code void}.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
    *
@@ -181,8 +158,7 @@ public final class MethodName {
    * // Equivalent to invoking the static method 'Jedi.addPadawan()'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    * </pre>
-   * </p>
-   * 
+   *
    * @param type the return type reference of the method to invoke.
    * @return a holder for the method's return type.
    * @throws NullPointerException if the given type reference is {@code null}.
@@ -193,17 +169,11 @@ public final class MethodName {
   }
 
   /**
-   * <p>
    * Specifies the parameter types of the method to invoke.
-   * </p>
-   *
-   * <p>
+   * <p/>
    * <strong>Note:</strong> Invocation of this method is optional if the method to invoke does not take any arguments.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
    *
@@ -225,8 +195,7 @@ public final class MethodName {
    * // Equivalent to invoking the static method 'Jedi.addPadawan()'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    * </pre>
-   * </p>
-   * 
+   *
    * @param parameterTypes the parameter types of the method to invoke.
    * @return a holder for the method's parameter types.
    * @throws NullPointerException if the array of parameter types is {@code null}.
@@ -236,14 +205,10 @@ public final class MethodName {
   }
 
   /**
-   * <p>
    * Specifies the object or class containing the method to invoke. The method to invoke does not take any parameters
    * and its return type is {@code void}.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
    *
@@ -265,8 +230,7 @@ public final class MethodName {
    * // Equivalent to invoking the static method 'Jedi.addPadawan()'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    * </pre>
-   * </p>
-   * 
+   *
    * @param target the object containing the method to invoke. To invoke a static method, pass a class instead.
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.

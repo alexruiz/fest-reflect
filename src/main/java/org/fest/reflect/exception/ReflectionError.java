@@ -17,13 +17,13 @@ package org.fest.reflect.exception;
 /**
  * An error that occurred while accessing Java elements via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Reflection</a>..
- * 
+ *
  * @author Alex Ruiz
  */
 public final class ReflectionError extends RuntimeException {
   /**
    * Creates a new {@link ReflectionError}.
-   * 
+   *
    * @param message the detail message.
    */
   public ReflectionError(String message) {
@@ -32,9 +32,9 @@ public final class ReflectionError extends RuntimeException {
 
   /**
    * Creates a new {@link ReflectionError}.
-   * 
+   *
    * @param message the detail message.
-   * @param cause the cause of the exception.
+   * @param cause   the cause of the exception.
    */
   public ReflectionError(String message, Throwable cause) {
     super(message, cause);

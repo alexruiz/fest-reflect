@@ -14,20 +14,20 @@
  */
 package org.fest.reflect.field;
 
-import static org.fest.util.Preconditions.checkNotNull;
-import static org.fest.util.Preconditions.checkNotNullOrEmpty;
+import org.fest.reflect.exception.ReflectionError;
+import org.fest.reflect.reference.TypeRef;
 
 import javax.annotation.Nonnull;
 
-import org.fest.reflect.exception.ReflectionError;
-import org.fest.reflect.reference.TypeRef;
+import static org.fest.util.Preconditions.checkNotNull;
+import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
 /**
  * Stores the type of the field to access via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>, preserving
  * generic types that otherwise would be lost due to
  * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>.
- * 
+ *
  * @param <T> the type of the field.
  * @author Alex Ruiz
  * @since 1.1
@@ -42,13 +42,9 @@ public class FieldTypeRef<T> {
   }
 
   /**
-   * <p>
    * Specifies the object or class containing the field to access.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
    *
@@ -69,12 +65,11 @@ public class FieldTypeRef<T> {
    * // Retrieves the value of the static field "count" in Person.class
    * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
    * </pre>
-   * </p>
    *
    * @param target the object containing the field to access. To access a static field, pass a class instead.
    * @return the created field accessor.
    * @throws NullPointerException if the given target is {@code null}.
-   * @throws ReflectionError if a field with a matching name and type cannot be found.
+   * @throws ReflectionError      if a field with a matching name and type cannot be found.
    */
   public @Nonnull FieldAccessor<T> in(@Nonnull Object target) {
     return new FieldAccessor<T>(filedName, value.rawType(), target);

@@ -14,6 +14,12 @@
  */
 package org.fest.reflect.method;
 
+import org.fest.reflect.exception.ReflectionError;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.lang.reflect.Method;
+
 import static org.fest.reflect.util.Accessibles.makeAccessible;
 import static org.fest.reflect.util.Accessibles.setAccessibleIgnoringExceptions;
 import static org.fest.reflect.util.Throwables.targetOf;
@@ -22,13 +28,6 @@ import static org.fest.util.Arrays.format;
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 import static org.fest.util.Strings.quote;
-
-import java.lang.reflect.Method;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.fest.reflect.exception.ReflectionError;
 
 /**
  * Invokes a method using
@@ -44,10 +43,21 @@ public final class MethodInvoker<T> {
   private final Method method;
 
   MethodInvoker(@Nonnull String methodName, @Nonnull Class<T> returnType, @Nonnull Class<?>[] parameterTypes,
-      @Nonnull Object target) {
+                @Nonnull Object target) {
     this.returnType = checkNotNull(returnType);
     this.target = checkNotNull(target);
     this.method = findMethodInClassHierarchy(checkNotNullOrEmpty(methodName), checkNotNull(parameterTypes));
+  }
+
+  private static @Nullable Method findMethod(
+      @Nonnull String methodName, @Nonnull Class<?> type, @Nonnull Class<?>[] parameterTypes) {
+    try {
+      return type.getDeclaredMethod(methodName, parameterTypes);
+    } catch (SecurityException e) {
+      return null;
+    } catch (NoSuchMethodException e) {
+      return null;
+    }
   }
 
   private @Nonnull Method findMethodInClassHierarchy(@Nonnull String methodName, @Nonnull Class<?>[] parameterTypes) {
@@ -68,25 +78,10 @@ public final class MethodInvoker<T> {
     return method;
   }
 
-  private static @Nullable Method findMethod(
-      @Nonnull String methodName, @Nonnull Class<?> type, @Nonnull Class<?>[] parameterTypes) {
-    try {
-      return type.getDeclaredMethod(methodName, parameterTypes);
-    } catch (SecurityException e) {
-      return null;
-    } catch (NoSuchMethodException e) {
-      return null;
-    }
-  }
-
   /**
-   * <p>
    * Invokes a method.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // Equivalent to invoking the method 'person.setName("Luke")'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("setName").{@link org.fest.reflect.method.MethodName#withParameterTypes(Class...) withParameterTypes}(String.class)
@@ -106,7 +101,6 @@ public final class MethodInvoker<T> {
    * // Equivalent to invoking the static method 'Jedi.addPadawan()'
    * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
    * </pre>
-   * </p>
    *
    * @param args the arguments to use to call the method managed by this class.
    * @return the result of the method call.

@@ -14,19 +14,17 @@
  */
 package org.fest.reflect.type;
 
-import static org.fest.util.Preconditions.checkNotNull;
+import org.fest.reflect.exception.ReflectionError;
 
 import javax.annotation.Nonnull;
 
-import org.fest.reflect.exception.ReflectionError;
+import static org.fest.util.Preconditions.checkNotNull;
 
 /**
  * Loads a class dynamically using a specific {@code ClassLoader}.
- *
- * <p>
- * Examples demonstrating usage of the fluent interface:
- *
- * <pre>
+ * <p/>
+ * Examples:
+ * <p/>
  * // Loads the class 'org.republic.Jedi'
  * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#load() load}();
  *
@@ -36,7 +34,6 @@ import org.fest.reflect.exception.ReflectionError;
  * // Loads the class 'org.republic.Jedi' using a custom class loader
  * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link org.fest.reflect.type.TypeLoader#load() load}();
  * </pre>
- * </p>
  *
  * @author Alex Ruiz
  * @since 1.1
@@ -51,16 +48,12 @@ public final class TypeLoader {
   }
 
   /**
-   * <p>
    * Loads the class with the name specified in this type, using {@code this} class' {@code ClassLoader}.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static  {@link org.fest.reflect.core.Reflection#type(String) org.fest.reflect.core.Reflection.type};
-   * 
+   *
    * // Loads the class 'org.republic.Jedi'
    * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#load() load}();
    *
@@ -70,8 +63,7 @@ public final class TypeLoader {
    * // Loads the class 'org.republic.Jedi' using a custom class loader
    * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link org.fest.reflect.type.TypeLoader#load() load}();
    * </pre>
-   * </p>
-   * 
+   *
    * @return the loaded class.
    * @throws ReflectionError wrapping any error that occurred during class loading.
    */
@@ -85,16 +77,12 @@ public final class TypeLoader {
   }
 
   /**
-   * <p>
    * Loads the class as the given super-type.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static  {@link org.fest.reflect.core.Reflection#type(String) org.fest.reflect.core.Reflection.type};
-   * 
+   *
    * // Loads the class 'org.republic.Jedi'
    * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#load() load}();
    *
@@ -104,12 +92,11 @@ public final class TypeLoader {
    * // Loads the class 'org.republic.Jedi' using a custom class loader
    * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link org.fest.reflect.type.TypeLoader#load() load}();
    * </pre>
-   * </p>
    *
    * @param superType the given super-type.
    * @return the loaded class.
    * @throws NullPointerException if the given super-type is {@code null}.
-   * @throws ReflectionError wrapping any error that occurred during class loading.
+   * @throws ReflectionError      wrapping any error that occurred during class loading.
    */
   public @Nonnull <T> Class<? extends T> loadAs(@Nonnull Class<T> superType) {
     checkNotNull(superType);

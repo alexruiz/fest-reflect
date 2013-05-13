@@ -14,41 +14,35 @@
  */
 package org.fest.reflect.innerclass;
 
-import static org.fest.util.Preconditions.checkNotNullOrEmpty;
+import org.fest.util.InternalApi;
 
 import javax.annotation.Nonnull;
 
-import org.fest.util.InternalApi;
+import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
 /**
  * Stores the name of the inner class to access.
- *
- * <p>
+ * <p/>
  * <strong>Note:</strong> To improve code readability, we recommend invoking
  * {@link org.fest.reflect.core.Reflection#innerClass(String) Reflection.innerClass(String)} instead of this class'
  * constructor:
- * </p>
- *
- * <p>
+ * <p/>
  * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
  * {@code Padawan}:
- *
  * <pre>
  * public class Jedi {
  *   public static class Master {}
- * 
+ *
  *   public static class Padawan {}
  * }
  * </pre>
- *
+ * <p/>
  * The following example shows how to get a reference to the inner class {@code Master}:
- *
  * <pre>
  * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
  *
  * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
  * </pre>
- * </p>
  *
  * @author Alex Ruiz
  * @since 1.1
@@ -57,39 +51,31 @@ public final class InnerClassName {
   private final String name;
 
   /**
-   * <p>
    * Creates a new {@link InnerClassName}.
-   * </p>
-   *
-   * <p>
+   * <p/>
    * <strong>Note:</strong> To improve code readability, we recommend invoking
    * {@link org.fest.reflect.core.Reflection#innerClass(String) Reflection.innerClass(String)} instead of this class'
    * constructor.
-   * </p>
-   *
-   * <p>
+   * <p/>
    * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
    * {@code Padawan}:
-   *
    * <pre>
    * public class Jedi {
    *   public static class Master {}
-   * 
+   *
    *   public static class Padawan {}
    * }
    * </pre>
-   *
+   * <p/>
    * The following example shows how to get a reference to the inner class {@code Master}:
-   *
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
    *
    * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
    * </pre>
-   * </p>
    *
    * @param name the name of the static inner class to obtain.
-   * @throws NullPointerException if the given name is {@code null}.
+   * @throws NullPointerException     if the given name is {@code null}.
    * @throws IllegalArgumentException if the given name is empty.
    */
   @InternalApi
@@ -98,30 +84,24 @@ public final class InnerClassName {
   }
 
   /**
-   * <p>
    * Specifies the declaring class of the static inner class to obtain.
-   * </p>
-   *
-   * <p>
+   * <p/>
    * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
    * {@code Padawan}:
-   *
    * <pre>
    * public class Jedi {
    *   public static class Master {}
-   * 
+   *
    *   public static class Padawan {}
    * }
    * </pre>
-   *
+   * <p/>
    * The following example shows how to get a reference to the inner class {@code Master}:
-   *
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
    *
    * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
    * </pre>
-   * </p>
    *
    * @param declaringClass the declaring class.
    * @return an object responsible for finding a reference to a static inner class.

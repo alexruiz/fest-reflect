@@ -14,9 +14,8 @@
  */
 package org.fest.reflect.util;
 
-import java.lang.reflect.InvocationTargetException;
-
 import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Utility methods related to {@code Throwable}s.
@@ -25,6 +24,9 @@ import javax.annotation.Nullable;
  * @since 1.2
  */
 public final class Throwables {
+  private Throwables() {
+  }
+
   /**
    * Obtains the target of the given {@code Throwable}. If the {@code Throwable} is a {@code InvocationTargetException},
    * this method will return the "target exception" (not the cause.) For other {@code Throwable}s, the same instance is
@@ -41,6 +43,4 @@ public final class Throwables {
     }
     return t;
   }
-
-  private Throwables() {}
 }

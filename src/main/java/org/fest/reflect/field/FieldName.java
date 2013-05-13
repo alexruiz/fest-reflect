@@ -14,23 +14,19 @@
  */
 package org.fest.reflect.field;
 
-import static org.fest.util.Preconditions.checkNotNullOrEmpty;
-
-import javax.annotation.Nonnull;
-
 import org.fest.reflect.reference.TypeRef;
 import org.fest.util.InternalApi;
 
+import javax.annotation.Nonnull;
+
+import static org.fest.util.Preconditions.checkNotNullOrEmpty;
+
 /**
- * <p>
  * Stores the name of the field to access via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
- * </p>
- *
- * <p>
+ * <p/>
  * <strong>Note:</strong> To improve code readability, we recommend invoking
  * {@link org.fest.reflect.core.Reflection#field(String) Reflection.field(String)} instead of this class' constructor:
- *
  * <pre>
  * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
  *
@@ -51,7 +47,6 @@ import org.fest.util.InternalApi;
  * // Retrieves the value of the static field "count" in Person.class
  * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
  * </pre>
- * </p>
  *
  * @author Alex Ruiz
  */
@@ -59,14 +54,10 @@ public final class FieldName {
   private final String name;
 
   /**
-   * <p>
    * Creates a new {@link FieldName}.
-   * </p>
-   *
-   * <p>
+   * <p/>
    * <strong>Note:</strong> To improve code readability, we recommend invoking
    * {@link org.fest.reflect.core.Reflection#field(String) Reflection.field(String)} instead of this constructor:
-   *
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
    *
@@ -87,10 +78,9 @@ public final class FieldName {
    * // Retrieves the value of the static field "count" in Person.class
    * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
    * </pre>
-   * </p>
-   * 
+   *
    * @param name the name of the field to invoke.
-   * @throws NullPointerException if the field name is {@code null}.
+   * @throws NullPointerException     if the field name is {@code null}.
    * @throws IllegalArgumentException if the field name is empty.
    */
   @InternalApi
@@ -99,13 +89,9 @@ public final class FieldName {
   }
 
   /**
-   * <p>
    * Specifies the type of the field to access.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
    *
@@ -126,7 +112,6 @@ public final class FieldName {
    * // Retrieves the value of the static field "count" in Person.class
    * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
    * </pre>
-   * </p>
    *
    * @param type the type of the field to access.
    * @return a holder for the field type.
@@ -137,15 +122,11 @@ public final class FieldName {
   }
 
   /**
-   * <p>
    * Specifies the type of the field to access. This method uses {@link TypeRef} instead of {@link Class} to preserve
    * generic types that otherwise would be lost due to
    * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
    *
@@ -166,7 +147,6 @@ public final class FieldName {
    * // Retrieves the value of the static field "count" in Person.class
    * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
    * </pre>
-   * </p>
    *
    * @param type the type of the field to access.
    * @return a holder for the field type.

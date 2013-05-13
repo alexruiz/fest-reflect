@@ -13,14 +13,10 @@
  * Copyright @2013 the original author or authors.
  */
 /**
- * <p>
  * Provides a fluent interface for loading classes via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
- * </p>
- *
- * <p>
+ * <p/>
  * Examples:
- *
  * <pre>
  * // import static  {@link org.fest.reflect.core.Reflection#type(String) org.fest.reflect.core.Reflection.type};
  * 
@@ -33,7 +29,6 @@
  * // Loads the class 'org.republic.Jedi' using a custom class loader
  * Class&lt;?&gt; jediType = {@link org.fest.reflect.core.Reflection#type(String) type}("org.republic.Jedi").{@link org.fest.reflect.type.Type#withClassLoader(ClassLoader) withClassLoader}(myClassLoader).{@link org.fest.reflect.type.TypeLoader#load() load}();
  * </pre>
- * </p>
  */
 package org.fest.reflect.type;
 

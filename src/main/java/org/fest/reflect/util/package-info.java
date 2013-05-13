@@ -13,9 +13,7 @@
  * Copyright @2013 the original author or authors.
  */
 /**
- * <p>
  * Utilities.
- * </p>
  */
 package org.fest.reflect.util;
 

@@ -14,12 +14,12 @@
  */
 package org.fest.reflect.method;
 
-import static org.fest.util.Preconditions.checkNotNull;
-import static org.fest.util.Preconditions.checkNotNullOrEmpty;
+import org.fest.reflect.reference.TypeRef;
 
 import javax.annotation.Nonnull;
 
-import org.fest.reflect.reference.TypeRef;
+import static org.fest.util.Preconditions.checkNotNull;
+import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
 /**
  * Stores the return type reference of the method to invoke, preserving generic types that otherwise would be lost due
@@ -49,7 +49,7 @@ public class ReturnTypeRef<T> {
    * </p>
    *
    * <p>
-   * Examples demonstrating usage of the fluent interface:
+   * Examples:
    *
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
@@ -88,7 +88,7 @@ public class ReturnTypeRef<T> {
    * </p>
    * 
    * <p>
-   * Examples demonstrating usage of the fluent interface:
+   * Examples:
    *
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};

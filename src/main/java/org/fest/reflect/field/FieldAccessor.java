@@ -14,24 +14,21 @@
  */
 package org.fest.reflect.field;
 
-import static org.fest.reflect.util.Accessibles.makeAccessible;
-import static org.fest.reflect.util.Accessibles.setAccessible;
-import static org.fest.reflect.util.Accessibles.setAccessibleIgnoringExceptions;
+import org.fest.reflect.exception.ReflectionError;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.lang.reflect.Field;
+
+import static org.fest.reflect.util.Accessibles.*;
 import static org.fest.reflect.util.Types.castSafely;
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
-import java.lang.reflect.Field;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.fest.reflect.exception.ReflectionError;
-
 /**
  * Accesses a field via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
- * 
+ *
  * @param <T> the type of the field to access.
  * @author Alex Ruiz
  */
@@ -83,13 +80,9 @@ public final class FieldAccessor<T> {
   }
 
   /**
-   * <p>
    * Sets a value in the field specified in this fluent interface.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
    *
@@ -110,8 +103,7 @@ public final class FieldAccessor<T> {
    * // Retrieves the value of the static field "count" in Person.class
    * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
    * </pre>
-   * </p>
-   * 
+   *
    * @param value the value to set.
    * @throws ReflectionError if the given value cannot be set.
    */
@@ -130,13 +122,9 @@ public final class FieldAccessor<T> {
   }
 
   /**
-   * <p>
    * Retrieves the value of the field specified in this fluent interface.
-   * </p>
-   * 
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   *
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
    *
@@ -157,7 +145,6 @@ public final class FieldAccessor<T> {
    * // Retrieves the value of the static field "count" in Person.class
    * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
    * </pre>
-   * </p>
    *
    * @return the value of the field in this fluent interface.
    * @throws ReflectionError if the value of the field cannot be retrieved.

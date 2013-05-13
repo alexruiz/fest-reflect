@@ -13,14 +13,10 @@
  * Copyright @2013 the original author or authors.
  */
 /**
- * <p>
  * Provides a fluent interface for invoking methods via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
- * </p>
- *
- * <p>
+ * <p/>
  * Examples:
- *
  * <pre>
  * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};
  *
@@ -42,6 +38,5 @@
  * // Equivalent to invoking the static method 'Jedi.addPadawan()'
  * {@link org.fest.reflect.core.Reflection#method(String) method}("addPadawan").{@link org.fest.reflect.method.MethodName#in(Object) in}(Jedi.class).{@link org.fest.reflect.method.MethodInvoker#invoke(Object...) invoke}();
  * </pre>
- * </p>
  */
 package org.fest.reflect.method;

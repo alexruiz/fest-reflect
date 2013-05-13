@@ -14,17 +14,16 @@
  */
 package org.fest.reflect.util;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Map;
+
 import static org.fest.util.Maps.newHashMap;
 import static org.fest.util.Preconditions.checkNotNull;
 
-import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 /**
  * Utility methods related to Java types.
- * 
+ *
  * @author Alex Ruiz
  */
 public final class Types {
@@ -42,10 +41,13 @@ public final class Types {
     PRIMITIVE_TO_WRAPPER_TYPE.put(char.class, Character.class);
   }
 
+  private Types() {
+  }
+
   /**
    * Casts the given object to the given type. This method handles primitive types properly.
-   * 
-   * @param o the object to cast.
+   *
+   * @param o    the object to cast.
    * @param type the type to cast the given object to.
    * @return the given object casted to the given type.
    */
@@ -66,6 +68,4 @@ public final class Types {
     }
     return (Class<T>) checkNotNull(PRIMITIVE_TO_WRAPPER_TYPE.get(primitiveClass));
   }
-
-  private Types() {}
 }

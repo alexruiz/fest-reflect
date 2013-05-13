@@ -14,21 +14,20 @@
  */
 package org.fest.reflect.reference;
 
-import static org.fest.util.Preconditions.checkNotNull;
+import org.fest.reflect.exception.ReflectionError;
 
+import javax.annotation.Nonnull;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
-import javax.annotation.Nonnull;
-
-import org.fest.reflect.exception.ReflectionError;
+import static org.fest.util.Preconditions.checkNotNull;
 
 /**
  * Allows usage of generics without the effects of
  * <a href="http://docs.oracle.com/javase/tutorial/java/generics/erasure.html" target="_blank">type erasure</a>. Based
  * on Neal Gafter's
  * {@code <a href="http://gafter.blogspot.com/2006/12/super-type-tokens.html" target="_blank">TypeReference</a>}.
- * 
+ *
  * @param <T> the generic type in this reference.
  * @author crazybob@google.com (Bob Lee)
  * @author Alex Ruiz
@@ -39,7 +38,7 @@ public abstract class TypeRef<T> {
 
   /**
    * Creates a new {@link TypeRef}.
-   * 
+   *
    * @throws ReflectionError if the generic type of this reference is missing the type parameter.
    */
   @SuppressWarnings("unchecked")
@@ -54,8 +53,6 @@ public abstract class TypeRef<T> {
   }
 
   /**
-   * Returns the raw type of the generic type in this reference.
-   * 
    * @return the raw type of the generic type in this reference.
    */
   public final @Nonnull Class<T> rawType() {

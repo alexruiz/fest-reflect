@@ -14,10 +14,10 @@
  */
 package org.fest.reflect.method;
 
+import javax.annotation.Nonnull;
+
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
-
-import javax.annotation.Nonnull;
 
 /**
  * Stores the parameter types of the method to invoke.
@@ -43,7 +43,7 @@ public final class ParameterTypes<T> {
    * </p>
    *
    * <p>
-   * Examples demonstrating usage of the fluent interface:
+   * Examples:
    *
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#method(String) org.fest.reflect.core.Reflection.method};

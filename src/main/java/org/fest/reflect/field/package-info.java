@@ -13,14 +13,10 @@
  * Copyright @2013 the original author or authors.
  */
 /**
- * <p>
  * Provides a fluent interface for accessing fields via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
- * </p>
- *
- * <p>
+ * <p/>
  * Examples:
- *
  * <pre>
  * // import static {@link org.fest.reflect.core.Reflection#field(String) org.fest.reflect.core.Reflection.field};
  *
@@ -41,6 +37,5 @@
  * // Retrieves the value of the static field "count" in Person.class
  * int count = {@link org.fest.reflect.core.Reflection#field(String) field}("count").{@link org.fest.reflect.field.FieldName#ofType(Class) ofType}(int.class).{@link org.fest.reflect.field.FieldType#in(Object) in}(Person.class).{@link org.fest.reflect.field.FieldAccessor#get() get}();
  * </pre>
- * </p>
  */
 package org.fest.reflect.field;

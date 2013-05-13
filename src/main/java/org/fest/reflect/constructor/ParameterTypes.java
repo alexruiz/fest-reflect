@@ -14,9 +14,9 @@
  */
 package org.fest.reflect.constructor;
 
-import static org.fest.util.Preconditions.checkNotNull;
-
 import javax.annotation.Nonnull;
+
+import static org.fest.util.Preconditions.checkNotNull;
 
 /**
  * Stores the parameter types for the constructor to invoke.
@@ -32,23 +32,18 @@ public final class ParameterTypes {
   }
 
   /**
-   * <p>
    * Indicates the data type of the object to create.
-   * </p>
-   *
-   * <p>
-   * Examples demonstrating usage of the fluent interface:
-   * 
+   * <p/>
+   * Examples:
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#constructor() org.fest.reflect.core.Reflection.constructor};
    *
    * // Equivalent to 'Person p = new Person()'
    * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#in in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}();
-   * 
+   *
    * // Equivalent to 'Person p = new Person("Yoda")'
    * Person p = {@link org.fest.reflect.core.Reflection#constructor() constructor}().{@link org.fest.reflect.constructor.TargetType#withParameterTypes(Class...) withParameterTypes}(String.class).{@link org.fest.reflect.constructor.ParameterTypes#in(Class) in}(Person.class).{@link org.fest.reflect.constructor.ConstructorInvoker#newInstance newInstance}("Yoda");
    * </pre>
-   * </p>
    *
    * @param target the type of the object to create by invoking a constructor.
    * @return the created constructor invoker.

@@ -14,13 +14,13 @@
  */
 package org.fest.reflect.innerclass;
 
-import static org.fest.util.Preconditions.checkNotNull;
-import static org.fest.util.Preconditions.checkNotNullOrEmpty;
-import static org.fest.util.Strings.concat;
+import org.fest.reflect.exception.ReflectionError;
 
 import javax.annotation.Nonnull;
 
-import org.fest.reflect.exception.ReflectionError;
+import static org.fest.util.Preconditions.checkNotNull;
+import static org.fest.util.Preconditions.checkNotNullOrEmpty;
+import static org.fest.util.Strings.concat;
 
 /**
  * Obtains a reference to a static inner class.
@@ -38,30 +38,24 @@ public class InnerClassFinder {
   }
 
   /**
-   * <p>
    * Returns a reference to the static inner class specified in the fluent interface.
-   * </p>
-   *
-   * <p>
+   * <p/>
    * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
    * {@code Padawan}:
-   *
    * <pre>
    * public class Jedi {
    *   public static class Master {}
-   * 
+   *
    *   public static class Padawan {}
    * }
    * </pre>
-   *
+   * <p/>
    * The following example shows how to get a reference to the inner class {@code Master}:
-   *
    * <pre>
    * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
    *
    * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
    * </pre>
-   * </p>
    *
    * @return a reference to the static inner class specified in the fluent interface.
    * @throws ReflectionError if the static inner class does not exist (since 1.2).

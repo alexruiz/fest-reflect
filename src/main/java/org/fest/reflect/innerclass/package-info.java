@@ -13,15 +13,11 @@
  * Copyright @2013 the original author or authors.
  */
 /**
- * <p>
  * Provides a fluent interface for accessing static inner classes via
  * <a href="http://docs.oracle.com/javase/tutorial/reflect/index.html" target="_blank">Java Reflection</a>.
- * </p>
- *
- * <p>
+ * <p/>
  * Assuming we have the top-level class {@code Jedi} containing the static inner classes: {@code Master} and
  * {@code Padawan}:
- *
  * <pre>
  * public class Jedi {
  *   public static class Master {}
@@ -29,15 +25,13 @@
  *   public static class Padawan {}
  * }
  * </pre>
- *
+ * </p>
  * The following example shows how to get a reference to the inner class {@code Master}:
- *
  * <pre>
  * // import static {@link org.fest.reflect.core.Reflection#innerClass(String) org.fest.reflect.core.Reflection.innerClass};
  *
  * Class&lt;?&gt; masterClass = {@link org.fest.reflect.core.Reflection#innerClass(String) innerClass}("Master").{@link org.fest.reflect.innerclass.InnerClassName#in(Class) in}(Jedi.class).{@link org.fest.reflect.innerclass.InnerClassFinder#get() get}();
  * </pre>
- * </p>
  */
 package org.fest.reflect.innerclass;
 
