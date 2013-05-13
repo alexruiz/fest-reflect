@@ -14,21 +14,21 @@
  */
 package org.fest.reflect.type;
 
-import static org.fest.test.ExpectedException.none;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.List;
-
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.test.ExpectedException;
 import org.fest.util.Preconditions;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.util.List;
+
+import static org.fest.test.ExpectedException.none;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Tests for {@link Type}.
- * 
+ *
  * @author Alex Ruiz
  */
 public class Type_Test {

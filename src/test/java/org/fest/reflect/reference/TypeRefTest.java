@@ -14,20 +14,21 @@
  */
 package org.fest.reflect.reference;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import java.util.List;
 
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for {@link TypeRef}.
- * 
+ *
  * @author Alex Ruiz
  */
 public class TypeRefTest {
   @Test public void should_return_raw_type() {
-    TypeRef<List<String>> typeRef = new TypeRef<List<String>>() {};
+    TypeRef<List<String>> typeRef = new TypeRef<List<String>>() {
+    };
     Class<List<String>> rawType = typeRef.rawType();
     assertEquals(List.class, rawType);
   }

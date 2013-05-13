@@ -14,17 +14,17 @@
  */
 package org.fest.reflect.core;
 
-import static org.fest.test.ExpectedException.none;
-import static org.junit.Assert.assertEquals;
-
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.test.ExpectedException;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static org.fest.test.ExpectedException.none;
+import static org.junit.Assert.assertEquals;
+
 /**
  * Tests for {@link Reflection#innerClass(String)}.
- * 
+ *
  * @author Alex Ruiz
  */
 public class Reflection_innerClass_Test {

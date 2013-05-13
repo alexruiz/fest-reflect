@@ -14,20 +14,20 @@
  */
 package org.fest.reflect.core;
 
-import static java.math.BigDecimal.ONE;
-import static org.fest.util.Lists.newArrayList;
-import static org.junit.Assert.assertEquals;
+import org.fest.reflect.reference.TypeRef;
+import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
 
-import org.fest.reflect.reference.TypeRef;
-import org.junit.Test;
+import static java.math.BigDecimal.ONE;
+import static org.fest.util.Lists.newArrayList;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Tests for {@link Reflection#method(String)}.
- * 
+ *
  * @author Alex Ruiz
  */
 public class Reflection_method_Test {
@@ -69,7 +69,8 @@ public class Reflection_method_Test {
     List<String> list = newArrayList();
     list.add("Test");
     Iterator<String> iterator =
-        Reflection.method("iterator").withReturnType(new TypeRef<Iterator<String>>() {}).in(list).invoke();
+        Reflection.method("iterator").withReturnType(new TypeRef<Iterator<String>>() {
+        }).in(list).invoke();
     assertEquals(list, newArrayList(iterator));
   }
 
@@ -85,9 +86,9 @@ public class Reflection_method_Test {
   public void should_invoke_method_with_Object_parameters_and_Object_return_type() {
     BigDecimal number = new BigDecimal("10.00");
     BigDecimal result = Reflection.method("add").withReturnType(BigDecimal.class)
-                                                .withParameterTypes(BigDecimal.class)
-                                                .in(number)
-                                                .invoke(ONE);
+        .withParameterTypes(BigDecimal.class)
+        .in(number)
+        .invoke(ONE);
     assertEquals(new BigDecimal("11.00"), result);
   }
 

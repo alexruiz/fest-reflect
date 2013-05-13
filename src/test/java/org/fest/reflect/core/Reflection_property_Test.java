@@ -14,20 +14,20 @@
  */
 package org.fest.reflect.core;
 
-import static org.fest.test.ExpectedException.none;
-import static org.junit.Assert.assertEquals;
-
-import java.beans.PropertyDescriptor;
-
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.test.ExpectedException;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.beans.PropertyDescriptor;
+
+import static org.fest.test.ExpectedException.none;
+import static org.junit.Assert.assertEquals;
+
 /**
  * Tests for {@link Reflection#property(String)}.
- * 
+ *
  * @author Alex Ruiz
  */
 public class Reflection_property_Test {
@@ -92,7 +92,8 @@ public class Reflection_property_Test {
   @Test
   public void should_use_TypeRef_to_write_property() {
     Person person = new Person();
-    Reflection.property("name").ofType(new TypeRef<String>() {}).in(person).set("Yoda");
+    Reflection.property("name").ofType(new TypeRef<String>() {
+    }).in(person).set("Yoda");
     assertEquals("Yoda", person.getName());
   }
 

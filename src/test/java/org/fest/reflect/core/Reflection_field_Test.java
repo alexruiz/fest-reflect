@@ -14,23 +14,23 @@
  */
 package org.fest.reflect.core;
 
-import static org.fest.test.ExpectedException.none;
-import static org.fest.util.Lists.newArrayList;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-
-import java.lang.reflect.Field;
-import java.util.List;
-
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.test.ExpectedException;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+import java.util.List;
+
+import static org.fest.test.ExpectedException.none;
+import static org.fest.util.Lists.newArrayList;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
 /**
  * Tests for {@link Reflection#field(String)}.
- * 
+ *
  * @author Alex Ruiz
  */
 public class Reflection_field_Test {
@@ -88,13 +88,15 @@ public class Reflection_field_Test {
   @Test
   public void should_use_TypeRef_to_access_field() {
     Jedi jedi = new Jedi();
-    List<String> powers = Reflection.field("powers").ofType(new TypeRef<List<String>>() {}).in(jedi).get();
+    List<String> powers = Reflection.field("powers").ofType(new TypeRef<List<String>>() {
+    }).in(jedi).get();
     assertSame(jedi.powers, powers);
   }
 
   @Test
   public void should_access_static_field() {
-    List<Person> persons = Reflection.field("elements").ofType(new TypeRef<List<Person>>() {}).in(Persons.class).get();
+    List<Person> persons = Reflection.field("elements").ofType(new TypeRef<List<Person>>() {
+    }).in(Persons.class).get();
     assertSame(Persons.elements, persons);
   }
 

@@ -14,14 +14,14 @@
  */
 package org.fest.reflect.core;
 
+import org.junit.Test;
+
 import static org.fest.reflect.core.Reflection.constructor;
 import static org.fest.reflect.core.Reflection.method;
 
-import org.junit.Test;
-
 /**
  * Tests for <a href="http://jira.codehaus.org/browse/FEST-68" target="_blank">FEST-68</a>.
- * 
+ *
  * @author Francis ANDRE
  * @author Alex Ruiz
  */

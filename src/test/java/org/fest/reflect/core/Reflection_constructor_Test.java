@@ -14,21 +14,19 @@
  */
 package org.fest.reflect.core;
 
-import static org.fest.test.ExpectedException.none;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-
-import java.lang.reflect.Constructor;
-
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.test.ExpectedException;
 import org.junit.Rule;
 import org.junit.Test;
 
+import java.lang.reflect.Constructor;
+
+import static org.fest.test.ExpectedException.none;
+import static org.junit.Assert.*;
+
 /**
  * Tests for {@link Reflection#constructor()}.
- * 
+ *
  * @author Alex Ruiz
  * @author Yvonne Wang
  */
@@ -92,10 +90,12 @@ public class Reflection_constructor_Test {
   static class Person {
     String name;
 
-    public Person() {}
+    public Person() {
+    }
 
     public Person(String name) {
-      this.name = name;}
+      this.name = name;
+    }
 
     public Person(int name) {
       throw new IllegalArgumentException("The name of a person cannot be a number");
