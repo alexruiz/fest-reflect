@@ -16,7 +16,6 @@ package org.fest.reflect.core;
 
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.reflect.reference.TypeRef;
-import org.fest.test.ExpectedException;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -32,7 +31,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class Reflection_property_Test {
   @Rule
-  public ExpectedException thrown = none();
+  public org.fest.test.ExpectedException thrown = none();
 
   @Test
   public void should_get_property_value() {
