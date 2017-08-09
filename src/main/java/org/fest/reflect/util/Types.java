@@ -14,8 +14,8 @@
  */
 package org.fest.reflect.util;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.util.Map;
 
 import static org.fest.util.Maps.newHashMap;
@@ -51,7 +51,7 @@ public final class Types {
    * @param type the type to cast the given object to.
    * @return the given object casted to the given type.
    */
-  public static <T> T castSafely(@Nullable Object o, @Nonnull Class<T> type) {
+  public static <T> T castSafely(@Nullable Object o, @NotNull Class<T> type) {
     checkNotNull(type);
     if (type.isPrimitive()) {
       return getWrapperType(type).cast(o);
@@ -60,7 +60,7 @@ public final class Types {
   }
 
   @SuppressWarnings("unchecked")
-  private static @Nonnull <T> Class<T> getWrapperType(@Nonnull Class<T> primitiveClass) {
+  private static @NotNull <T> Class<T> getWrapperType(@NotNull Class<T> primitiveClass) {
     checkNotNull(primitiveClass);
     if (!primitiveClass.isPrimitive()) {
       String msg = String.format("The class %s is not a primitive type", primitiveClass.getName());

@@ -16,8 +16,8 @@ package org.fest.reflect.method;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Method;
 
 import static org.fest.reflect.util.Accessibles.makeAccessible;
@@ -42,15 +42,15 @@ public final class MethodInvoker<T> {
   private final Object target;
   private final Method method;
 
-  MethodInvoker(@Nonnull String methodName, @Nonnull Class<T> returnType, @Nonnull Class<?>[] parameterTypes,
-                @Nonnull Object target) {
+  MethodInvoker(@NotNull String methodName, @NotNull Class<T> returnType, @NotNull Class<?>[] parameterTypes,
+                @NotNull Object target) {
     this.returnType = checkNotNull(returnType);
     this.target = checkNotNull(target);
     this.method = findMethodInClassHierarchy(checkNotNullOrEmpty(methodName), checkNotNull(parameterTypes));
   }
 
   private static @Nullable Method findMethod(
-      @Nonnull String methodName, @Nonnull Class<?> type, @Nonnull Class<?>[] parameterTypes) {
+      @NotNull String methodName, @NotNull Class<?> type, @NotNull Class<?>[] parameterTypes) {
     try {
       return type.getDeclaredMethod(methodName, parameterTypes);
     } catch (SecurityException e) {
@@ -60,7 +60,7 @@ public final class MethodInvoker<T> {
     }
   }
 
-  private @Nonnull Method findMethodInClassHierarchy(@Nonnull String methodName, @Nonnull Class<?>[] parameterTypes) {
+  private @NotNull Method findMethodInClassHierarchy(@NotNull String methodName, @NotNull Class<?>[] parameterTypes) {
     Method method = null;
     Class<?> targetType = target instanceof Class<?> ? (Class<?>) target : target.getClass();
     Class<?> type = targetType;
@@ -106,7 +106,7 @@ public final class MethodInvoker<T> {
    * @return the result of the method call.
    * @throws ReflectionError if the method cannot be invoked.
    */
-  public @Nullable T invoke(@Nonnull Object... args) {
+  public @Nullable T invoke(@NotNull Object... args) {
     checkNotNull(args);
     Method method = target();
     boolean accessible = method.isAccessible();
@@ -129,7 +129,7 @@ public final class MethodInvoker<T> {
   /**
    * @return the underlying method to invoke via Java Reflection.
    */
-  public @Nonnull Method target() {
+  public @NotNull Method target() {
     return method;
   }
 }

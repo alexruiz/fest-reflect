@@ -16,7 +16,7 @@ package org.fest.reflect.constructor;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.Constructor;
 
 import static org.fest.reflect.util.Accessibles.makeAccessible;
@@ -36,7 +36,7 @@ import static org.fest.util.ToString.toStringOf;
 public final class ConstructorInvoker<T> {
   private final Constructor<T> constructor;
 
-  ConstructorInvoker(@Nonnull Class<T> target, @Nonnull Class<?>... parameterTypes) {
+  ConstructorInvoker(@NotNull Class<T> target, @NotNull Class<?>... parameterTypes) {
     checkNotNull(target);
     checkNotNull(parameterTypes);
     try {
@@ -66,7 +66,7 @@ public final class ConstructorInvoker<T> {
    * @return the created instance of {@code T}.
    * @throws ReflectionError if a new instance cannot be created.
    */
-  public T newInstance(@Nonnull Object... args) {
+  public T newInstance(@NotNull Object... args) {
     Constructor<T> c = constructor;
     boolean accessible = constructor.isAccessible();
     try {
@@ -86,7 +86,7 @@ public final class ConstructorInvoker<T> {
   /**
    * @return the underlying constructor to invoke.
    */
-  public @Nonnull Constructor<T> target() {
+  public @NotNull Constructor<T> target() {
     return constructor;
   }
 }

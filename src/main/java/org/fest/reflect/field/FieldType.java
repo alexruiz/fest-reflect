@@ -16,7 +16,7 @@ package org.fest.reflect.field;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
@@ -32,7 +32,7 @@ public class FieldType<T> {
   private final String filedName;
   private final Class<T> value;
 
-  FieldType(@Nonnull String fieldName, @Nonnull Class<T> type) {
+  FieldType(@NotNull String fieldName, @NotNull Class<T> type) {
     this.filedName = checkNotNullOrEmpty(fieldName);
     this.value = checkNotNull(type);
   }
@@ -67,7 +67,7 @@ public class FieldType<T> {
    * @throws NullPointerException if the given target is {@code null}.
    * @throws ReflectionError      if a field with a matching name and type cannot be found.
    */
-  public @Nonnull FieldAccessor<T> in(@Nonnull Object target) {
+  public @NotNull FieldAccessor<T> in(@NotNull Object target) {
     return new FieldAccessor<T>(filedName, value, target);
   }
 }

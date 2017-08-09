@@ -17,7 +17,7 @@ package org.fest.reflect.field;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.util.InternalApi;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
@@ -84,7 +84,7 @@ public final class FieldName {
    * @throws IllegalArgumentException if the field name is empty.
    */
   @InternalApi
-  public FieldName(@Nonnull String name) {
+  public FieldName(@NotNull String name) {
     this.name = checkNotNullOrEmpty(name);
   }
 
@@ -117,7 +117,7 @@ public final class FieldName {
    * @return a holder for the field type.
    * @throws NullPointerException if the given type is {@code null}.
    */
-  public @Nonnull <T> FieldType<T> ofType(@Nonnull Class<T> type) {
+  public @NotNull <T> FieldType<T> ofType(@NotNull Class<T> type) {
     return new FieldType<T>(name, type);
   }
 
@@ -153,7 +153,7 @@ public final class FieldName {
    * @throws NullPointerException if the given type is {@code null}.
    * @since 1.1
    */
-  public @Nonnull <T> FieldTypeRef<T> ofType(@Nonnull TypeRef<T> type) {
+  public @NotNull <T> FieldTypeRef<T> ofType(@NotNull TypeRef<T> type) {
     return new FieldTypeRef<T>(name, type);
   }
 }

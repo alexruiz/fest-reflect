@@ -16,7 +16,7 @@ package org.fest.reflect.type;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNull;
 
@@ -42,7 +42,7 @@ public final class TypeLoader {
   private final String name;
   private final ClassLoader classLoader;
 
-  TypeLoader(@Nonnull String name, @Nonnull ClassLoader classLoader) {
+  TypeLoader(@NotNull String name, @NotNull ClassLoader classLoader) {
     this.name = name;
     this.classLoader = checkNotNull(classLoader);
   }
@@ -98,7 +98,7 @@ public final class TypeLoader {
    * @throws NullPointerException if the given super-type is {@code null}.
    * @throws ReflectionError      wrapping any error that occurred during class loading.
    */
-  public @Nonnull <T> Class<? extends T> loadAs(@Nonnull Class<T> superType) {
+  public @NotNull <T> Class<? extends T> loadAs(@NotNull Class<T> superType) {
     checkNotNull(superType);
     try {
       return checkNotNull(loadType().asSubclass(superType));
@@ -108,7 +108,7 @@ public final class TypeLoader {
     }
   }
 
-  private @Nonnull Class<?> loadType() throws ClassNotFoundException {
+  private @NotNull Class<?> loadType() throws ClassNotFoundException {
     return checkNotNull(classLoader.loadClass(name));
   }
 }

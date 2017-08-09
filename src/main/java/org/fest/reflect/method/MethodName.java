@@ -17,7 +17,7 @@ package org.fest.reflect.method;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.util.InternalApi;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
@@ -87,7 +87,7 @@ public final class MethodName {
    * @throws IllegalArgumentException if the method name is empty.
    */
   @InternalApi
-  public MethodName(@Nonnull String name) {
+  public MethodName(@NotNull String name) {
     this.value = checkNotNullOrEmpty(name);
   }
 
@@ -124,7 +124,7 @@ public final class MethodName {
    * @return a holder for the method's return type.
    * @throws NullPointerException if the given type is {@code null}.
    */
-  public @Nonnull <T> ReturnType<T> withReturnType(@Nonnull Class<T> type) {
+  public @NotNull <T> ReturnType<T> withReturnType(@NotNull Class<T> type) {
     return new ReturnType<T>(checkNotNullOrEmpty(value), type);
   }
 
@@ -164,7 +164,7 @@ public final class MethodName {
    * @throws NullPointerException if the given type reference is {@code null}.
    * @since 1.1
    */
-  public @Nonnull <T> ReturnTypeRef<T> withReturnType(@Nonnull TypeRef<T> type) {
+  public @NotNull <T> ReturnTypeRef<T> withReturnType(@NotNull TypeRef<T> type) {
     return new ReturnTypeRef<T>(value, type);
   }
 
@@ -200,7 +200,7 @@ public final class MethodName {
    * @return a holder for the method's parameter types.
    * @throws NullPointerException if the array of parameter types is {@code null}.
    */
-  public @Nonnull ParameterTypes<Void> withParameterTypes(@Nonnull Class<?>... parameterTypes) {
+  public @NotNull ParameterTypes<Void> withParameterTypes(@NotNull Class<?>... parameterTypes) {
     return new ParameterTypes<Void>(value, Void.class, parameterTypes);
   }
 
@@ -235,7 +235,7 @@ public final class MethodName {
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.
    */
-  public @Nonnull MethodInvoker<Void> in(@Nonnull Object target) {
+  public @NotNull MethodInvoker<Void> in(@NotNull Object target) {
     return new MethodInvoker<Void>(value, Void.class, new Class<?>[0], target);
   }
 }

@@ -14,7 +14,7 @@
  */
 package org.fest.reflect.util;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.AccessibleObject;
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -41,7 +41,7 @@ public final class Accessibles {
    * @param o          the given {@code AccessibleObject}.
    * @param accessible the value to set the {@code accessible} flag to.
    */
-  public static void setAccessibleIgnoringExceptions(@Nonnull AccessibleObject o, boolean accessible) {
+  public static void setAccessibleIgnoringExceptions(@NotNull AccessibleObject o, boolean accessible) {
     try {
       setAccessible(o, accessible);
     } catch (RuntimeException ignored) {
@@ -57,7 +57,7 @@ public final class Accessibles {
    * @throws NullPointerException if the given  {@code AccessibleObject} is {@code null}.
    * @throws SecurityException    if the request is denied.
    */
-  public static void makeAccessible(@Nonnull AccessibleObject o) {
+  public static void makeAccessible(@NotNull AccessibleObject o) {
     setAccessible(o, true);
   }
 
@@ -69,7 +69,7 @@ public final class Accessibles {
    * @throws NullPointerException if the given  {@code AccessibleObject} is {@code null}.
    * @throws SecurityException    if the request is denied.
    */
-  public static void setAccessible(@Nonnull AccessibleObject o, boolean accessible) {
+  public static void setAccessible(@NotNull AccessibleObject o, boolean accessible) {
     AccessController.doPrivileged(new SetAccessibleAction(o, accessible));
   }
 
@@ -77,7 +77,7 @@ public final class Accessibles {
     private final AccessibleObject o;
     private final boolean accessible;
 
-    SetAccessibleAction(@Nonnull AccessibleObject o, boolean accessible) {
+    SetAccessibleAction(@NotNull AccessibleObject o, boolean accessible) {
       this.o = checkNotNull(o);
       this.accessible = accessible;
     }

@@ -17,7 +17,7 @@ package org.fest.reflect.beanproperty;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.util.InternalApi;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
@@ -81,7 +81,7 @@ public final class PropertyName {
    * @throws IllegalArgumentException if the property name is empty.
    */
   @InternalApi
-  public PropertyName(@Nonnull String name) {
+  public PropertyName(@NotNull String name) {
     this.name = checkNotNullOrEmpty(name);
   }
 
@@ -113,7 +113,7 @@ public final class PropertyName {
    * @return a holder for the property type.
    * @throws NullPointerException if the given type is {@code null}.
    */
-  public @Nonnull <T> PropertyType<T> ofType(@Nonnull Class<T> type) {
+  public @NotNull <T> PropertyType<T> ofType(@NotNull Class<T> type) {
     return new PropertyType<T>(name, type);
   }
 
@@ -147,7 +147,7 @@ public final class PropertyName {
    * @return a holder for the property type.
    * @throws NullPointerException if the given type reference is {@code null}.
    */
-  public @Nonnull <T> PropertyTypeRef<T> ofType(@Nonnull TypeRef<T> type) {
+  public @NotNull <T> PropertyTypeRef<T> ofType(@NotNull TypeRef<T> type) {
     return new PropertyTypeRef<T>(name, type);
   }
 }

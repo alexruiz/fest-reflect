@@ -22,7 +22,7 @@ import org.fest.reflect.method.MethodName;
 import org.fest.reflect.reference.TypeRef;
 import org.fest.reflect.type.Type;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Starting points for the fluent interfaces in this library.
@@ -140,7 +140,7 @@ public final class Reflection {
    * @throws IllegalArgumentException if the given name is empty.
    * @since 1.1
    */
-  public static @Nonnull Type type(@Nonnull String name) {
+  public static @NotNull Type type(@NotNull String name) {
     return new Type(name);
   }
 
@@ -172,7 +172,7 @@ public final class Reflection {
    * @throws IllegalArgumentException if the given name is empty.
    * @since 2.0
    */
-  public static @Nonnull InnerClassName innerClass(@Nonnull String name) {
+  public static @NotNull InnerClassName innerClass(@NotNull String name) {
     return new InnerClassName(name);
   }
 
@@ -207,7 +207,7 @@ public final class Reflection {
    * @throws NullPointerException     if the given name is {@code null}.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static @Nonnull FieldName field(@Nonnull String name) {
+  public static @NotNull FieldName field(@NotNull String name) {
     return new FieldName(name);
   }
 
@@ -243,7 +243,7 @@ public final class Reflection {
    * @throws NullPointerException     if the given name is {@code null}.
    * @throws IllegalArgumentException if the given name is empty.
    */
-  public static @Nonnull MethodName method(@Nonnull String name) {
+  public static @NotNull MethodName method(@NotNull String name) {
     return new MethodName(name);
   }
 
@@ -264,7 +264,7 @@ public final class Reflection {
    *
    * @return the starting point of the method chain.
    */
-  public static @Nonnull TargetType constructor() {
+  public static @NotNull TargetType constructor() {
     return new TargetType();
   }
 
@@ -297,7 +297,7 @@ public final class Reflection {
    * @throws IllegalArgumentException if the given name is empty.
    * @since 1.2
    */
-  public static @Nonnull PropertyName property(@Nonnull String name) {
+  public static @NotNull PropertyName property(@NotNull String name) {
     return new PropertyName(name);
   }
 }

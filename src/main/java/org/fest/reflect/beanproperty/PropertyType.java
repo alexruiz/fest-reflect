@@ -16,7 +16,7 @@ package org.fest.reflect.beanproperty;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
@@ -32,7 +32,7 @@ public class PropertyType<T> {
   private final String propertyName;
   private final Class<T> value;
 
-  PropertyType(@Nonnull String propertyName, @Nonnull Class<T> type) {
+  PropertyType(@NotNull String propertyName, @NotNull Class<T> type) {
     this.propertyName = checkNotNullOrEmpty(propertyName);
     this.value = checkNotNull(type);
   }
@@ -66,7 +66,7 @@ public class PropertyType<T> {
    * @throws NullPointerException if the given target is {@code null}.
    * @throws ReflectionError      if a property with a matching name and type cannot be found.
    */
-  public @Nonnull PropertyAccessor<T> in(@Nonnull Object target) {
+  public @NotNull PropertyAccessor<T> in(@NotNull Object target) {
     return new PropertyAccessor<T>(propertyName, value, target);
   }
 }

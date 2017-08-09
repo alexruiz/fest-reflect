@@ -16,7 +16,7 @@ package org.fest.reflect.method;
 
 import org.fest.reflect.reference.TypeRef;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
@@ -34,7 +34,7 @@ public class ReturnTypeRef<T> {
   private final String methodName;
   private final TypeRef<T> value;
 
-  ReturnTypeRef(@Nonnull String methodName, @Nonnull TypeRef<T> type) {
+  ReturnTypeRef(@NotNull String methodName, @NotNull TypeRef<T> type) {
     this.methodName = checkNotNullOrEmpty(methodName);
     this.value = checkNotNull(type);
   }
@@ -78,7 +78,7 @@ public class ReturnTypeRef<T> {
    * @return the created parameter types holder.
    * @throws NullPointerException if the array of parameter types is {@code null}.
    */
-  public @Nonnull ParameterTypes<T> withParameterTypes(@Nonnull Class<?>... parameterTypes) {
+  public @NotNull ParameterTypes<T> withParameterTypes(@NotNull Class<?>... parameterTypes) {
     return new ParameterTypes<T>(methodName, value.rawType(), parameterTypes);
   }
 
@@ -117,7 +117,7 @@ public class ReturnTypeRef<T> {
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.
    */
-  public @Nonnull MethodInvoker<T> in(@Nonnull Object target) {
+  public @NotNull MethodInvoker<T> in(@NotNull Object target) {
     return new MethodInvoker<T>(methodName, value.rawType(), new Class<?>[0], target);
   }
 }

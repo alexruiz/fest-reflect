@@ -16,8 +16,8 @@ package org.fest.reflect.field;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.lang.reflect.Field;
 
 import static org.fest.reflect.util.Accessibles.*;
@@ -38,14 +38,14 @@ public final class FieldAccessor<T> {
   private final Field field;
   private final boolean accessible;
 
-  FieldAccessor(@Nonnull String fieldName, @Nonnull Class<T> fieldType, @Nonnull Object target) {
+  FieldAccessor(@NotNull String fieldName, @NotNull Class<T> fieldType, @NotNull Object target) {
     this.fieldType = checkNotNull(fieldType);
     this.target = checkNotNull(target);
     field = findFieldInClassHierarchy(checkNotNullOrEmpty(fieldName));
     accessible = field.isAccessible();
   }
 
-  private @Nonnull Field findFieldInClassHierarchy(@Nonnull String fieldName) {
+  private @NotNull Field findFieldInClassHierarchy(@NotNull String fieldName) {
     Field field = null;
     Class<?> originalType = target instanceof Class<?> ? (Class<?>) target : target.getClass();
     Class<?> targetType = originalType;
@@ -166,7 +166,7 @@ public final class FieldAccessor<T> {
   /**
    * @return the underlying field to access.
    */
-  public @Nonnull Field target() {
+  public @NotNull Field target() {
     return field;
   }
 }

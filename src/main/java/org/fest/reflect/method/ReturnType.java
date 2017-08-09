@@ -14,7 +14,7 @@
  */
 package org.fest.reflect.method;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
@@ -30,7 +30,7 @@ public class ReturnType<T> {
   private final String methodName;
   private final Class<T> value;
 
-  ReturnType(@Nonnull String methodName, @Nonnull Class<T> returnType) {
+  ReturnType(@NotNull String methodName, @NotNull Class<T> returnType) {
     this.methodName = checkNotNull(methodName);
     this.value = checkNotNull(returnType);
   }
@@ -74,7 +74,7 @@ public class ReturnType<T> {
    * @return a holder for the method's parameter types.
    * @throws NullPointerException if the array of parameter types is {@code null}.
    */
-  public @Nonnull ParameterTypes<T> withParameterTypes(@Nonnull Class<?>... parameterTypes) {
+  public @NotNull ParameterTypes<T> withParameterTypes(@NotNull Class<?>... parameterTypes) {
     return new ParameterTypes<T>(checkNotNullOrEmpty(methodName), checkNotNull(value), parameterTypes);
   }
 
@@ -113,7 +113,7 @@ public class ReturnType<T> {
    * @return the created method invoker.
    * @throws NullPointerException if the given target is {@code null}.
    */
-  public @Nonnull MethodInvoker<T> in(@Nonnull Object target) {
+  public @NotNull MethodInvoker<T> in(@NotNull Object target) {
     return new MethodInvoker<T>(methodName, value, new Class<?>[0], target);
   }
 }

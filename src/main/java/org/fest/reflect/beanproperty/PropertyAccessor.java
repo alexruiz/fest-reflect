@@ -16,8 +16,8 @@ package org.fest.reflect.beanproperty;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
@@ -40,13 +40,13 @@ public final class PropertyAccessor<T> {
   private final Object target;
   private final PropertyDescriptor descriptor;
 
-  PropertyAccessor(@Nonnull String propertyName, @Nonnull Class<T> propertyType, @Nonnull Object target) {
+  PropertyAccessor(@NotNull String propertyName, @NotNull Class<T> propertyType, @NotNull Object target) {
     this.propertyType = checkNotNull(propertyType);
     this.target = checkNotNull(target);
     this.descriptor = findPropertyDescriptor(checkNotNullOrEmpty(propertyName));
   }
 
-  private PropertyDescriptor findPropertyDescriptor(@Nonnull String propertyName) {
+  private PropertyDescriptor findPropertyDescriptor(@NotNull String propertyName) {
     BeanInfo beanInfo;
     Class<?> targetType = target.getClass();
     try {
@@ -153,7 +153,7 @@ public final class PropertyAccessor<T> {
    *         <a href="http://docs.oracle.com/javase/tutorial/javabeans/index.html" target="_blank">JavaBeans</a>
    *         property to invoke via Bean Introspection.
    */
-  public @Nonnull PropertyDescriptor target() {
+  public @NotNull PropertyDescriptor target() {
     return descriptor;
   }
 }

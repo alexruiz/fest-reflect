@@ -16,7 +16,7 @@ package org.fest.reflect.innerclass;
 
 import org.fest.util.InternalApi;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
 
@@ -79,7 +79,7 @@ public final class InnerClassName {
    * @throws IllegalArgumentException if the given name is empty.
    */
   @InternalApi
-  public InnerClassName(@Nonnull String name) {
+  public InnerClassName(@NotNull String name) {
     this.name = checkNotNullOrEmpty(name);
   }
 
@@ -107,7 +107,7 @@ public final class InnerClassName {
    * @return an object responsible for finding a reference to a static inner class.
    * @throws NullPointerException if the given declaring class is {@code null}.
    */
-  public @Nonnull InnerClassFinder in(@Nonnull Class<?> declaringClass) {
+  public @NotNull InnerClassFinder in(@NotNull Class<?> declaringClass) {
     return new InnerClassFinder(declaringClass, name);
   }
 }

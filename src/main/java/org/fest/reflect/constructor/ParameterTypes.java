@@ -14,7 +14,7 @@
  */
 package org.fest.reflect.constructor;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNull;
 
@@ -27,7 +27,7 @@ import static org.fest.util.Preconditions.checkNotNull;
 public final class ParameterTypes {
   private final Class<?>[] parameterTypes;
 
-  ParameterTypes(@Nonnull Class<?>[] parameterTypes) {
+  ParameterTypes(@NotNull Class<?>[] parameterTypes) {
     this.parameterTypes = checkNotNull(parameterTypes);
   }
 
@@ -49,7 +49,7 @@ public final class ParameterTypes {
    * @return the created constructor invoker.
    * @throws NullPointerException if the given type is {@code null}.
    */
-  public @Nonnull <T> ConstructorInvoker<T> in(@Nonnull Class<T> target) {
+  public @NotNull <T> ConstructorInvoker<T> in(@NotNull Class<T> target) {
     return new ConstructorInvoker<T>(target, parameterTypes);
   }
 }

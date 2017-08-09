@@ -16,7 +16,7 @@ package org.fest.reflect.constructor;
 
 import org.fest.util.InternalApi;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Starting point of the fluent interface for invoking constructors via
@@ -76,7 +76,7 @@ public final class TargetType {
    * @return the created constructor invoker.
    * @throws NullPointerException if the given type is {@code null}.
    */
-  public @Nonnull <T> ConstructorInvoker<T> in(@Nonnull Class<T> target) {
+  public @NotNull <T> ConstructorInvoker<T> in(@NotNull Class<T> target) {
     return new ConstructorInvoker<T>(target);
   }
 
@@ -101,7 +101,7 @@ public final class TargetType {
    * @return the created parameter type holder.
    * @throws NullPointerException if the given array is {@code null}.
    */
-  public @Nonnull ParameterTypes withParameterTypes(@Nonnull Class<?>... parameterTypes) {
+  public @NotNull ParameterTypes withParameterTypes(@NotNull Class<?>... parameterTypes) {
     return new ParameterTypes(parameterTypes);
   }
 }

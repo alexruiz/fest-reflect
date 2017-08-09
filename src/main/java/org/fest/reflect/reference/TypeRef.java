@@ -16,7 +16,7 @@ package org.fest.reflect.reference;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -55,7 +55,7 @@ public abstract class TypeRef<T> {
   /**
    * @return the raw type of the generic type in this reference.
    */
-  public final @Nonnull Class<T> rawType() {
+  public final @NotNull Class<T> rawType() {
     return rawType;
   }
 }

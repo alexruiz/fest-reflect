@@ -16,7 +16,7 @@ package org.fest.reflect.innerclass;
 
 import org.fest.reflect.exception.ReflectionError;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
@@ -32,7 +32,7 @@ public class InnerClassFinder {
   private final Class<?> declaringClass;
   private final String innerClassName;
 
-  InnerClassFinder(@Nonnull Class<?> declaringClass, @Nonnull String innerClassName) {
+  InnerClassFinder(@NotNull Class<?> declaringClass, @NotNull String innerClassName) {
     this.declaringClass = checkNotNull(declaringClass);
     this.innerClassName = checkNotNullOrEmpty(innerClassName);
   }
@@ -60,7 +60,7 @@ public class InnerClassFinder {
    * @return a reference to the static inner class specified in the fluent interface.
    * @throws ReflectionError if the static inner class does not exist (since 1.2).
    */
-  public @Nonnull Class<?> get() {
+  public @NotNull Class<?> get() {
     String namespace = declaringClass.getName();
     String expectedInnerClassName = expectedInnerClassName(namespace);
     for (Class<?> innerClass : declaringClass.getDeclaredClasses()) {

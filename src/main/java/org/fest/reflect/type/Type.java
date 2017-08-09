@@ -17,7 +17,7 @@ package org.fest.reflect.type;
 import org.fest.reflect.exception.ReflectionError;
 import org.fest.util.InternalApi;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NotNull;
 
 import static org.fest.util.Preconditions.checkNotNull;
 import static org.fest.util.Preconditions.checkNotNullOrEmpty;
@@ -69,7 +69,7 @@ public final class Type {
    * @throws IllegalArgumentException if the given name is empty.
    */
   @InternalApi
-  public Type(@Nonnull String name) {
+  public Type(@NotNull String name) {
     this.name = checkNotNullOrEmpty(name);
   }
 
@@ -119,11 +119,11 @@ public final class Type {
    * @throws NullPointerException if the given super-type is {@code null}.
    * @throws ReflectionError      wrapping any error that occurred during class loading.
    */
-  public <T> Class<? extends T> loadAs(@Nonnull Class<T> superType) {
+  public <T> Class<? extends T> loadAs(@NotNull Class<T> superType) {
     return new TypeLoader(checkNotNullOrEmpty(name), thisClassLoader()).loadAs(superType);
   }
 
-  private @Nonnull ClassLoader thisClassLoader() {
+  private @NotNull ClassLoader thisClassLoader() {
     return checkNotNull(getClass().getClassLoader());
   }
 
@@ -148,7 +148,7 @@ public final class Type {
    * @return an object responsible of loading a class with the given {@code ClassLoader}.
    * @throws NullPointerException if the given {@code ClassLoader} is {@code null}.
    */
-  public TypeLoader withClassLoader(@Nonnull ClassLoader classLoader) {
+  public TypeLoader withClassLoader(@NotNull ClassLoader classLoader) {
     return new TypeLoader(checkNotNullOrEmpty(name), classLoader);
   }
 }
