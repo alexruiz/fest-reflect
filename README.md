@@ -2,7 +2,7 @@ FEST-Reflect provides an intuitive, compact and type-safe fluent API that makes 
 
 Example:
 
-```
+```java
 // import static org.fest.reflect.core.Reflection.*;
 
 // Loads the class 'org.republic.Jedi'
